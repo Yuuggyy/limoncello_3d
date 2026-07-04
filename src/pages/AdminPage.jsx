@@ -245,6 +245,7 @@ function ProduitsTab() {
   const [form, setForm] = useState({ nom:'', description:'', prix:'', categorie_id:'', image_url:'', disponible:true, ordre:0 });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [uploadLoading, setUploadLoading] = useState(false);
 
   const load = async () => {
     const [p, c] = await Promise.all([getAllProduits(), getAllCategories()]);
@@ -302,7 +303,31 @@ function ProduitsTab() {
                   {categories.map(c => <option key={c.id} value={c.id}>{c.emoji} {c.nom}</option>)}
                 </select>
               </div>
-              <div><label className="label">URL image</label><input className="input" value={form.image_url} onChange={e => sf('image_url', e.target.value)} placeholder="https://..." /></div>
+              <div>
+                <label className="label">Photo du plat</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  {form.image_url && (
+                    <div style={{ width: 48, height: 48, borderRadius: 8, overflow: 'hidden', flexShrink: 0 }}>
+                      <img src={form.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
+                  )}
+                  <label className="btn btn-dark btn-sm" style={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                    {uploadLoading ? '⏳…' : `📸 ${form.image_url ? 'Changer' : 'Ajouter'}`}
+                    <input type="file" accept="image/*" style={{ display: 'none' }} onChange={async (e) => {
+                      const file = e.target.files?.[0]; if (!file) return;
+                      setUploadLoading(true); setError('');
+                      const { data, error } = await uploadImage(file, 'produits');
+                      setUploadLoading(false);
+                      if (error) { setError(error.message); return; }
+                      sf('image_url', data?.publicUrl || data?.url || '');
+                    }} />
+                  </label>
+                  {form.image_url && (
+                    <button type="button" className="btn btn-sm" style={{ background: 'rgba(192,57,43,0.2)', color: '#ff7675', border: '1px solid rgba(192,57,43,0.3)' }}
+                      onClick={() => sf('image_url', '')}>✕</button>
+                  )}
+                </div>
+              </div>
               <div><label className="label">Ordre</label><input className="input" type="number" value={form.ordre} onChange={e => sf('ordre', e.target.value)} /></div>
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10 }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', color: '#f5efe0' }}>
