@@ -43,7 +43,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: '#3D5226', border: '1px solid rgba(139,195,74,0.3)',
+          background: '#FFFFFF', border: '1px solid rgba(139,195,74,0.3)',
           borderRadius: isMobile ? '20px 20px 0 0' : 16,
           width: '100%',
           maxWidth: isMobile ? '100%' : 500,
@@ -73,7 +73,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
 
         {/* Barre de drag mobile */}
         {isMobile && (
-          <div style={{ width: 40, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.15)', margin: '0 auto 16px' }} />
+          <div style={{ width: 40, height: 4, borderRadius: 2, background: 'rgba(139,195,74,0.2)', margin: '0 auto 16px' }} />
         )}
 
         {/* Header */}
@@ -111,14 +111,14 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button onClick={() => onUpdateQty(idx, -1)} style={{
                       width: isMobile ? 30 : 27, height: isMobile ? 30 : 27, borderRadius: '50%',
-                      border: '1px solid rgba(255,255,255,0.15)', background: 'transparent',
-                      color: 'white', cursor: 'pointer', fontSize: 16, touchAction: 'manipulation',
+                      border: '1px solid rgba(139,195,74,0.3)', background: 'transparent',
+                      color: '#3D5226', cursor: 'pointer', fontSize: 16, touchAction: 'manipulation',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>−</button>
                     <span style={{ fontSize: 13, fontWeight: 700, minWidth: 18, textAlign: 'center' }}>{item.quantite}</span>
                     <button onClick={() => onUpdateQty(idx, 1)} style={{
                       width: isMobile ? 30 : 27, height: isMobile ? 30 : 27, borderRadius: '50%',
-                      border: 'none', background: '#5A7038', color: '#3D5226',
+                      border: 'none', background: '#FDD835', color: '#3D5226',
                       cursor: 'pointer', fontSize: 16, touchAction: 'manipulation',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>+</button>

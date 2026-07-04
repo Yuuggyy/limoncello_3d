@@ -17,14 +17,14 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
     <div style={{
       display: 'flex', gap: isMobile ? 8 : 10,
       padding: isMobile ? '8px 0' : '10px 0',
-      borderBottom: '1px solid rgba(90,58,26,0.22)',
+      borderBottom: '1px solid rgba(61,82,38,0.22)',
       alignItems: 'center',
     }}>
       {/* Image */}
       <div style={{
         width: isMobile ? 46 : 56, height: isMobile ? 46 : 56,
         borderRadius: 8, overflow: 'hidden', flexShrink: 0,
-        background: 'rgba(90,58,26,0.15)',
+        background: 'rgba(61,82,38,0.15)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         {produit.image_url
@@ -37,16 +37,16 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <p style={{
           fontFamily: "'Playfair Display',serif",
-          fontSize: isMobile ? 12 : 13, fontWeight: 700, color: '#F5F3E8',
+          fontSize: isMobile ? 12 : 13, fontWeight: 700, color: '#3D5226',
           lineHeight: 1.3, marginBottom: 1,
           whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
         }}>{produit.nom}</p>
         {produit.description && !isMobile && (
-          <p style={{ fontSize: 10, color: '#7a5a3a', lineHeight: 1.3, marginBottom: 2 }}>
+          <p style={{ fontSize: 10, color: '#5A7038', lineHeight: 1.3, marginBottom: 2 }}>
             {produit.description.length > 45 ? produit.description.slice(0, 45) + '…' : produit.description}
           </p>
         )}
-        <p style={{ fontSize: isMobile ? 13 : 14, fontWeight: 800, color: '#8B4513' }}>
+        <p style={{ fontSize: isMobile ? 13 : 14, fontWeight: 800, color: '#3D5226' }}>
           {Number(produit.prix).toFixed(2)}<span style={{ fontSize: 9, fontWeight: 500 }}> €</span>
         </p>
       </div>
@@ -56,20 +56,20 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 4 : 5 }}>
           <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
             width: isMobile ? 24 : 22, height: isMobile ? 24 : 22,
-            borderRadius: '50%', border: '1.5px solid #8B4513',
-            background: 'transparent', color: '#8B4513',
+            borderRadius: '50%', border: '1.5px solid #3D5226',
+            background: 'transparent', color: '#3D5226',
             fontSize: isMobile ? 15 : 13, fontWeight: 700,
             cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
             touchAction: 'manipulation',
           }}>−</button>
           <span style={{
-            fontSize: isMobile ? 13 : 12, fontWeight: 700, color: '#F5F3E8',
+            fontSize: isMobile ? 13 : 12, fontWeight: 700, color: '#3D5226',
             minWidth: isMobile ? 18 : 14, textAlign: 'center',
           }}>{qty}</span>
           <button onClick={() => setQty(q => q + 1)} style={{
             width: isMobile ? 24 : 22, height: isMobile ? 24 : 22,
             borderRadius: '50%', border: 'none',
-            background: '#8B4513', color: 'white',
+            background: '#FDD835', color: '#3D5226',
             fontSize: isMobile ? 15 : 13, fontWeight: 700,
             cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
             touchAction: 'manipulation',
@@ -77,7 +77,7 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
         </div>
         {qty > 0 && (
           <button onClick={handleAdd} style={{
-            background: 'linear-gradient(135deg,#8B4513,#c0622a)', color: 'white',
+            background: 'linear-gradient(135deg, #FDD835, #8BC34A)', color: '#FFFFFF',
             border: 'none', borderRadius: 5,
             padding: isMobile ? '4px 8px' : '3px 7px',
             fontSize: isMobile ? 10 : 9, fontWeight: 700,
@@ -97,8 +97,8 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
     <div style={{
       width: '100%', height: '100%',
       background: side === 'left'
-        ? 'linear-gradient(to left, #e8dcc8, #FFFFFF)'
-        : 'linear-gradient(to right, #e8dcc8, #FFFFFF)',
+        ? 'linear-gradient(to left, #F0F8E8, #FFFFFF)'
+        : 'linear-gradient(to right, #F0F8E8, #FFFFFF)',
       padding: isMobile ? '12px 10px 8px' : '18px 14px 10px',
       display: 'flex', flexDirection: 'column',
       position: 'relative', overflow: 'hidden',
@@ -109,14 +109,14 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
       {/* Lignes cahier */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'repeating-linear-gradient(transparent, transparent 24px, rgba(90,58,26,0.06) 24px, rgba(90,58,26,0.06) 25px)',
+        backgroundImage: 'repeating-linear-gradient(transparent, transparent 24px, rgba(61,82,38,0.06) 24px, rgba(61,82,38,0.06) 25px)',
         backgroundPositionY: '44px',
       }} />
 
       {/* En-tête catégorie */}
       {categorie && (
         <div style={{
-          borderBottom: '2px solid rgba(139,69,19,0.2)',
+          borderBottom: '2px solid rgba(139,195,74,0.3)',
           marginBottom: isMobile ? 6 : 10,
           paddingBottom: isMobile ? 5 : 7,
           display: 'flex', alignItems: 'center', gap: 5,
@@ -125,7 +125,7 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
           <span style={{ fontSize: isMobile ? 14 : 16 }}>{categorie.emoji || '🍽️'}</span>
           <span style={{
             fontFamily: "'Playfair Display',serif",
-            fontSize: isMobile ? 13 : 15, fontWeight: 700, color: '#8B4513',
+            fontSize: isMobile ? 13 : 15, fontWeight: 700, color: '#3D5226',
           }}>{categorie.nom}</span>
         </div>
       )}
@@ -140,7 +140,7 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
       {/* Numéro de page */}
       <p style={{
         textAlign: side === 'left' ? 'left' : 'right',
-        fontSize: 9, color: 'rgba(90,58,26,0.35)',
+        fontSize: 9, color: 'rgba(61,82,38,0.35)',
         fontStyle: 'italic', marginTop: 4,
         fontFamily: "'Playfair Display',serif",
         position: 'relative',
@@ -368,7 +368,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
           <button onClick={() => flipMobile('prev')} disabled={spread === 0 || flipping} style={{
             width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
             background: spread === 0 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#5A7038,#EFD933)',
-            border: 'none', color: spread === 0 ? 'rgba(255,255,255,0.15)' : '#F5F3E8',
+            border: 'none', color: spread === 0 ? 'rgba(61,82,38,0.15)' : '#5A7038',
             fontSize: 20, cursor: spread === 0 ? 'default' : 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             touchAction: 'manipulation',
@@ -388,7 +388,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
           <button onClick={() => flipMobile('next')} disabled={spread >= totalPages - 1 || flipping} style={{
             width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
             background: spread >= totalPages - 1 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#5A7038,#EFD933)',
-            border: 'none', color: spread >= totalPages - 1 ? 'rgba(255,255,255,0.15)' : '#F5F3E8',
+            border: 'none', color: spread >= totalPages - 1 ? 'rgba(61,82,38,0.15)' : '#5A7038',
             fontSize: 20, cursor: spread >= totalPages - 1 ? 'default' : 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             touchAction: 'manipulation',
@@ -429,8 +429,8 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
             {leftPage
               ? <PageContent produits={leftPage.produits} categorie={leftPage.categorie}
                   pageNum={spread * 2 + 1} totalPages={pages.length} onAdd={onAdd} lang={lang} side="left" isMobile={false} />
-              : <div style={{ width: '100%', height: '100%', background: 'linear-gradient(to left,#e8dcc8,#FFFFFF)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ color: 'rgba(90,58,26,0.2)', fontSize: 40 }}>✦</span>
+              : <div style={{ width: '100%', height: '100%', background: 'linear-gradient(to left,#F0F8E8,#FFFFFF)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ color: 'rgba(61,82,38,0.2)', fontSize: 40 }}>✦</span>
                 </div>
             }
           </div>
@@ -443,8 +443,8 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
             {rightPage
               ? <PageContent produits={rightPage.produits} categorie={rightPage.categorie}
                   pageNum={spread * 2 + 2} totalPages={pages.length} onAdd={onAdd} lang={lang} side="right" isMobile={false} />
-              : <div style={{ width: '100%', height: '100%', background: 'linear-gradient(to right,#e8dcc8,#FFFFFF)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ color: 'rgba(90,58,26,0.2)', fontSize: 40 }}>✦</span>
+              : <div style={{ width: '100%', height: '100%', background: 'linear-gradient(to right,#F0F8E8,#FFFFFF)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ color: 'rgba(61,82,38,0.2)', fontSize: 40 }}>✦</span>
                 </div>
             }
           </div>
@@ -482,7 +482,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
         <button onClick={() => flip('prev')} disabled={spread === 0 || flipping} style={{
           width: 46, height: 46, borderRadius: '50%',
           background: spread === 0 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#5A7038,#EFD933)',
-          border: 'none', color: spread === 0 ? 'rgba(255,255,255,0.15)' : '#F5F3E8',
+          border: 'none', color: spread === 0 ? 'rgba(61,82,38,0.15)' : '#5A7038',
           fontSize: 22, cursor: spread === 0 ? 'not-allowed' : 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           boxShadow: spread === 0 ? 'none' : '0 4px 14px rgba(139,195,74,0.4)',
@@ -501,7 +501,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
         <button onClick={() => flip('next')} disabled={spread >= totalSpreads - 1 || flipping} style={{
           width: 46, height: 46, borderRadius: '50%',
           background: spread >= totalSpreads - 1 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#5A7038,#EFD933)',
-          border: 'none', color: spread >= totalSpreads - 1 ? 'rgba(255,255,255,0.15)' : '#F5F3E8',
+          border: 'none', color: spread >= totalSpreads - 1 ? 'rgba(61,82,38,0.15)' : '#5A7038',
           fontSize: 22, cursor: spread >= totalSpreads - 1 ? 'not-allowed' : 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           boxShadow: spread >= totalSpreads - 1 ? 'none' : '0 4px 14px rgba(139,195,74,0.4)',

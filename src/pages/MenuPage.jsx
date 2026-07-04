@@ -160,7 +160,7 @@ export default function MenuPage() {
             fontFamily: "'Playfair Display', serif",
             fontSize: isMobile ? 16 : 24,
             fontWeight: 900,
-            background: 'linear-gradient(135deg, #5A7038, #EFD933)',
+            background: 'linear-gradient(135deg, #FDD835, #C5E1A5)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
             letterSpacing: '-0.3px',
             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
