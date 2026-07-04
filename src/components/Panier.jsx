@@ -43,7 +43,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: '#1a0a00', border: '1px solid rgba(201,168,76,0.3)',
+          background: '#3D5226', border: '1px solid rgba(139,195,74,0.3)',
           borderRadius: isMobile ? '20px 20px 0 0' : 16,
           width: '100%',
           maxWidth: isMobile ? '100%' : 500,
@@ -80,16 +80,16 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
           <h2 style={{
             fontFamily: "'Playfair Display',serif",
-            fontSize: isMobile ? 19 : 22, color: '#c9a84c',
+            fontSize: isMobile ? 19 : 22, color: '#5A7038',
           }}>🛒 {L.panier}</h2>
           <button onClick={onClose} style={{
-            background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)',
+            background: 'none', border: 'none', color: 'rgba(61,82,38,0.5)',
             fontSize: 22, cursor: 'pointer', touchAction: 'manipulation',
           }}>✕</button>
         </div>
 
         {items.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '36px 0', color: 'rgba(255,255,255,0.3)' }}>
+          <div style={{ textAlign: 'center', padding: '36px 0', color: 'rgba(61,82,38,0.4)' }}>
             <div style={{ fontSize: 44, marginBottom: 10 }}>🛒</div>
             <p style={{ fontSize: 14 }}>{L.vide}</p>
           </div>
@@ -104,9 +104,9 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
                   borderBottom: '1px solid rgba(255,255,255,0.07)',
                 }}>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: isMobile ? 13 : 14, fontWeight: 600, color: '#f5efe0', marginBottom: 1,
+                    <p style={{ fontSize: isMobile ? 13 : 14, fontWeight: 600, color: '#3D5226', marginBottom: 1,
                       whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.nom}</p>
-                    <p style={{ fontSize: 12, color: '#c9a84c' }}>{Number(item.prix_unit).toFixed(2)} €</p>
+                    <p style={{ fontSize: 12, color: '#5A7038' }}>{Number(item.prix_unit).toFixed(2)} €</p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button onClick={() => onUpdateQty(idx, -1)} style={{
@@ -118,7 +118,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
                     <span style={{ fontSize: 13, fontWeight: 700, minWidth: 18, textAlign: 'center' }}>{item.quantite}</span>
                     <button onClick={() => onUpdateQty(idx, 1)} style={{
                       width: isMobile ? 30 : 27, height: isMobile ? 30 : 27, borderRadius: '50%',
-                      border: 'none', background: '#c9a84c', color: '#1a0a00',
+                      border: 'none', background: '#5A7038', color: '#3D5226',
                       cursor: 'pointer', fontSize: 16, touchAction: 'manipulation',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>+</button>
@@ -127,7 +127,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
                       cursor: 'pointer', fontSize: 16, padding: '0 2px', touchAction: 'manipulation',
                     }}>🗑️</button>
                   </div>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: '#f5efe0', minWidth: 52, textAlign: 'right' }}>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: '#3D5226', minWidth: 52, textAlign: 'right' }}>
                     {(item.prix_unit * item.quantite).toFixed(2)} €
                   </p>
                 </div>
@@ -138,10 +138,10 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
             <div style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               padding: '10px 0', marginBottom: 18,
-              borderTop: '2px solid rgba(201,168,76,0.25)',
+              borderTop: '2px solid rgba(139,195,74,0.25)',
             }}>
-              <span style={{ fontSize: 15, fontWeight: 700, color: '#c9a84c' }}>{L.total}</span>
-              <span style={{ fontSize: 18, fontWeight: 800, color: '#c9a84c' }}>{total.toFixed(2)} €</span>
+              <span style={{ fontSize: 15, fontWeight: 700, color: '#5A7038' }}>{L.total}</span>
+              <span style={{ fontSize: 18, fontWeight: 800, color: '#5A7038' }}>{total.toFixed(2)} €</span>
             </div>
 
             {/* Formulaire */}

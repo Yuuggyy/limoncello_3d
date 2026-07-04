@@ -130,7 +130,7 @@ export default function MenuPage() {
   return (
     <div style={{
       minHeight: '100dvh', // dynamic viewport height pour mobile
-      background: 'radial-gradient(ellipse at top, #2a1505 0%, #0d0500 65%)',
+      background: 'radial-gradient(ellipse at top, #F0F8E8 0%, #FAF9F0 65%)',
       display: 'flex', flexDirection: 'column',
     }}>
 
@@ -138,7 +138,7 @@ export default function MenuPage() {
       <header style={{
         padding: isMobile ? '12px 16px' : '16px 28px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        borderBottom: '1px solid rgba(201,168,76,0.15)',
+        borderBottom: '1px solid rgba(139,195,74,0.15)',
         backdropFilter: 'blur(12px)',
         position: 'sticky', top: 0, zIndex: 100,
         background: 'rgba(13,5,0,0.88)',
@@ -150,7 +150,7 @@ export default function MenuPage() {
             <div style={{
               width: isMobile ? 32 : 40, height: isMobile ? 32 : 40,
               borderRadius: '50%', overflow: 'hidden', flexShrink: 0,
-              border: '1.5px solid rgba(201,168,76,0.4)',
+              border: '1.5px solid rgba(139,195,74,0.4)',
             }}>
               <img src={parametres.logo_url} alt="Logo"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -160,7 +160,7 @@ export default function MenuPage() {
             fontFamily: "'Playfair Display', serif",
             fontSize: isMobile ? 16 : 24,
             fontWeight: 900,
-            background: 'linear-gradient(135deg, #c9a84c, #e8d08a)',
+            background: 'linear-gradient(135deg, #5A7038, #EFD933)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
             letterSpacing: '-0.3px',
             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
@@ -171,8 +171,8 @@ export default function MenuPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 10 }}>
           {/* Langue */}
           <button onClick={() => setLang(l => l === 'fr' ? 'en' : 'fr')} style={{
-            background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.25)',
-            color: '#c9a84c', borderRadius: 8,
+            background: 'rgba(139,195,74,0.1)', border: '1px solid rgba(139,195,74,0.25)',
+            color: '#5A7038', borderRadius: 8,
             padding: isMobile ? '5px 9px' : '7px 13px',
             fontSize: isMobile ? 11 : 12, fontWeight: 700, cursor: 'pointer',
             whiteSpace: 'nowrap',
@@ -180,8 +180,8 @@ export default function MenuPage() {
 
           {/* Appel serveur */}
           <button onClick={() => setShowAppel(true)} style={{
-            background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.25)',
-            color: '#c9a84c', borderRadius: 8,
+            background: 'rgba(139,195,74,0.1)', border: '1px solid rgba(139,195,74,0.25)',
+            color: '#5A7038', borderRadius: 8,
             padding: isMobile ? '5px 9px' : '7px 13px',
             fontSize: isMobile ? 11 : 13, fontWeight: 600, cursor: 'pointer',
             whiteSpace: 'nowrap',
@@ -190,21 +190,21 @@ export default function MenuPage() {
           {/* Panier */}
           <button onClick={() => setShowPanier(true)} style={{
             background: totalItems > 0
-              ? 'linear-gradient(135deg, #c9a84c, #e8d08a)'
-              : 'rgba(201,168,76,0.1)',
-            border: '1px solid rgba(201,168,76,0.25)',
-            color: totalItems > 0 ? '#1a0a00' : '#c9a84c',
+              ? 'linear-gradient(135deg, #5A7038, #EFD933)'
+              : 'rgba(139,195,74,0.1)',
+            border: '1px solid rgba(139,195,74,0.25)',
+            color: totalItems > 0 ? '#3D5226' : '#5A7038',
             borderRadius: 8,
             padding: isMobile ? '5px 10px' : '7px 15px',
             fontSize: isMobile ? 11 : 13, fontWeight: 700, cursor: 'pointer',
             display: 'flex', alignItems: 'center', gap: 5,
             whiteSpace: 'nowrap',
-            boxShadow: totalItems > 0 ? '0 3px 12px rgba(201,168,76,0.35)' : 'none',
+            boxShadow: totalItems > 0 ? '0 3px 12px rgba(139,195,74,0.35)' : 'none',
           }}>
             🛒 {!isMobile && L.panier}
             {totalItems > 0 && (
               <span style={{
-                background: '#1a0a00', color: '#c9a84c',
+                background: '#3D5226', color: '#5A7038',
                 borderRadius: '50%',
                 width: isMobile ? 18 : 22, height: isMobile ? 18 : 22,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -225,7 +225,7 @@ export default function MenuPage() {
         {loading ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '80px 0' }}>
             <div className="spinner" />
-            <p style={{ color: 'rgba(201,168,76,0.5)', fontSize: 14 }}>{L.chargement}</p>
+            <p style={{ color: 'rgba(139,195,74,0.5)', fontSize: 14 }}>{L.chargement}</p>
           </div>
         ) : (
           <Book3D pages={pages} onAdd={handleAdd} lang={lang} isMobile={isMobile} />
@@ -235,10 +235,10 @@ export default function MenuPage() {
       {/* ══ PIED DE PAGE CONTACT ══ */}
       {!loading && parametres && (parametres.adresse || parametres.telephone) && (
         <footer style={{
-          borderTop: '1px solid rgba(201,168,76,0.15)',
+          borderTop: '1px solid rgba(139,195,74,0.15)',
           padding: isMobile ? '18px 16px 90px' : '24px 20px 40px',
           textAlign: 'center',
-          color: 'rgba(232,208,138,0.6)',
+          color: 'rgba(90,112,56,0.6)',
           fontSize: isMobile ? 12 : 13,
           maxWidth: 900, width: '100%', margin: '0 auto',
         }}>
@@ -249,7 +249,7 @@ export default function MenuPage() {
               📞 {parametres.telephone}
               {parametres.whatsapp && (
                 <a href={`https://wa.me/${parametres.whatsapp}`} target="_blank" rel="noopener noreferrer"
-                  style={{ color: '#c9a84c', marginLeft: 10, textDecoration: 'none', fontWeight: 600 }}>
+                  style={{ color: '#5A7038', marginLeft: 10, textDecoration: 'none', fontWeight: 600 }}>
                   💬 WhatsApp
                 </a>
               )}
@@ -281,7 +281,7 @@ export default function MenuPage() {
               <div style={{ fontSize: isMobile ? 40 : 48, marginBottom: 10 }}>🔔</div>
               <h2 style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: isMobile ? 17 : 20, color: '#c9a84c',
+                fontSize: isMobile ? 17 : 20, color: '#5A7038',
               }}>{L.tableModal}</h2>
             </div>
             <div style={{ marginBottom: 16 }}>
