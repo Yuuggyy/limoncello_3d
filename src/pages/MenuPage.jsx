@@ -14,7 +14,7 @@ function useIsMobile() {
   return isMobile;
 }
 
-const ITEMS_PER_PAGE_MOBILE  = 3;
+const ITEMS_PER_PAGE_MOBILE  = 10;
 const ITEMS_PER_PAGE_DESKTOP = 4;
 
 const T = {
@@ -141,7 +141,7 @@ export default function MenuPage() {
         borderBottom: '1px solid rgba(139,195,74,0.15)',
         backdropFilter: 'blur(12px)',
         position: 'sticky', top: 0, zIndex: 100,
-        background: 'rgba(13,5,0,0.88)',
+        background: 'rgba(255,255,255,0.92)',
         gap: 8,
       }}>
         {/* Titre + logo */}
@@ -190,10 +190,10 @@ export default function MenuPage() {
           {/* Panier */}
           <button onClick={() => setShowPanier(true)} style={{
             background: totalItems > 0
-              ? 'linear-gradient(135deg, #5A7038, #EFD933)'
+              ? 'linear-gradient(135deg, #FDD835, #8BC34A)'
               : 'rgba(139,195,74,0.1)',
             border: '1px solid rgba(139,195,74,0.25)',
-            color: totalItems > 0 ? '#3D5226' : '#5A7038',
+            color: totalItems > 0 ? '#FFFFFF' : '#5A7038',
             borderRadius: 8,
             padding: isMobile ? '5px 10px' : '7px 15px',
             fontSize: isMobile ? 11 : 13, fontWeight: 700, cursor: 'pointer',
@@ -204,7 +204,7 @@ export default function MenuPage() {
             🛒 {!isMobile && L.panier}
             {totalItems > 0 && (
               <span style={{
-                background: '#3D5226', color: '#5A7038',
+                background: '#3D5226', color: '#FFFFFF',
                 borderRadius: '50%',
                 width: isMobile ? 18 : 22, height: isMobile ? 18 : 22,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',

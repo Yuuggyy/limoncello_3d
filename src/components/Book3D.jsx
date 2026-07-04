@@ -13,64 +13,135 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
     setQty(0);
   };
 
+  if (isMobile) {
+    // ── CARTE MOBILE pleine largeur ──
+    return (
+      <div style={{
+        display: 'flex', gap: 12, padding: '12px 14px',
+        background: '#FFFFFF', borderRadius: 14,
+        marginBottom: 10, alignItems: 'center',
+        boxShadow: '0 2px 10px rgba(61,82,38,0.06)',
+        border: '1px solid rgba(139,195,74,0.1)',
+      }}>
+        {/* Image */}
+        <div style={{
+          width: 64, height: 64, borderRadius: 12, overflow: 'hidden', flexShrink: 0,
+          background: '#F0F8E8',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          {produit.image_url
+            ? <img src={produit.image_url} alt={produit.nom}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            : <span style={{ fontSize: 26 }}>🍽️</span>}
+        </div>
+
+        {/* Infos */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p style={{
+            fontFamily: "'Playfair Display',serif",
+            fontSize: 15, fontWeight: 700, color: '#3D5226',
+            lineHeight: 1.3, marginBottom: 2,
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+          }}>{produit.nom}</p>
+          {produit.description && (
+            <p style={{ fontSize: 12, color: '#8A9B6E', lineHeight: 1.4, marginBottom: 4,
+              display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              {produit.description}
+            </p>
+          )}
+          <p style={{ fontSize: 16, fontWeight: 800, color: '#5A7038' }}>
+            {Number(produit.prix).toFixed(2)}<span style={{ fontSize: 11, fontWeight: 500 }}> €</span>
+          </p>
+        </div>
+
+        {/* Contrôles quantité */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
+              width: 30, height: 30, borderRadius: '50%',
+              border: '1.5px solid rgba(139,195,74,0.4)',
+              background: '#F0F8E8', color: '#3D5226',
+              fontSize: 18, fontWeight: 700,
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              touchAction: 'manipulation',
+            }}>−</button>
+            <span style={{ fontSize: 15, fontWeight: 700, color: '#3D5226', minWidth: 20, textAlign: 'center' }}>
+              {qty}
+            </span>
+            <button onClick={() => setQty(q => q + 1)} style={{
+              width: 30, height: 30, borderRadius: '50%',
+              border: 'none', background: '#FDD835', color: '#3D5226',
+              fontSize: 18, fontWeight: 700,
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              touchAction: 'manipulation',
+            }}>+</button>
+          </div>
+          {qty > 0 && (
+            <button onClick={handleAdd} style={{
+              background: 'linear-gradient(135deg, #8BC34A, #FDD835)', color: '#FFFFFF',
+              border: 'none', borderRadius: 8,
+              padding: '6px 14px', fontSize: 12, fontWeight: 700,
+              cursor: 'pointer', whiteSpace: 'nowrap', touchAction: 'manipulation',
+              boxShadow: '0 3px 8px rgba(139,195,74,0.3)',
+            }}>✓ {L.add}</button>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ── CARTE DESKTOP (dans le livre) ──
   return (
     <div style={{
-      display: 'flex', gap: isMobile ? 8 : 10,
-      padding: isMobile ? '8px 0' : '10px 0',
-      borderBottom: '1px solid rgba(61,82,38,0.22)',
+      display: 'flex', gap: 10,
+      padding: '10px 0',
+      borderBottom: '1px solid rgba(61,82,38,0.12)',
       alignItems: 'center',
     }}>
-      {/* Image */}
       <div style={{
-        width: isMobile ? 46 : 56, height: isMobile ? 46 : 56,
-        borderRadius: 8, overflow: 'hidden', flexShrink: 0,
-        background: 'rgba(61,82,38,0.15)',
+        width: 56, height: 56, borderRadius: 8, overflow: 'hidden', flexShrink: 0,
+        background: 'rgba(61,82,38,0.08)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         {produit.image_url
           ? <img src={produit.image_url} alt={produit.nom}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          : <span style={{ fontSize: isMobile ? 18 : 22 }}>🍽️</span>}
+          : <span style={{ fontSize: 22 }}>🍽️</span>}
       </div>
 
-      {/* Infos */}
       <div style={{ flex: 1, minWidth: 0 }}>
         <p style={{
           fontFamily: "'Playfair Display',serif",
-          fontSize: isMobile ? 12 : 13, fontWeight: 700, color: '#3D5226',
+          fontSize: 13, fontWeight: 700, color: '#3D5226',
           lineHeight: 1.3, marginBottom: 1,
           whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
         }}>{produit.nom}</p>
-        {produit.description && !isMobile && (
-          <p style={{ fontSize: 10, color: '#5A7038', lineHeight: 1.3, marginBottom: 2 }}>
+        {produit.description && (
+          <p style={{ fontSize: 10, color: '#8A9B6E', lineHeight: 1.3, marginBottom: 2 }}>
             {produit.description.length > 45 ? produit.description.slice(0, 45) + '…' : produit.description}
           </p>
         )}
-        <p style={{ fontSize: isMobile ? 13 : 14, fontWeight: 800, color: '#3D5226' }}>
+        <p style={{ fontSize: 14, fontWeight: 800, color: '#3D5226' }}>
           {Number(produit.prix).toFixed(2)}<span style={{ fontSize: 9, fontWeight: 500 }}> €</span>
         </p>
       </div>
 
-      {/* Qty + Ajouter */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'center', flexShrink: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 4 : 5 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
           <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
-            width: isMobile ? 24 : 22, height: isMobile ? 24 : 22,
-            borderRadius: '50%', border: '1.5px solid #3D5226',
+            width: 22, height: 22, borderRadius: '50%', border: '1.5px solid #3D5226',
             background: 'transparent', color: '#3D5226',
-            fontSize: isMobile ? 15 : 13, fontWeight: 700,
+            fontSize: 13, fontWeight: 700,
             cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
             touchAction: 'manipulation',
           }}>−</button>
-          <span style={{
-            fontSize: isMobile ? 13 : 12, fontWeight: 700, color: '#3D5226',
-            minWidth: isMobile ? 18 : 14, textAlign: 'center',
-          }}>{qty}</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#3D5226', minWidth: 14, textAlign: 'center' }}>
+            {qty}
+          </span>
           <button onClick={() => setQty(q => q + 1)} style={{
-            width: isMobile ? 24 : 22, height: isMobile ? 24 : 22,
-            borderRadius: '50%', border: 'none',
+            width: 22, height: 22, borderRadius: '50%', border: 'none',
             background: '#FDD835', color: '#3D5226',
-            fontSize: isMobile ? 15 : 13, fontWeight: 700,
+            fontSize: 13, fontWeight: 700,
             cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
             touchAction: 'manipulation',
           }}>+</button>
@@ -79,8 +150,7 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
           <button onClick={handleAdd} style={{
             background: 'linear-gradient(135deg, #FDD835, #8BC34A)', color: '#FFFFFF',
             border: 'none', borderRadius: 5,
-            padding: isMobile ? '4px 8px' : '3px 7px',
-            fontSize: isMobile ? 10 : 9, fontWeight: 700,
+            padding: '3px 7px', fontSize: 9, fontWeight: 700,
             cursor: 'pointer', whiteSpace: 'nowrap', touchAction: 'manipulation',
           }}>✓ {L.add}</button>
         )}
@@ -90,7 +160,7 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
 }
 
 /* ─────────────────────────────────────────
-   Contenu d'une face de page
+   Contenu d'une face de page (desktop book)
 ───────────────────────────────────────── */
 function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, side, isMobile }) {
   return (
@@ -99,17 +169,17 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
       background: side === 'left'
         ? 'linear-gradient(to left, #F0F8E8, #FFFFFF)'
         : 'linear-gradient(to right, #F0F8E8, #FFFFFF)',
-      padding: isMobile ? '12px 10px 8px' : '18px 14px 10px',
+      padding: '18px 14px 10px',
       display: 'flex', flexDirection: 'column',
       position: 'relative', overflow: 'hidden',
       boxShadow: side === 'left'
-        ? 'inset -5px 0 15px rgba(0,0,0,0.1)'
-        : 'inset 5px 0 15px rgba(0,0,0,0.1)',
+        ? 'inset -5px 0 15px rgba(61,82,38,0.06)'
+        : 'inset 5px 0 15px rgba(61,82,38,0.06)',
     }}>
       {/* Lignes cahier */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'repeating-linear-gradient(transparent, transparent 24px, rgba(61,82,38,0.06) 24px, rgba(61,82,38,0.06) 25px)',
+        backgroundImage: 'repeating-linear-gradient(transparent, transparent 24px, rgba(61,82,38,0.04) 24px, rgba(61,82,38,0.04) 25px)',
         backgroundPositionY: '44px',
       }} />
 
@@ -117,15 +187,14 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
       {categorie && (
         <div style={{
           borderBottom: '2px solid rgba(139,195,74,0.3)',
-          marginBottom: isMobile ? 6 : 10,
-          paddingBottom: isMobile ? 5 : 7,
+          marginBottom: 10, paddingBottom: 7,
           display: 'flex', alignItems: 'center', gap: 5,
           position: 'relative',
         }}>
-          <span style={{ fontSize: isMobile ? 14 : 16 }}>{categorie.emoji || '🍽️'}</span>
+          <span style={{ fontSize: 16 }}>{categorie.emoji || '🍽️'}</span>
           <span style={{
             fontFamily: "'Playfair Display',serif",
-            fontSize: isMobile ? 13 : 15, fontWeight: 700, color: '#3D5226',
+            fontSize: 15, fontWeight: 700, color: '#3D5226',
           }}>{categorie.nom}</span>
         </div>
       )}
@@ -133,14 +202,14 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
       {/* Produits */}
       <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
         {produits.map(p => (
-          <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={isMobile} />
+          <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={false} />
         ))}
       </div>
 
       {/* Numéro de page */}
       <p style={{
         textAlign: side === 'left' ? 'left' : 'right',
-        fontSize: 9, color: 'rgba(61,82,38,0.35)',
+        fontSize: 9, color: 'rgba(61,82,38,0.3)',
         fontStyle: 'italic', marginTop: 4,
         fontFamily: "'Playfair Display',serif",
         position: 'relative',
@@ -150,63 +219,44 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
 }
 
 /* ─────────────────────────────────────────
-   Page animée (tourne 180°)
+   Page animée (desktop)
 ───────────────────────────────────────── */
 function FlippingPage({ flipping, flipDir, fromPage, toPage, onAdd, lang, totalPages, spreadIndex, isMobile }) {
   if (!flipping) return null;
-
-  const isNext    = flipDir === 'next';
-  const origin    = isNext ? 'left center' : 'right center';
-  const endAngle  = isNext ? -180 : 180;
-
   return (
     <div style={{
-      position: 'absolute', top: 0, bottom: 0,
-      left:  isNext ? '50%' : 0,
-      right: isNext ? 0    : '50%',
-      transformOrigin: origin,
-      transformStyle: 'preserve-3d',
+      position: 'absolute', width: '50%', top: 0, bottom: 0,
+      [flipDir === 'next' ? 'right' : 'left']: 0,
+      transformOrigin: flipDir === 'next' ? 'left center' : 'right center',
+      transformStyle: 'preserve-3d', zIndex: 20,
       animation: `pageFlip 0.65s cubic-bezier(0.645,0.045,0.355,1.000) forwards`,
-      zIndex: 20,
-      '--end-angle': `${endAngle}deg`,
     }}>
       <style>{`
         @keyframes pageFlip {
           from { transform: rotateY(0deg); }
-          to   { transform: rotateY(var(--end-angle)); }
+          to   { transform: rotateY(${flipDir === 'next' ? '-180deg' : '180deg'}); }
         }
       `}</style>
-
-      {/* Face avant */}
       <div style={{
-        position: 'absolute', inset: 0,
+        position: 'absolute', inset: 0, overflow: 'hidden',
         backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
-        overflow: 'hidden',
+        borderRadius: flipDir === 'next' ? '0 8px 8px 0' : '8px 0 0 8px',
       }}>
-        {fromPage
-          ? <PageContent produits={fromPage.produits} categorie={fromPage.categorie}
-              pageNum={isNext ? spreadIndex * 2 + 2 : spreadIndex * 2 + 1}
-              totalPages={totalPages} onAdd={onAdd} lang={lang}
-              side={isNext ? 'right' : 'left'} isMobile={isMobile} />
-          : <div style={{ width: '100%', height: '100%', background: '#FFFFFF' }} />
-        }
+        {fromPage && <PageContent produits={fromPage.produits} categorie={fromPage.categorie}
+          pageNum={flipDir === 'next' ? spreadIndex * 2 + 2 : spreadIndex * 2 + 1}
+          totalPages={totalPages} onAdd={onAdd} lang={lang}
+          side={flipDir === 'next' ? 'right' : 'left'} isMobile={false} />}
       </div>
-
-      {/* Face arrière (miroir) */}
       <div style={{
-        position: 'absolute', inset: 0,
+        position: 'absolute', inset: 0, overflow: 'hidden',
         backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
         transform: 'rotateY(180deg) scaleX(-1)',
-        overflow: 'hidden',
-        boxShadow: isNext ? 'inset -10px 0 25px rgba(0,0,0,0.18)' : 'inset 10px 0 25px rgba(0,0,0,0.18)',
+        borderRadius: flipDir === 'next' ? '8px 0 0 8px' : '0 8px 8px 0',
       }}>
-        {toPage
-          ? <PageContent produits={toPage.produits} categorie={toPage.categorie}
-              pageNum={isNext ? spreadIndex * 2 + 3 : spreadIndex * 2}
-              totalPages={totalPages} onAdd={onAdd} lang={lang}
-              side={isNext ? 'left' : 'right'} isMobile={isMobile} />
-          : <div style={{ width: '100%', height: '100%', background: '#F5F3E8' }} />
-        }
+        {toPage && <PageContent produits={toPage.produits} categorie={toPage.categorie}
+          pageNum={flipDir === 'next' ? spreadIndex * 2 + 3 : spreadIndex * 2}
+          totalPages={totalPages} onAdd={onAdd} lang={lang}
+          side={flipDir === 'next' ? 'left' : 'right'} isMobile={false} />}
       </div>
     </div>
   );
@@ -220,6 +270,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
   const [flipping, setFlipping]     = useState(false);
   const [flipDir, setFlipDir]       = useState(null);
   const [nextSpread, setNextSpread] = useState(0);
+  const [activeCat, setActiveCat]   = useState(0);
   const totalSpreads = Math.ceil(pages.length / 2);
 
   const leftPage  = pages[spread * 2]     || null;
@@ -235,7 +286,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
     setTimeout(() => { setSpread(next); setFlipping(false); setFlipDir(null); }, 650);
   }, [flipping, spread, totalSpreads]);
 
-  // Swipe tactile
+  // Swipe tactile (desktop)
   const touchStart = useRef(null);
   const onTouchStart = (e) => { touchStart.current = e.touches[0].clientX; };
   const onTouchEnd   = (e) => {
@@ -252,173 +303,103 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
     </div>
   );
 
-  const nextLeftPage  = pages[nextSpread * 2]     || null;
-  const nextRightPage = pages[nextSpread * 2 + 1] || null;
-  const flippingFromPage = flipDir === 'next' ? rightPage : leftPage;
-  const flippingToPage   = flipDir === 'next' ? nextLeftPage : nextRightPage;
-
-  // Hauteur du livre adaptée à l'écran
-  const bookHeight = isMobile
-    ? Math.min(window.innerHeight * 0.62, 420)
-    : 520;
-
-  // Sur mobile : on affiche UNE seule page à la fois
-  // Sur desktop : double page (livre ouvert)
+  // ═══════════════════════════════════════════
+  //  MODE MOBILE — Onglets catégories + liste défilante
+  // ═══════════════════════════════════════════
   if (isMobile) {
-    // ── MODE MOBILE : une page à la fois ──
-    const currentPage = pages[spread] || null;
-    const totalPages  = pages.length;
+    // Grouper par catégorie unique
+    const categories = [];
+    pages.forEach(p => {
+      if (!categories.find(c => c.nom === p.categorie?.nom)) {
+        categories.push(p.categorie);
+      }
+    });
 
-    const flipMobile = (dir) => {
-      if (flipping) return;
-      if (dir === 'next' && spread >= totalPages - 1) return;
-      if (dir === 'prev' && spread <= 0) return;
-
-      const next = dir === 'next' ? spread + 1 : spread - 1;
-      setFlipDir(dir); setNextSpread(next); setFlipping(true);
-      setTimeout(() => { setSpread(next); setFlipping(false); setFlipDir(null); }, 600);
-    };
-
-    const onTouchEndMobile = (e) => {
-      if (touchStart.current === null) return;
-      const diff = touchStart.current - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 35) flipMobile(diff > 0 ? 'next' : 'prev');
-      touchStart.current = null;
-    };
-
-    const nextPage = pages[nextSpread] || null;
+    const currentCat = categories[activeCat];
+    const currentPages = pages.filter(p => p.categorie?.nom === currentCat?.nom);
+    const allProducts = currentPages.flatMap(p => p.produits);
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-
-        {/* Livre mobile — 1 page */}
-        <div
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEndMobile}
-          style={{ width: '100%', maxWidth: 380, perspective: '1500px', userSelect: 'none' }}
-        >
-          <div style={{
-            height: bookHeight, position: 'relative',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 8px 20px rgba(61,82,38,0.08)',
-            borderRadius: 12,
-            transformStyle: 'preserve-3d',
-          }}>
-            {/* Page courante */}
-            <div style={{
-              position: 'absolute', inset: 0, borderRadius: 12, overflow: 'hidden',
-              opacity: flipping ? 0 : 1,
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+        {/* Onglets catégories — scroll horizontal */}
+        <div style={{
+          display: 'flex', gap: 8, overflowX: 'auto', padding: '0 4px 14px',
+          scrollbarWidth: 'none', msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
+          position: 'sticky', top: 0, zIndex: 10,
+        }}>
+          <style>{`div::-webkit-scrollbar { display: none; }`}</style>
+          {categories.map((cat, i) => (
+            <button key={i} onClick={() => setActiveCat(i)} style={{
+              flexShrink: 0,
+              padding: '8px 16px', borderRadius: 20,
+              background: i === activeCat
+                ? 'linear-gradient(135deg, #FDD835, #8BC34A)'
+                : '#FFFFFF',
+              color: i === activeCat ? '#FFFFFF' : '#5A7038',
+              border: i === activeCat ? 'none' : '1px solid rgba(139,195,74,0.2)',
+              fontSize: 13, fontWeight: 700, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: 5,
+              whiteSpace: 'nowrap', touchAction: 'manipulation',
+              boxShadow: i === activeCat ? '0 3px 10px rgba(139,195,74,0.3)' : 'none',
+              transition: 'all 0.2s',
             }}>
-              {currentPage
-                ? <PageContent produits={currentPage.produits} categorie={currentPage.categorie}
-                    pageNum={spread + 1} totalPages={totalPages}
-                    onAdd={onAdd} lang={lang} side="right" isMobile={true} />
-                : <div style={{ width: '100%', height: '100%', background: '#FFFFFF' }} />
-              }
-            </div>
-
-            {/* Page suivante (fond pendant animation) */}
-            {flipping && nextPage && (
-              <div style={{ position: 'absolute', inset: 0, borderRadius: 12, overflow: 'hidden', zIndex: 5 }}>
-                <PageContent produits={nextPage.produits} categorie={nextPage.categorie}
-                  pageNum={nextSpread + 1} totalPages={totalPages}
-                  onAdd={onAdd} lang={lang} side="right" isMobile={true} />
-              </div>
-            )}
-
-            {/* Page animée mobile */}
-            {flipping && (
-              <div style={{
-                position: 'absolute', inset: 0, borderRadius: 12,
-                transformOrigin: flipDir === 'next' ? 'left center' : 'right center',
-                transformStyle: 'preserve-3d',
-                animation: `pageFlipMobile 0.6s cubic-bezier(0.645,0.045,0.355,1.000) forwards`,
-                zIndex: 20,
-                '--end-m': flipDir === 'next' ? '-180deg' : '180deg',
-              }}>
-                <style>{`
-                  @keyframes pageFlipMobile {
-                    from { transform: rotateY(0deg); }
-                    to   { transform: rotateY(var(--end-m)); }
-                  }
-                `}</style>
-                {/* Face avant */}
-                <div style={{
-                  position: 'absolute', inset: 0, borderRadius: 12, overflow: 'hidden',
-                  backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
-                }}>
-                  {currentPage && <PageContent produits={currentPage.produits} categorie={currentPage.categorie}
-                    pageNum={spread + 1} totalPages={totalPages} onAdd={onAdd} lang={lang} side="right" isMobile={true} />}
-                </div>
-                {/* Face arrière */}
-                <div style={{
-                  position: 'absolute', inset: 0, borderRadius: 12, overflow: 'hidden',
-                  backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
-                  transform: 'rotateY(180deg) scaleX(-1)',
-                }}>
-                  {nextPage && <PageContent produits={nextPage.produits} categorie={nextPage.categorie}
-                    pageNum={nextSpread + 1} totalPages={totalPages} onAdd={onAdd} lang={lang} side="right" isMobile={true} />}
-                </div>
-              </div>
-            )}
-          </div>
+              <span style={{ fontSize: 15 }}>{cat?.emoji || '🍽️'}</span>
+              {cat?.nom}
+            </button>
+          ))}
         </div>
 
-        {/* Navigation mobile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, width: '100%', maxWidth: 380 }}>
-          <button onClick={() => flipMobile('prev')} disabled={spread === 0 || flipping} style={{
-            width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
-            background: spread === 0 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#5A7038,#EFD933)',
-            border: 'none', color: spread === 0 ? 'rgba(61,82,38,0.15)' : '#5A7038',
-            fontSize: 20, cursor: spread === 0 ? 'default' : 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            touchAction: 'manipulation',
-          }}>‹</button>
-
-          {/* Points indicateurs */}
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: 5, flexWrap: 'wrap' }}>
-            {Array.from({ length: Math.min(totalPages, 10) }).map((_, i) => (
-              <div key={i} onClick={() => !flipping && setSpread(i)} style={{
-                width: i === spread ? 18 : 6, height: 6, borderRadius: 3,
-                background: i === spread ? '#5A7038' : 'rgba(139,195,74,0.2)',
-                transition: 'all 0.3s', cursor: 'pointer', touchAction: 'manipulation',
-              }} />
-            ))}
-          </div>
-
-          <button onClick={() => flipMobile('next')} disabled={spread >= totalPages - 1 || flipping} style={{
-            width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
-            background: spread >= totalPages - 1 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#5A7038,#EFD933)',
-            border: 'none', color: spread >= totalPages - 1 ? 'rgba(61,82,38,0.15)' : '#5A7038',
-            fontSize: 20, cursor: spread >= totalPages - 1 ? 'default' : 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            touchAction: 'manipulation',
-          }}>›</button>
+        {/* En-tête catégorie active */}
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          padding: '4px 4px 12px',
+        }}>
+          <span style={{ fontSize: 22 }}>{currentCat?.emoji || '🍽️'}</span>
+          <h2 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 20, fontWeight: 800, color: '#3D5226',
+          }}>{currentCat?.nom}</h2>
+          <span style={{
+            fontSize: 12, color: '#8A9B6E', fontWeight: 500,
+          }}>{allProducts.length} {lang === 'en' ? 'items' : 'articles'}</span>
         </div>
 
-        <p style={{ fontSize: 11, color: 'rgba(139,195,74,0.3)', fontStyle: 'italic' }}>
-          ← Glissez pour tourner →
-        </p>
+        {/* Liste produits — défilement naturel */}
+        <div style={{ paddingBottom: 80 }}>
+          {allProducts.map(p => (
+            <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
+          ))}
+        </div>
       </div>
     );
   }
 
-  // ── MODE DESKTOP : double page ──
+  // ═══════════════════════════════════════════
+  //  MODE DESKTOP — Livre 3D double page
+  // ═══════════════════════════════════════════
+  const nextLeftPage  = pages[nextSpread * 2]     || null;
+  const nextRightPage = pages[nextSpread * 2 + 1] || null;
+  const flippingFromPage = flipDir === 'next' ? rightPage : leftPage;
+  const flippingToPage   = flipDir === 'next' ? nextLeftPage : nextRightPage;
+  const bookHeight = 520;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
       <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}
         style={{ width: '100%', maxWidth: 820, perspective: '2500px', userSelect: 'none' }}>
         <div style={{
           display: 'flex', height: bookHeight, position: 'relative',
-          boxShadow: '0 30px 80px rgba(0,0,0,0.85), 0 10px 30px rgba(61,82,38,0.08)',
+          boxShadow: '0 20px 50px rgba(61,82,38,0.12), 0 8px 16px rgba(61,82,38,0.08)',
           borderRadius: '4px 14px 14px 4px',
           transformStyle: 'preserve-3d',
         }}>
           {/* Reliure */}
           <div style={{
-            position: 'absolute', left: '50%', top: 0, bottom: 0, width: 10,
+            position: 'absolute', left: '50%', top: 0, bottom: 0, width: 8,
             transform: 'translateX(-50%)',
-            background: 'linear-gradient(to right,#2a1008,#7a3810,#2a1008)',
-            zIndex: 15, boxShadow: '0 0 18px rgba(61,82,38,0.08)',
+            background: 'linear-gradient(to right, #EDE9D8, #C5E1A5, #EDE9D8)',
+            zIndex: 15, boxShadow: '0 0 12px rgba(61,82,38,0.06)',
           }} />
 
           {/* Page gauche */}
@@ -481,18 +462,18 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
         <button onClick={() => flip('prev')} disabled={spread === 0 || flipping} style={{
           width: 46, height: 46, borderRadius: '50%',
-          background: spread === 0 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#5A7038,#EFD933)',
-          border: 'none', color: spread === 0 ? 'rgba(61,82,38,0.15)' : '#5A7038',
+          background: spread === 0 ? 'rgba(255,255,255,0.3)' : 'linear-gradient(135deg, #FDD835, #8BC34A)',
+          border: 'none', color: spread === 0 ? 'rgba(61,82,38,0.2)' : '#FFFFFF',
           fontSize: 22, cursor: spread === 0 ? 'not-allowed' : 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: spread === 0 ? 'none' : '0 4px 14px rgba(139,195,74,0.4)',
+          boxShadow: spread === 0 ? 'none' : '0 4px 14px rgba(139,195,74,0.3)',
         }}>‹</button>
 
         <div style={{ display: 'flex', gap: 7 }}>
           {Array.from({ length: totalSpreads }).map((_, i) => (
             <div key={i} onClick={() => !flipping && setSpread(i)} style={{
               width: i === spread ? 22 : 7, height: 7, borderRadius: 4,
-              background: i === spread ? '#5A7038' : 'rgba(139,195,74,0.2)',
+              background: i === spread ? '#8BC34A' : 'rgba(139,195,74,0.2)',
               transition: 'all 0.3s', cursor: 'pointer',
             }} />
           ))}
@@ -500,16 +481,16 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
 
         <button onClick={() => flip('next')} disabled={spread >= totalSpreads - 1 || flipping} style={{
           width: 46, height: 46, borderRadius: '50%',
-          background: spread >= totalSpreads - 1 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#5A7038,#EFD933)',
-          border: 'none', color: spread >= totalSpreads - 1 ? 'rgba(61,82,38,0.15)' : '#5A7038',
+          background: spread >= totalSpreads - 1 ? 'rgba(255,255,255,0.3)' : 'linear-gradient(135deg, #FDD835, #8BC34A)',
+          border: 'none', color: spread >= totalSpreads - 1 ? 'rgba(61,82,38,0.2)' : '#FFFFFF',
           fontSize: 22, cursor: spread >= totalSpreads - 1 ? 'not-allowed' : 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: spread >= totalSpreads - 1 ? 'none' : '0 4px 14px rgba(139,195,74,0.4)',
+          boxShadow: spread >= totalSpreads - 1 ? 'none' : '0 4px 14px rgba(139,195,74,0.3)',
         }}>›</button>
       </div>
 
-      <p style={{ fontSize: 11, color: 'rgba(139,195,74,0.3)', fontStyle: 'italic' }}>
-        ← Glissez ou utilisez les flèches →
+      <p style={{ fontSize: 11, color: 'rgba(139,195,74,0.4)', fontStyle: 'italic' }}>
+        ← Glissez pour tourner les pages →
       </p>
     </div>
   );
