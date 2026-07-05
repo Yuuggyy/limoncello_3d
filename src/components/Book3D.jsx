@@ -7,14 +7,7 @@ const CREAM = '#FFFBF5';
    Ligne produit — style menu imprimé + image
 ───────────────────────────────────────── */
 function ProduitCard({ produit, onAdd, lang, isMobile }) {
-  const [qty, setQty] = useState(0);
   const L = lang === 'en' ? { add: 'Add' } : { add: 'Ajouter' };
-
-  const handleAdd = () => {
-    if (qty === 0) return;
-    onAdd({ ...produit, prix_unit: produit.prix, quantite: qty });
-    setQty(0);
-  };
 
   const hasImage = produit.image_url && produit.image_url.trim() !== '';
 
@@ -65,34 +58,15 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
             }}>{produit.description}</p>
           )}
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 }}>
-            <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
-              width: 30, height: 30, borderRadius: 8,
-              border: '1px solid #E0D8C8', background: '#FFFFFF', color: '#2C1810',
-              fontSize: 18, cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              touchAction: 'manipulation',
-            }}>−</button>
-            <span style={{
-              fontSize: 14, fontWeight: 700, color: '#2C1810',
-              minWidth: 16, textAlign: 'center',
-            }}>{qty}</span>
-            <button onClick={() => setQty(q => q + 1)} style={{
-              width: 30, height: 30, borderRadius: 8,
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginTop: 8 }}>
+            <button onClick={() => onAdd({ ...produit, prix_unit: produit.prix, quantite: 1 })} style={{
+              width: 36, height: 36, borderRadius: 10,
               border: 'none', background: ACCENT, color: '#FFFFFF',
-              fontSize: 18, cursor: 'pointer',
+              fontSize: 22, cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               touchAction: 'manipulation',
+              boxShadow: '0 2px 8px rgba(184,52,42,0.25)',
             }}>+</button>
-            {qty > 0 && (
-              <button onClick={handleAdd} style={{
-                background: '#2C1810', color: '#FFFFFF',
-                border: 'none', borderRadius: 8,
-                padding: '6px 14px', fontSize: 12, fontWeight: 700,
-                cursor: 'pointer', touchAction: 'manipulation',
-                marginLeft: 4,
-              }}>✓ {L.add}</button>
-            )}
           </div>
         </div>
       </div>
@@ -116,22 +90,11 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
           {produit.description.length > 55 ? produit.description.slice(0, 55) + '…' : produit.description}
         </p>
       )}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 4 }}>
-        <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
-          width: 22, height: 22, borderRadius: 5, border: '1px solid #E0D8C8', background: '#FFFFFF', color: '#2C1810',
-          fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', touchAction: 'manipulation',
-        }}>−</button>
-        <span style={{ fontSize: 11, fontWeight: 700, color: '#2C1810', minWidth: 12, textAlign: 'center' }}>{qty}</span>
-        <button onClick={() => setQty(q => q + 1)} style={{
-          width: 22, height: 22, borderRadius: 5, border: 'none', background: ACCENT, color: '#FFFFFF',
-          fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', touchAction: 'manipulation',
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 4 }}>
+        <button onClick={() => onAdd({ ...produit, prix_unit: produit.prix, quantite: 1 })} style={{
+          width: 26, height: 26, borderRadius: 6, border: 'none', background: ACCENT, color: '#FFFFFF',
+          fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', touchAction: 'manipulation',
         }}>+</button>
-        {qty > 0 && (
-          <button onClick={handleAdd} style={{
-            background: '#2C1810', color: '#FFFFFF', border: 'none', borderRadius: 5,
-            padding: '3px 8px', fontSize: 9, fontWeight: 700, cursor: 'pointer', touchAction: 'manipulation',
-          }}>✓ {L.add}</button>
-        )}
       </div>
     </div>
   );
