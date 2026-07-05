@@ -101,7 +101,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
                 <div key={idx} style={{
                   display: 'flex', alignItems: 'center', gap: 10,
                   padding: isMobile ? '10px 0' : '11px 0',
-                  borderBottom: '1px solid rgba(255,255,255,0.07)',
+                  borderBottom: '1px solid rgba(139,195,74,0.15)',
                 }}>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontSize: isMobile ? 13 : 14, fontWeight: 600, color: '#3D5226', marginBottom: 1,

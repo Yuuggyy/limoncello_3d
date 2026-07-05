@@ -319,8 +319,28 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
     const currentPages = pages.filter(p => p.categorie?.nom === currentCat?.nom);
     const allProducts = currentPages.flatMap(p => p.produits);
 
+    // Swipe gauche/droite pour changer de catégorie
+    const catTouchStart = useRef(null);
+    const onCatTouchStart = (e) => { catTouchStart.current = e.touches[0].clientX; };
+    const onCatTouchEnd = (e) => {
+      if (catTouchStart.current === null) return;
+      const diff = catTouchStart.current - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 60) {
+        if (diff > 0 && activeCat < categories.length - 1) {
+          setActiveCat(activeCat + 1);
+        } else if (diff < 0 && activeCat > 0) {
+          setActiveCat(activeCat - 1);
+        }
+      }
+      catTouchStart.current = null;
+    };
+
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <div
+        onTouchStart={onCatTouchStart}
+        onTouchEnd={onCatTouchEnd}
+        style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+      >
         {/* Onglets catégories — scroll horizontal */}
         <div style={{
           display: 'flex', gap: 8, overflowX: 'auto', padding: '0 4px 14px',
@@ -365,12 +385,28 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
           }}>{allProducts.length} {lang === 'en' ? 'items' : 'articles'}</span>
         </div>
 
+        {/* Indicateur de catégorie */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 10 }}>
+          {categories.map((_, i) => (
+            <div key={i} style={{
+              width: i === activeCat ? 20 : 6, height: 6, borderRadius: 3,
+              background: i === activeCat ? '#8BC34A' : 'rgba(139,195,74,0.2)',
+              transition: 'all 0.3s',
+            }} />
+          ))}
+        </div>
+
         {/* Liste produits — défilement naturel */}
         <div style={{ paddingBottom: 80 }}>
           {allProducts.map(p => (
             <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
           ))}
         </div>
+
+        {/* Hint swipe */}
+        <p style={{ textAlign: 'center', fontSize: 11, color: 'rgba(139,195,74,0.4)', fontStyle: 'italic', paddingBottom: 20 }}>
+          ← Glissez pour changer de catégorie →
+        </p>
       </div>
     );
   }
