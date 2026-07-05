@@ -1,11 +1,11 @@
 import { useState, useRef, useCallback } from 'react';
 
 /* ─────────────────────────────────────────
-   Carte produit — mobile-first
+   Carte produit — épuré, minimal
 ───────────────────────────────────────── */
 function ProduitCard({ produit, onAdd, lang, isMobile }) {
   const [qty, setQty] = useState(0);
-  const L = lang === 'en' ? { add: 'Order' } : { add: 'Ajouter' };
+  const L = lang === 'en' ? { add: 'Add' } : { add: 'Ajouter' };
 
   const handleAdd = () => {
     if (qty === 0) return;
@@ -14,75 +14,68 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
   };
 
   if (isMobile) {
-    // ── CARTE MOBILE pleine largeur ──
     return (
       <div style={{
-        display: 'flex', gap: 12, padding: '12px 14px',
-        background: '#FFFFFF', borderRadius: 14,
+        display: 'flex', gap: 14, padding: '14px 16px',
+        background: '#FFFFFF', borderRadius: 12,
         marginBottom: 10, alignItems: 'center',
-        boxShadow: '0 2px 10px rgba(61,82,38,0.06)',
-        border: '1px solid rgba(139,195,74,0.1)',
+        border: '1px solid #F0F0F0',
       }}>
-        {/* Image */}
         <div style={{
-          width: 64, height: 64, borderRadius: 12, overflow: 'hidden', flexShrink: 0,
-          background: '#F0F8E8',
+          width: 60, height: 60, borderRadius: 10, overflow: 'hidden', flexShrink: 0,
+          background: '#FAFAFA',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
           {produit.image_url
             ? <img src={produit.image_url} alt={produit.nom}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            : <span style={{ fontSize: 26 }}>🍽️</span>}
+            : <span style={{ fontSize: 24 }}>🍽️</span>}
         </div>
 
-        {/* Infos */}
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{
-            fontFamily: "'Playfair Display',serif",
-            fontSize: 15, fontWeight: 700, color: '#3D5226',
-            lineHeight: 1.3, marginBottom: 2,
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: 15, fontWeight: 600, color: '#1A1A1A',
+            lineHeight: 1.3, marginBottom: 3,
             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
           }}>{produit.nom}</p>
           {produit.description && (
-            <p style={{ fontSize: 12, color: '#8A9B6E', lineHeight: 1.4, marginBottom: 4,
+            <p style={{ fontSize: 12, color: '#999', lineHeight: 1.4, marginBottom: 5,
               display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
               {produit.description}
             </p>
           )}
-          <p style={{ fontSize: 16, fontWeight: 800, color: '#5A7038' }}>
-            {Number(produit.prix).toFixed(2)}<span style={{ fontSize: 11, fontWeight: 500 }}> €</span>
+          <p style={{ fontSize: 16, fontWeight: 700, color: '#1A1A1A' }}>
+            {Number(produit.prix).toFixed(2)}<span style={{ fontSize: 11, fontWeight: 400, color: '#999' }}> €</span>
           </p>
         </div>
 
-        {/* Contrôles quantité */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center', flexShrink: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
-              width: 30, height: 30, borderRadius: '50%',
-              border: '1.5px solid rgba(139,195,74,0.4)',
-              background: '#F0F8E8', color: '#3D5226',
-              fontSize: 18, fontWeight: 700,
+              width: 30, height: 30, borderRadius: 8,
+              border: '1px solid #E0E0E0', background: '#FFFFFF', color: '#1A1A1A',
+              fontSize: 18, fontWeight: 400,
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
               touchAction: 'manipulation',
             }}>−</button>
-            <span style={{ fontSize: 15, fontWeight: 700, color: '#3D5226', minWidth: 20, textAlign: 'center' }}>
+            <span style={{ fontSize: 15, fontWeight: 600, color: '#1A1A1A', minWidth: 20, textAlign: 'center' }}>
               {qty}
             </span>
             <button onClick={() => setQty(q => q + 1)} style={{
-              width: 30, height: 30, borderRadius: '50%',
-              border: 'none', background: '#FDD835', color: '#3D5226',
-              fontSize: 18, fontWeight: 700,
+              width: 30, height: 30, borderRadius: 8,
+              border: 'none', background: '#1A1A1A', color: '#FFFFFF',
+              fontSize: 18, fontWeight: 400,
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
               touchAction: 'manipulation',
             }}>+</button>
           </div>
           {qty > 0 && (
             <button onClick={handleAdd} style={{
-              background: 'linear-gradient(135deg, #8BC34A, #FDD835)', color: '#FFFFFF',
+              background: '#FDD835', color: '#1A1A1A',
               border: 'none', borderRadius: 8,
-              padding: '6px 14px', fontSize: 12, fontWeight: 700,
+              padding: '6px 16px', fontSize: 12, fontWeight: 700,
               cursor: 'pointer', whiteSpace: 'nowrap', touchAction: 'manipulation',
-              boxShadow: '0 3px 8px rgba(139,195,74,0.3)',
             }}>✓ {L.add}</button>
           )}
         </div>
@@ -90,67 +83,66 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
     );
   }
 
-  // ── CARTE DESKTOP (dans le livre) ──
+  // Desktop card (in book)
   return (
     <div style={{
-      display: 'flex', gap: 10,
-      padding: '10px 0',
-      borderBottom: '1px solid rgba(61,82,38,0.12)',
+      display: 'flex', gap: 12, padding: '12px 0',
+      borderBottom: '1px solid #F0F0F0',
       alignItems: 'center',
     }}>
       <div style={{
-        width: 56, height: 56, borderRadius: 8, overflow: 'hidden', flexShrink: 0,
-        background: 'rgba(61,82,38,0.08)',
+        width: 50, height: 50, borderRadius: 8, overflow: 'hidden', flexShrink: 0,
+        background: '#FAFAFA',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         {produit.image_url
           ? <img src={produit.image_url} alt={produit.nom}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          : <span style={{ fontSize: 22 }}>🍽️</span>}
+          : <span style={{ fontSize: 20 }}>🍽️</span>}
       </div>
 
       <div style={{ flex: 1, minWidth: 0 }}>
         <p style={{
-          fontFamily: "'Playfair Display',serif",
-          fontSize: 13, fontWeight: 700, color: '#3D5226',
-          lineHeight: 1.3, marginBottom: 1,
+          fontFamily: "'Playfair Display', Georgia, serif",
+          fontSize: 14, fontWeight: 600, color: '#1A1A1A',
+          lineHeight: 1.3, marginBottom: 2,
           whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
         }}>{produit.nom}</p>
         {produit.description && (
-          <p style={{ fontSize: 10, color: '#8A9B6E', lineHeight: 1.3, marginBottom: 2 }}>
-            {produit.description.length > 45 ? produit.description.slice(0, 45) + '…' : produit.description}
+          <p style={{ fontSize: 11, color: '#999', lineHeight: 1.3, marginBottom: 3 }}>
+            {produit.description.length > 50 ? produit.description.slice(0, 50) + '…' : produit.description}
           </p>
         )}
-        <p style={{ fontSize: 14, fontWeight: 800, color: '#3D5226' }}>
-          {Number(produit.prix).toFixed(2)}<span style={{ fontSize: 9, fontWeight: 500 }}> €</span>
+        <p style={{ fontSize: 14, fontWeight: 700, color: '#1A1A1A' }}>
+          {Number(produit.prix).toFixed(2)}<span style={{ fontSize: 9, fontWeight: 400, color: '#999' }}> €</span>
         </p>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'center', flexShrink: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
-            width: 22, height: 22, borderRadius: '50%', border: '1.5px solid #3D5226',
-            background: 'transparent', color: '#3D5226',
-            fontSize: 13, fontWeight: 700,
-            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: 24, height: 24, borderRadius: 6, border: '1px solid #E0E0E0',
+            background: '#FFFFFF', color: '#1A1A1A',
+            fontSize: 14, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
             touchAction: 'manipulation',
           }}>−</button>
-          <span style={{ fontSize: 12, fontWeight: 700, color: '#3D5226', minWidth: 14, textAlign: 'center' }}>
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#1A1A1A', minWidth: 14, textAlign: 'center' }}>
             {qty}
           </span>
           <button onClick={() => setQty(q => q + 1)} style={{
-            width: 22, height: 22, borderRadius: '50%', border: 'none',
-            background: '#FDD835', color: '#3D5226',
-            fontSize: 13, fontWeight: 700,
-            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: 24, height: 24, borderRadius: 6, border: 'none',
+            background: '#1A1A1A', color: '#FFFFFF',
+            fontSize: 14, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
             touchAction: 'manipulation',
           }}>+</button>
         </div>
         {qty > 0 && (
           <button onClick={handleAdd} style={{
-            background: 'linear-gradient(135deg, #FDD835, #8BC34A)', color: '#FFFFFF',
-            border: 'none', borderRadius: 5,
-            padding: '3px 7px', fontSize: 9, fontWeight: 700,
+            background: '#FDD835', color: '#1A1A1A',
+            border: 'none', borderRadius: 6,
+            padding: '4px 10px', fontSize: 10, fontWeight: 700,
             cursor: 'pointer', whiteSpace: 'nowrap', touchAction: 'manipulation',
           }}>✓ {L.add}</button>
         )}
@@ -159,69 +151,47 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
   );
 }
 
-/* ─────────────────────────────────────────
-   Contenu d'une face de page (desktop book)
-───────────────────────────────────────── */
-function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, side, isMobile }) {
+/* ─── Desktop book page content ─── */
+function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, side }) {
   return (
     <div style={{
       width: '100%', height: '100%',
-      background: side === 'left'
-        ? 'linear-gradient(to left, #F0F8E8, #FFFFFF)'
-        : 'linear-gradient(to right, #F0F8E8, #FFFFFF)',
-      padding: '18px 14px 10px',
+      background: '#FFFFFF',
+      padding: '20px 16px 12px',
       display: 'flex', flexDirection: 'column',
       position: 'relative', overflow: 'hidden',
-      boxShadow: side === 'left'
-        ? 'inset -5px 0 15px rgba(61,82,38,0.06)'
-        : 'inset 5px 0 15px rgba(61,82,38,0.06)',
     }}>
-      {/* Lignes cahier */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'repeating-linear-gradient(transparent, transparent 24px, rgba(61,82,38,0.04) 24px, rgba(61,82,38,0.04) 25px)',
-        backgroundPositionY: '44px',
-      }} />
-
-      {/* En-tête catégorie */}
       {categorie && (
         <div style={{
-          borderBottom: '2px solid rgba(139,195,74,0.3)',
-          marginBottom: 10, paddingBottom: 7,
-          display: 'flex', alignItems: 'center', gap: 5,
-          position: 'relative',
+          borderBottom: '2px solid #1A1A1A',
+          marginBottom: 12, paddingBottom: 8,
+          display: 'flex', alignItems: 'center', gap: 8,
         }}>
-          <span style={{ fontSize: 16 }}>{categorie.emoji || '🍽️'}</span>
+          <span style={{ fontSize: 18 }}>{categorie.emoji || '🍽️'}</span>
           <span style={{
-            fontFamily: "'Playfair Display',serif",
-            fontSize: 15, fontWeight: 700, color: '#3D5226',
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: 16, fontWeight: 700, color: '#1A1A1A',
           }}>{categorie.nom}</span>
         </div>
       )}
 
-      {/* Produits */}
-      <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+      <div style={{ flex: 1, overflow: 'hidden' }}>
         {produits.map(p => (
           <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={false} />
         ))}
       </div>
 
-      {/* Numéro de page */}
       <p style={{
         textAlign: side === 'left' ? 'left' : 'right',
-        fontSize: 9, color: 'rgba(61,82,38,0.3)',
-        fontStyle: 'italic', marginTop: 4,
-        fontFamily: "'Playfair Display',serif",
-        position: 'relative',
+        fontSize: 10, color: '#CCC',
+        marginTop: 6, fontFamily: "'Playfair Display', serif",
       }}>{pageNum} / {totalPages}</p>
     </div>
   );
 }
 
-/* ─────────────────────────────────────────
-   Page animée (desktop)
-───────────────────────────────────────── */
-function FlippingPage({ flipping, flipDir, fromPage, toPage, onAdd, lang, totalPages, spreadIndex, isMobile }) {
+/* ─── Desktop flipping page ─── */
+function FlippingPage({ flipping, flipDir, fromPage, toPage, onAdd, lang, totalPages, spreadIndex }) {
   if (!flipping) return null;
   return (
     <div style={{
@@ -229,7 +199,7 @@ function FlippingPage({ flipping, flipDir, fromPage, toPage, onAdd, lang, totalP
       [flipDir === 'next' ? 'right' : 'left']: 0,
       transformOrigin: flipDir === 'next' ? 'left center' : 'right center',
       transformStyle: 'preserve-3d', zIndex: 20,
-      animation: `pageFlip 0.65s cubic-bezier(0.645,0.045,0.355,1.000) forwards`,
+      animation: `pageFlip 0.6s cubic-bezier(0.4,0,0.2,1) forwards`,
     }}>
       <style>{`
         @keyframes pageFlip {
@@ -240,30 +210,30 @@ function FlippingPage({ flipping, flipDir, fromPage, toPage, onAdd, lang, totalP
       <div style={{
         position: 'absolute', inset: 0, overflow: 'hidden',
         backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
-        borderRadius: flipDir === 'next' ? '0 8px 8px 0' : '8px 0 0 8px',
+        borderRadius: flipDir === 'next' ? '0 10px 10px 0' : '10px 0 0 10px',
       }}>
         {fromPage && <PageContent produits={fromPage.produits} categorie={fromPage.categorie}
           pageNum={flipDir === 'next' ? spreadIndex * 2 + 2 : spreadIndex * 2 + 1}
           totalPages={totalPages} onAdd={onAdd} lang={lang}
-          side={flipDir === 'next' ? 'right' : 'left'} isMobile={false} />}
+          side={flipDir === 'next' ? 'right' : 'left'} />}
       </div>
       <div style={{
         position: 'absolute', inset: 0, overflow: 'hidden',
         backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
         transform: 'rotateY(180deg) scaleX(-1)',
-        borderRadius: flipDir === 'next' ? '8px 0 0 8px' : '0 8px 8px 0',
+        borderRadius: flipDir === 'next' ? '10px 0 0 10px' : '0 10px 10px 0',
       }}>
         {toPage && <PageContent produits={toPage.produits} categorie={toPage.categorie}
           pageNum={flipDir === 'next' ? spreadIndex * 2 + 3 : spreadIndex * 2}
           totalPages={totalPages} onAdd={onAdd} lang={lang}
-          side={flipDir === 'next' ? 'left' : 'right'} isMobile={false} />}
+          side={flipDir === 'next' ? 'left' : 'right'} />}
       </div>
     </div>
   );
 }
 
 /* ─────────────────────────────────────────
-   Book3D principal — mobile-first
+   Book3D — main component
 ───────────────────────────────────────── */
 export default function Book3D({ pages, onAdd, lang, isMobile }) {
   const [spread, setSpread]         = useState(0);
@@ -273,41 +243,28 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
   const [activeCat, setActiveCat]   = useState(0);
   const totalSpreads = Math.ceil(pages.length / 2);
 
-  const leftPage  = pages[spread * 2]     || null;
-  const rightPage = pages[spread * 2 + 1] || null;
+  const touchStart = useRef(null);
 
   const flip = useCallback((dir) => {
     if (flipping) return;
     if (dir === 'next' && spread >= totalSpreads - 1) return;
     if (dir === 'prev' && spread <= 0) return;
-
     const next = dir === 'next' ? spread + 1 : spread - 1;
     setFlipDir(dir); setNextSpread(next); setFlipping(true);
-    setTimeout(() => { setSpread(next); setFlipping(false); setFlipDir(null); }, 650);
+    setTimeout(() => { setSpread(next); setFlipping(false); setFlipDir(null); }, 600);
   }, [flipping, spread, totalSpreads]);
 
-  // Swipe tactile (desktop)
-  const touchStart = useRef(null);
-  const onTouchStart = (e) => { touchStart.current = e.touches[0].clientX; };
-  const onTouchEnd   = (e) => {
-    if (touchStart.current === null) return;
-    const diff = touchStart.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) flip(diff > 0 ? 'next' : 'prev');
-    touchStart.current = null;
-  };
-
   if (!pages || pages.length === 0) return (
-    <div style={{ textAlign: 'center', padding: '60px 20px', color: 'rgba(61,82,38,0.4)' }}>
-      <div style={{ fontSize: 44, marginBottom: 14 }}>📖</div>
+    <div style={{ textAlign: 'center', padding: '60px 20px', color: '#999' }}>
+      <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
       <p style={{ fontSize: 15 }}>Aucun produit disponible</p>
     </div>
   );
 
   // ═══════════════════════════════════════════
-  //  MODE MOBILE — Onglets catégories + liste défilante
+  //  MOBILE — Category tabs + scrollable cards
   // ═══════════════════════════════════════════
   if (isMobile) {
-    // Grouper par catégorie unique
     const categories = [];
     pages.forEach(p => {
       if (!categories.find(c => c.nom === p.categorie?.nom)) {
@@ -319,20 +276,15 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
     const currentPages = pages.filter(p => p.categorie?.nom === currentCat?.nom);
     const allProducts = currentPages.flatMap(p => p.produits);
 
-    // Swipe gauche/droite pour changer de catégorie
-    const catTouchStart = useRef(null);
-    const onCatTouchStart = (e) => { catTouchStart.current = e.touches[0].clientX; };
+    const onCatTouchStart = (e) => { touchStart.current = e.touches[0].clientX; };
     const onCatTouchEnd = (e) => {
-      if (catTouchStart.current === null) return;
-      const diff = catTouchStart.current - e.changedTouches[0].clientX;
+      if (touchStart.current === null) return;
+      const diff = touchStart.current - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 60) {
-        if (diff > 0 && activeCat < categories.length - 1) {
-          setActiveCat(activeCat + 1);
-        } else if (diff < 0 && activeCat > 0) {
-          setActiveCat(activeCat - 1);
-        }
+        if (diff > 0 && activeCat < categories.length - 1) setActiveCat(activeCat + 1);
+        else if (diff < 0 && activeCat > 0) setActiveCat(activeCat - 1);
       }
-      catTouchStart.current = null;
+      touchStart.current = null;
     };
 
     return (
@@ -341,27 +293,23 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
         onTouchEnd={onCatTouchEnd}
         style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
       >
-        {/* Onglets catégories — scroll horizontal */}
+        {/* Category tabs */}
         <div style={{
-          display: 'flex', gap: 8, overflowX: 'auto', padding: '0 4px 14px',
-          scrollbarWidth: 'none', msOverflowStyle: 'none',
+          display: 'flex', gap: 8, overflowX: 'auto', padding: '0 4px 16px',
+          scrollbarWidth: 'none',
           WebkitOverflowScrolling: 'touch',
-          position: 'sticky', top: 0, zIndex: 10,
         }}>
           <style>{`div::-webkit-scrollbar { display: none; }`}</style>
           {categories.map((cat, i) => (
             <button key={i} onClick={() => setActiveCat(i)} style={{
               flexShrink: 0,
-              padding: '8px 16px', borderRadius: 20,
-              background: i === activeCat
-                ? 'linear-gradient(135deg, #FDD835, #8BC34A)'
-                : '#FFFFFF',
-              color: i === activeCat ? '#FFFFFF' : '#5A7038',
-              border: i === activeCat ? 'none' : '1px solid rgba(139,195,74,0.2)',
-              fontSize: 13, fontWeight: 700, cursor: 'pointer',
-              display: 'flex', alignItems: 'center', gap: 5,
+              padding: '8px 18px', borderRadius: 24,
+              background: i === activeCat ? '#1A1A1A' : '#FFFFFF',
+              color: i === activeCat ? '#FFFFFF' : '#666',
+              border: i === activeCat ? 'none' : '1px solid #E0E0E0',
+              fontSize: 13, fontWeight: 600, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: 6,
               whiteSpace: 'nowrap', touchAction: 'manipulation',
-              boxShadow: i === activeCat ? '0 3px 10px rgba(139,195,74,0.3)' : 'none',
               transition: 'all 0.2s',
             }}>
               <span style={{ fontSize: 15 }}>{cat?.emoji || '🍽️'}</span>
@@ -370,164 +318,145 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
           ))}
         </div>
 
-        {/* En-tête catégorie active */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 8,
-          padding: '4px 4px 12px',
-        }}>
-          <span style={{ fontSize: 22 }}>{currentCat?.emoji || '🍽️'}</span>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 20, fontWeight: 800, color: '#3D5226',
-          }}>{currentCat?.nom}</h2>
-          <span style={{
-            fontSize: 12, color: '#8A9B6E', fontWeight: 500,
-          }}>{allProducts.length} {lang === 'en' ? 'items' : 'articles'}</span>
-        </div>
-
-        {/* Indicateur de catégorie */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 10 }}>
+        {/* Category indicator dots */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 12 }}>
           {categories.map((_, i) => (
             <div key={i} style={{
-              width: i === activeCat ? 20 : 6, height: 6, borderRadius: 3,
-              background: i === activeCat ? '#8BC34A' : 'rgba(139,195,74,0.2)',
+              width: i === activeCat ? 24 : 6, height: 6, borderRadius: 3,
+              background: i === activeCat ? '#1A1A1A' : '#E0E0E0',
               transition: 'all 0.3s',
             }} />
           ))}
         </div>
 
-        {/* Liste produits — défilement naturel */}
-        <div style={{ paddingBottom: 80 }}>
+        {/* Products */}
+        <div style={{ paddingBottom: 20 }}>
           {allProducts.map(p => (
             <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
           ))}
         </div>
-
-        {/* Hint swipe */}
-        <p style={{ textAlign: 'center', fontSize: 11, color: 'rgba(139,195,74,0.4)', fontStyle: 'italic', paddingBottom: 20 }}>
-          ← Glissez pour changer de catégorie →
-        </p>
       </div>
     );
   }
 
   // ═══════════════════════════════════════════
-  //  MODE DESKTOP — Livre 3D double page
+  //  DESKTOP — Book layout
   // ═══════════════════════════════════════════
+  const leftPage  = pages[spread * 2]     || null;
+  const rightPage = pages[spread * 2 + 1] || null;
   const nextLeftPage  = pages[nextSpread * 2]     || null;
   const nextRightPage = pages[nextSpread * 2 + 1] || null;
   const flippingFromPage = flipDir === 'next' ? rightPage : leftPage;
   const flippingToPage   = flipDir === 'next' ? nextLeftPage : nextRightPage;
-  const bookHeight = 520;
+  const bookHeight = 540;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
-      <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}
-        style={{ width: '100%', maxWidth: 820, perspective: '2500px', userSelect: 'none' }}>
+      <div
+        onTouchStart={(e) => touchStart.current = e.touches[0].clientX}
+        onTouchEnd={(e) => {
+          if (touchStart.current === null) return;
+          const diff = touchStart.current - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 40) flip(diff > 0 ? 'next' : 'prev');
+          touchStart.current = null;
+        }}
+        style={{ width: '100%', maxWidth: 820, perspective: '2000px', userSelect: 'none' }}
+      >
         <div style={{
           display: 'flex', height: bookHeight, position: 'relative',
-          boxShadow: '0 20px 50px rgba(61,82,38,0.12), 0 8px 16px rgba(61,82,38,0.08)',
-          borderRadius: '4px 14px 14px 4px',
+          boxShadow: '0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)',
+          borderRadius: '6px 12px 12px 6px',
           transformStyle: 'preserve-3d',
         }}>
-          {/* Reliure */}
+          {/* Spine */}
           <div style={{
-            position: 'absolute', left: '50%', top: 0, bottom: 0, width: 8,
+            position: 'absolute', left: '50%', top: 0, bottom: 0, width: 4,
             transform: 'translateX(-50%)',
-            background: 'linear-gradient(to right, #EDE9D8, #C5E1A5, #EDE9D8)',
-            zIndex: 15, boxShadow: '0 0 12px rgba(61,82,38,0.06)',
+            background: 'linear-gradient(to right, #F0F0F0, #E0E0E0, #F0F0F0)',
+            zIndex: 15,
           }} />
 
-          {/* Page gauche */}
+          {/* Left page */}
           <div style={{
-            flex: 1, overflow: 'hidden', borderRadius: '8px 0 0 8px',
+            flex: 1, overflow: 'hidden', borderRadius: '6px 0 0 6px',
             opacity: flipping && flipDir === 'prev' ? 0 : 1,
+            background: '#FFFFFF',
           }}>
             {leftPage
               ? <PageContent produits={leftPage.produits} categorie={leftPage.categorie}
-                  pageNum={spread * 2 + 1} totalPages={pages.length} onAdd={onAdd} lang={lang} side="left" isMobile={false} />
-              : <div style={{ width: '100%', height: '100%', background: 'linear-gradient(to left,#F0F8E8,#FFFFFF)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ color: 'rgba(61,82,38,0.2)', fontSize: 40 }}>✦</span>
-                </div>
+                  pageNum={spread * 2 + 1} totalPages={pages.length} onAdd={onAdd} lang={lang} side="left" />
+              : <div style={{ width: '100%', height: '100%', background: '#FFFFFF' }} />
             }
           </div>
 
-          {/* Page droite */}
+          {/* Right page */}
           <div style={{
-            flex: 1, overflow: 'hidden', borderRadius: '0 8px 8px 0',
+            flex: 1, overflow: 'hidden', borderRadius: '0 6px 6px 0',
             opacity: flipping && flipDir === 'next' ? 0 : 1,
+            background: '#FFFFFF',
           }}>
             {rightPage
               ? <PageContent produits={rightPage.produits} categorie={rightPage.categorie}
-                  pageNum={spread * 2 + 2} totalPages={pages.length} onAdd={onAdd} lang={lang} side="right" isMobile={false} />
-              : <div style={{ width: '100%', height: '100%', background: 'linear-gradient(to right,#F0F8E8,#FFFFFF)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ color: 'rgba(61,82,38,0.2)', fontSize: 40 }}>✦</span>
-                </div>
+                  pageNum={spread * 2 + 2} totalPages={pages.length} onAdd={onAdd} lang={lang} side="right" />
+              : <div style={{ width: '100%', height: '100%', background: '#FFFFFF' }} />
             }
           </div>
 
-          {/* Pages du spread suivant en fond */}
+          {/* Background pages during flip */}
           {flipping && (
             <>
               {flipDir === 'next' && nextLeftPage && (
-                <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '50%', overflow: 'hidden', borderRadius: '8px 0 0 8px', zIndex: 5 }}>
+                <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '50%', overflow: 'hidden', borderRadius: '6px 0 0 6px', zIndex: 5 }}>
                   <PageContent produits={nextLeftPage.produits} categorie={nextLeftPage.categorie}
-                    pageNum={nextSpread * 2 + 1} totalPages={pages.length} onAdd={onAdd} lang={lang} side="left" isMobile={false} />
+                    pageNum={nextSpread * 2 + 1} totalPages={pages.length} onAdd={onAdd} lang={lang} side="left" />
                 </div>
               )}
               {flipDir === 'prev' && nextRightPage && (
-                <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '50%', overflow: 'hidden', borderRadius: '0 8px 8px 0', zIndex: 5 }}>
+                <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '50%', overflow: 'hidden', borderRadius: '0 6px 6px 0', zIndex: 5 }}>
                   <PageContent produits={nextRightPage.produits} categorie={nextRightPage.categorie}
-                    pageNum={nextSpread * 2 + 2} totalPages={pages.length} onAdd={onAdd} lang={lang} side="right" isMobile={false} />
+                    pageNum={nextSpread * 2 + 2} totalPages={pages.length} onAdd={onAdd} lang={lang} side="right" />
                 </div>
               )}
             </>
           )}
 
-          {/* Page animée */}
           <FlippingPage
             flipping={flipping} flipDir={flipDir}
             fromPage={flippingFromPage} toPage={flippingToPage}
             onAdd={onAdd} lang={lang}
-            totalPages={pages.length} spreadIndex={spread} isMobile={false}
+            totalPages={pages.length} spreadIndex={spread}
           />
         </div>
       </div>
 
-      {/* Navigation desktop */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+      {/* Navigation */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
         <button onClick={() => flip('prev')} disabled={spread === 0 || flipping} style={{
-          width: 46, height: 46, borderRadius: '50%',
-          background: spread === 0 ? 'rgba(255,255,255,0.3)' : 'linear-gradient(135deg, #FDD835, #8BC34A)',
-          border: 'none', color: spread === 0 ? 'rgba(61,82,38,0.2)' : '#FFFFFF',
-          fontSize: 22, cursor: spread === 0 ? 'not-allowed' : 'pointer',
+          width: 44, height: 44, borderRadius: '50%',
+          background: spread === 0 ? '#F5F5F5' : '#1A1A1A',
+          border: 'none', color: spread === 0 ? '#CCC' : '#FFFFFF',
+          fontSize: 20, cursor: spread === 0 ? 'default' : 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: spread === 0 ? 'none' : '0 4px 14px rgba(139,195,74,0.3)',
         }}>‹</button>
 
-        <div style={{ display: 'flex', gap: 7 }}>
+        <div style={{ display: 'flex', gap: 6 }}>
           {Array.from({ length: totalSpreads }).map((_, i) => (
             <div key={i} onClick={() => !flipping && setSpread(i)} style={{
-              width: i === spread ? 22 : 7, height: 7, borderRadius: 4,
-              background: i === spread ? '#8BC34A' : 'rgba(139,195,74,0.2)',
+              width: i === spread ? 24 : 7, height: 7, borderRadius: 4,
+              background: i === spread ? '#1A1A1A' : '#E0E0E0',
               transition: 'all 0.3s', cursor: 'pointer',
             }} />
           ))}
         </div>
 
         <button onClick={() => flip('next')} disabled={spread >= totalSpreads - 1 || flipping} style={{
-          width: 46, height: 46, borderRadius: '50%',
-          background: spread >= totalSpreads - 1 ? 'rgba(255,255,255,0.3)' : 'linear-gradient(135deg, #FDD835, #8BC34A)',
-          border: 'none', color: spread >= totalSpreads - 1 ? 'rgba(61,82,38,0.2)' : '#FFFFFF',
-          fontSize: 22, cursor: spread >= totalSpreads - 1 ? 'not-allowed' : 'pointer',
+          width: 44, height: 44, borderRadius: '50%',
+          background: spread >= totalSpreads - 1 ? '#F5F5F5' : '#1A1A1A',
+          border: 'none', color: spread >= totalSpreads - 1 ? '#CCC' : '#FFFFFF',
+          fontSize: 20, cursor: spread >= totalSpreads - 1 ? 'default' : 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: spread >= totalSpreads - 1 ? 'none' : '0 4px 14px rgba(139,195,74,0.3)',
         }}>›</button>
       </div>
-
-      <p style={{ fontSize: 11, color: 'rgba(139,195,74,0.4)', fontStyle: 'italic' }}>
-        ← Glissez pour tourner les pages →
-      </p>
     </div>
   );
 }

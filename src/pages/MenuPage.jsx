@@ -3,19 +3,17 @@ import { getCategories, getProduits, appelServeur, getParametres } from '../lib/
 import Book3D from '../components/Book3D';
 import Panier from '../components/Panier';
 
-// Hook responsive
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   useEffect(() => {
-    const fn = () => setIsMobile(window.innerWidth < 640);
+    const fn = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', fn);
     return () => window.removeEventListener('resize', fn);
   }, []);
   return isMobile;
 }
 
-const ITEMS_PER_PAGE_MOBILE  = 10;
-const ITEMS_PER_PAGE_DESKTOP = 4;
+const ITEMS_PER_PAGE = 6;
 
 const T = {
   fr: {
@@ -27,6 +25,7 @@ const T = {
     envoyer: 'Appeler', annuler: 'Annuler',
     appelOk: '🔔 Le serveur arrive !',
     errTable: 'Indiquez votre numéro de table.',
+    errAppel: "Erreur: impossible d'appeler le serveur.",
   },
   en: {
     titre: 'Our Menu', chargement: 'Loading…',
@@ -37,6 +36,7 @@ const T = {
     envoyer: 'Call', annuler: 'Cancel',
     appelOk: '🔔 Waiter is coming!',
     errTable: 'Please enter your table number.',
+    errAppel: 'Error: could not call the waiter. Try again.',
   },
 };
 
@@ -56,7 +56,6 @@ export default function MenuPage() {
 
   const isMobile = useIsMobile();
   const L = T[lang];
-  const ITEMS_PER_PAGE = isMobile ? ITEMS_PER_PAGE_MOBILE : ITEMS_PER_PAGE_DESKTOP;
 
   useEffect(() => {
     Promise.all([getCategories(), getProduits(), getParametres()]).then(([cats, prods, params]) => {
@@ -114,8 +113,13 @@ export default function MenuPage() {
   const handleAppelServeur = async () => {
     if (!tableAppel.trim()) { setErrAppel(L.errTable); return; }
     setAppelLoading(true); setErrAppel('');
-    await appelServeur(tableAppel.trim());
-    setAppelLoading(false); setShowAppel(false); setTableAppel('');
+    const { error } = await appelServeur(tableAppel.trim());
+    setAppelLoading(false);
+    if (error) {
+      setErrAppel(L.errAppel);
+      return;
+    }
+    setShowAppel(false); setTableAppel('');
     showToast(L.appelOk);
   };
 
@@ -129,84 +133,77 @@ export default function MenuPage() {
 
   return (
     <div style={{
-      minHeight: '100dvh', // dynamic viewport height pour mobile
-      background: 'radial-gradient(ellipse at top, #F0F8E8 0%, #FAF9F0 65%)',
+      minHeight: '100dvh',
+      background: '#FFFFFF',
       display: 'flex', flexDirection: 'column',
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     }}>
 
       {/* ══ HEADER ══ */}
       <header style={{
-        padding: isMobile ? '12px 16px' : '16px 28px',
+        padding: isMobile ? '14px 20px' : '20px 32px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        borderBottom: '1px solid rgba(139,195,74,0.15)',
-        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid #F0F0F0',
+        background: '#FFFFFF',
         position: 'sticky', top: 0, zIndex: 100,
-        background: 'rgba(255,255,255,0.92)',
-        gap: 8,
+        gap: 12,
       }}>
-        {/* Titre + logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 12, minWidth: 0 }}>
+        {/* Nom du restaurant */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
           {parametres?.logo_url && (
-            <div style={{
-              width: isMobile ? 32 : 40, height: isMobile ? 32 : 40,
-              borderRadius: '50%', overflow: 'hidden', flexShrink: 0,
-              border: '1.5px solid rgba(139,195,74,0.4)',
-            }}>
-              <img src={parametres.logo_url} alt="Logo"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+            <img src={parametres.logo_url} alt="Logo"
+              style={{
+                width: isMobile ? 34 : 42, height: isMobile ? 34 : 42,
+                borderRadius: '50%', objectFit: 'cover', flexShrink: 0,
+              }} />
           )}
           <h1 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: isMobile ? 16 : 24,
-            fontWeight: 900,
-            background: 'linear-gradient(135deg, #FDD835, #C5E1A5)',
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-            letterSpacing: '-0.3px',
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: isMobile ? 22 : 28,
+            fontWeight: 700,
+            color: '#1A1A1A',
+            letterSpacing: '-0.5px',
             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-          }}>✦ {parametres?.nom_restaurant || L.titre}</h1>
+            margin: 0,
+          }}>{parametres?.nom_restaurant || L.titre}</h1>
         </div>
 
         {/* Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 10 }}>
-          {/* Langue */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 12 }}>
           <button onClick={() => setLang(l => l === 'fr' ? 'en' : 'fr')} style={{
-            background: 'rgba(139,195,74,0.1)', border: '1px solid rgba(139,195,74,0.25)',
-            color: '#5A7038', borderRadius: 8,
-            padding: isMobile ? '5px 9px' : '7px 13px',
-            fontSize: isMobile ? 11 : 12, fontWeight: 700, cursor: 'pointer',
+            background: 'transparent', border: '1px solid #E0E0E0',
+            color: '#666', borderRadius: 8,
+            padding: isMobile ? '6px 10px' : '8px 14px',
+            fontSize: isMobile ? 12 : 13, fontWeight: 600, cursor: 'pointer',
             whiteSpace: 'nowrap',
           }}>{lang === 'fr' ? '🇬🇧' : '🇫🇷'}</button>
 
-          {/* Appel serveur */}
           <button onClick={() => setShowAppel(true)} style={{
-            background: 'rgba(139,195,74,0.1)', border: '1px solid rgba(139,195,74,0.25)',
-            color: '#5A7038', borderRadius: 8,
-            padding: isMobile ? '5px 9px' : '7px 13px',
-            fontSize: isMobile ? 11 : 13, fontWeight: 600, cursor: 'pointer',
+            background: 'transparent', border: '1px solid #E0E0E0',
+            color: '#666', borderRadius: 8,
+            padding: isMobile ? '6px 12px' : '8px 16px',
+            fontSize: isMobile ? 12 : 13, fontWeight: 600, cursor: 'pointer',
             whiteSpace: 'nowrap',
           }}>{isMobile ? '🔔' : L.appelServeurFull}</button>
 
-          {/* Panier */}
           <button onClick={() => setShowPanier(true)} style={{
-            background: totalItems > 0
-              ? 'linear-gradient(135deg, #FDD835, #8BC34A)'
-              : 'rgba(139,195,74,0.1)',
-            border: '1px solid rgba(139,195,74,0.25)',
-            color: totalItems > 0 ? '#FFFFFF' : '#5A7038',
+            background: totalItems > 0 ? '#1A1A1A' : 'transparent',
+            border: totalItems > 0 ? 'none' : '1px solid #E0E0E0',
+            color: totalItems > 0 ? '#FFFFFF' : '#666',
             borderRadius: 8,
-            padding: isMobile ? '5px 10px' : '7px 15px',
-            fontSize: isMobile ? 11 : 13, fontWeight: 700, cursor: 'pointer',
-            display: 'flex', alignItems: 'center', gap: 5,
+            padding: isMobile ? '6px 14px' : '8px 18px',
+            fontSize: isMobile ? 12 : 13, fontWeight: 700, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', gap: 6,
             whiteSpace: 'nowrap',
-            boxShadow: totalItems > 0 ? '0 3px 12px rgba(139,195,74,0.35)' : 'none',
           }}>
             🛒 {!isMobile && L.panier}
             {totalItems > 0 && (
               <span style={{
-                background: '#3D5226', color: '#FFFFFF',
+                background: isMobile ? '#FDD835' : 'rgba(255,255,255,0.25)',
+                color: isMobile ? '#1A1A1A' : '#FFFFFF',
                 borderRadius: '50%',
-                width: isMobile ? 18 : 22, height: isMobile ? 18 : 22,
+                minWidth: isMobile ? 18 : 20, height: isMobile ? 18 : 20,
+                padding: '0 5px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: isMobile ? 10 : 11, fontWeight: 800,
               }}>{totalItems}</span>
@@ -215,42 +212,42 @@ export default function MenuPage() {
         </div>
       </header>
 
-      {/* ══ CONTENU PRINCIPAL ══ */}
+      {/* ══ CONTENU ══ */}
       <main style={{
         flex: 1,
-        padding: isMobile ? '16px 8px 80px' : '28px 20px 60px',
-        maxWidth: 900, width: '100%', margin: '0 auto',
+        padding: isMobile ? '20px 16px 80px' : '32px 24px 60px',
+        maxWidth: 960, width: '100%', margin: '0 auto',
         boxSizing: 'border-box',
       }}>
         {loading ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '80px 0' }}>
             <div className="spinner" />
-            <p style={{ color: 'rgba(139,195,74,0.5)', fontSize: 14 }}>{L.chargement}</p>
+            <p style={{ color: '#999', fontSize: 14 }}>{L.chargement}</p>
           </div>
         ) : (
           <Book3D pages={pages} onAdd={handleAdd} lang={lang} isMobile={isMobile} />
         )}
       </main>
 
-      {/* ══ PIED DE PAGE CONTACT ══ */}
+      {/* ══ FOOTER ══ */}
       {!loading && parametres && (parametres.adresse || parametres.telephone) && (
         <footer style={{
-          borderTop: '1px solid rgba(139,195,74,0.15)',
-          padding: isMobile ? '18px 16px 90px' : '24px 20px 40px',
+          borderTop: '1px solid #F0F0F0',
+          padding: isMobile ? '20px 16px 90px' : '28px 24px 40px',
           textAlign: 'center',
-          color: 'rgba(90,112,56,0.6)',
+          color: '#999',
           fontSize: isMobile ? 12 : 13,
-          maxWidth: 900, width: '100%', margin: '0 auto',
+          maxWidth: 960, width: '100%', margin: '0 auto',
         }}>
-          {parametres.adresse && <p style={{ marginBottom: 6 }}>📍 {parametres.adresse}</p>}
-          {parametres.horaires && <p style={{ marginBottom: 6 }}>🕒 {parametres.horaires}</p>}
+          {parametres.adresse && <p style={{ marginBottom: 6, color: '#666' }}>{parametres.adresse}</p>}
+          {parametres.horaires && <p style={{ marginBottom: 6 }}>{parametres.horaires}</p>}
           {parametres.telephone && (
-            <p>
-              📞 {parametres.telephone}
+            <p style={{ color: '#666' }}>
+              {parametres.telephone}
               {parametres.whatsapp && (
                 <a href={`https://wa.me/${parametres.whatsapp}`} target="_blank" rel="noopener noreferrer"
-                  style={{ color: '#5A7038', marginLeft: 10, textDecoration: 'none', fontWeight: 600 }}>
-                  💬 WhatsApp
+                  style={{ color: '#1A1A1A', marginLeft: 10, textDecoration: 'none', fontWeight: 600 }}>
+                  WhatsApp
                 </a>
               )}
             </p>
@@ -278,10 +275,11 @@ export default function MenuPage() {
             style={{ maxWidth: isMobile ? '92vw' : 420 }}
             onClick={e => e.stopPropagation()}>
             <div style={{ textAlign: 'center', marginBottom: 20 }}>
-              <div style={{ fontSize: isMobile ? 40 : 48, marginBottom: 10 }}>🔔</div>
+              <div style={{ fontSize: isMobile ? 36 : 44, marginBottom: 10 }}>🔔</div>
               <h2 style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: isMobile ? 17 : 20, color: '#5A7038',
+                fontSize: isMobile ? 18 : 22, color: '#1A1A1A',
+                margin: 0,
               }}>{L.tableModal}</h2>
             </div>
             <div style={{ marginBottom: 16 }}>
@@ -290,16 +288,18 @@ export default function MenuPage() {
                 placeholder={L.tablePh}
                 onKeyDown={e => e.key === 'Enter' && handleAppelServeur()}
                 autoFocus
-                style={{ fontSize: isMobile ? 16 : 14 }} /* 16px évite le zoom iOS */
+                style={{ fontSize: isMobile ? 16 : 15 }}
               />
-              {errAppel && <p style={{ color: '#ff7675', fontSize: 12, marginTop: 6 }}>⚠️ {errAppel}</p>}
+              {errAppel && <p style={{ color: '#e63946', fontSize: 12, marginTop: 6 }}>⚠️ {errAppel}</p>}
             </div>
             <div style={{ display: 'flex', gap: 10 }}>
-              <button className="btn btn-dark" onClick={() => setShowAppel(false)}
-                style={{ flex: 1, padding: isMobile ? '12px' : '10px' }}>{L.annuler}</button>
-              <button className="btn btn-gold" onClick={handleAppelServeur} disabled={appelLoading}
-                style={{ flex: 1, padding: isMobile ? '12px' : '10px' }}>
-                {appelLoading ? '⏳' : `🔔 ${L.envoyer}`}
+              <button className="btn btn-outline" onClick={() => setShowAppel(false)}
+                style={{ flex: 1, padding: isMobile ? 14 : 12, fontSize: isMobile ? 15 : 14 }}>
+                {L.annuler}
+              </button>
+              <button className="btn btn-dark" onClick={handleAppelServeur} disabled={appelLoading}
+                style={{ flex: 1, padding: isMobile ? 14 : 12, fontSize: isMobile ? 15 : 14 }}>
+                {appelLoading ? '⏳…' : L.envoyer}
               </button>
             </div>
           </div>
@@ -308,9 +308,15 @@ export default function MenuPage() {
 
       {/* ══ TOAST ══ */}
       {toast && (
-        <div className="toast" style={{ fontSize: isMobile ? 13 : 14, maxWidth: '85vw' }}>
-          {toast}
-        </div>
+        <div style={{
+          position: 'fixed', bottom: isMobile ? 20 : 30, left: '50%',
+          transform: 'translateX(-50%)',
+          background: '#1A1A1A', color: '#FFFFFF',
+          padding: '12px 24px', borderRadius: 12,
+          fontSize: 14, fontWeight: 500, zIndex: 200,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+          animation: 'modalIn 0.3s ease',
+        }}>{toast}</div>
       )}
     </div>
   );
