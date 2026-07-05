@@ -52,6 +52,9 @@ export const getCommandes = () =>
 export const updateStatutCommande = (id, statut) =>
   supabase.from('commandes').update({ statut }).eq('id', id);
 
+export const deleteCommande = (id) =>
+  supabase.from('commandes').delete().eq('id', id);
+
 export const getAppels = () =>
   supabase.from('appels_serveur').select('*').order('created_at', { ascending: false });
 

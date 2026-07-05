@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   signInAdmin, signOutAdmin,
-  getCommandes, updateStatutCommande,
+  getCommandes, updateStatutCommande, deleteCommande,
   getAppels, traiterAppel,
   getAllProduits, getAllCategories,
   createProduit, updateProduit, deleteProduit,
@@ -88,6 +88,12 @@ function CommandesTab() {
     load();
   };
 
+  const handleDelete = async (cmd) => {
+    if (!confirm('Supprimer cette commande de la table ' + cmd.numero_table + ' ?')) return;
+    await deleteCommande(cmd.id);
+    load();
+  };
+
   const filtered = filtre === 'all' ? commandes : commandes.filter(c => c.statut === filtre);
 
   return (
@@ -153,12 +159,22 @@ function CommandesTab() {
                 </div>
               )}
 
-              {/* Action */}
-              {STATUT_NEXT[cmd.statut] && (
-                <button className="btn btn-gold btn-sm" onClick={() => nextStatut(cmd)}>
-                  {cmd.statut === 'recue' ? '🔥 Mettre en cours' : '✅ Marquer terminée'}
-                </button>
-              )}
+              {/* Actions */}
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                {STATUT_NEXT[cmd.statut] && (
+                  <button className="btn btn-gold btn-sm" onClick={() => nextStatut(cmd)}>
+                    {cmd.statut === 'recue' ? '🔥 Mettre en cours' : '✅ Marquer terminée'}
+                  </button>
+                )}
+                {(cmd.statut === 'terminee' || cmd.statut === 'annulee') && (
+                  <button onClick={() => handleDelete(cmd)} style={{
+                    background: 'transparent', border: '1px solid #e63946',
+                    color: '#e63946', borderRadius: 8,
+                    padding: '6px 12px', fontSize: 12, fontWeight: 600,
+                    cursor: 'pointer', touchAction: 'manipulation',
+                  }}>🗑️ Supprimer</button>
+                )}
+              </div>
             </div>
           ))}
         </div>
