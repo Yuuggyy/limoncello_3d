@@ -175,7 +175,7 @@ function FlippingPage({ flipping, flipDir, fromPage, toPage, onAdd, lang, totalP
 /* ─────────────────────────────────────────
    Book3D — main component
 ───────────────────────────────────────── */
-export default function Book3D({ pages, onAdd, lang, isMobile }) {
+export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
   const [spread, setSpread] = useState(0);
   const [flipping, setFlipping] = useState(false);
   const [flipDir, setFlipDir] = useState(null);
@@ -378,17 +378,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
                   <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
                 ))}
 
-                {/* Footer at end of last category */}
-                {idx === catCount - 1 && (
-                  <div style={{
-                    textAlign: 'center', padding: '28px 0 20px',
-                    color: '#B5A98F', fontSize: 12,
-                    borderTop: '1px solid #EDE5D8', marginTop: 20,
-                  }}>
-                    <p style={{ marginBottom: 6, color: '#8A7F70' }}>20 Avenue Tombalbaye, Gombe, Kinshasa</p>
-                    <p style={{ color: '#8A7F70' }}>+243 815 141 111</p>
-                  </div>
-                )}
+
               </div>
             ))}
           </div>
@@ -398,7 +388,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
         <div style={{
           flexShrink: 0,
           display: 'flex', justifyContent: 'center', gap: 6,
-          padding: '8px 0 10px',
+          padding: '8px 0 8px',
           background: '#FFFFFF',
           borderTop: '1px solid #EDE5D8',
         }}>
@@ -409,6 +399,42 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
               transition: 'all 0.3s', cursor: 'pointer',
             }} />
           ))}
+        </div>
+
+        {/* ══ Footer bar — adresse + WhatsApp ══ */}
+        <div style={{
+          flexShrink: 0,
+          background: '#2C1810',
+          padding: '12px 16px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 10,
+        }}>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            {parametres?.adresse && (
+              <p style={{ fontSize: 11, color: '#C5BBA8', margin: 0, lineHeight: 1.3,
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                📍 {parametres.adresse}
+              </p>
+            )}
+            {parametres?.telephone && (
+              <p style={{ fontSize: 11, color: '#C5BBA8', margin: '2px 0 0', lineHeight: 1.3 }}>
+                📞 {parametres.telephone}
+              </p>
+            )}
+          </div>
+          {parametres?.whatsapp && (
+            <a href={`https://wa.me/${parametres.whatsapp}`} target="_blank" rel="noopener noreferrer"
+              style={{
+                flexShrink: 0,
+                background: '#25D366', color: '#FFFFFF',
+                padding: '8px 14px', borderRadius: 8,
+                fontSize: 12, fontWeight: 700, textDecoration: 'none',
+                display: 'flex', alignItems: 'center', gap: 5,
+                whiteSpace: 'nowrap',
+              }}>
+              <span style={{ fontSize: 14 }}>💬</span> WhatsApp
+            </a>
+          )}
         </div>
       </div>
     );

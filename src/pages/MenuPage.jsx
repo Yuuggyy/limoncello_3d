@@ -228,7 +228,7 @@ export default function MenuPage() {
             <p style={{ color: '#999', fontSize: 14 }}>{L.chargement}</p>
           </div>
         ) : (
-          <Book3D pages={pages} onAdd={handleAdd} lang={lang} isMobile={isMobile} />
+          <Book3D pages={pages} onAdd={handleAdd} lang={lang} isMobile={isMobile} parametres={parametres} />
         )}
       </main>
 
