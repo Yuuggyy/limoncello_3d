@@ -134,7 +134,7 @@ function CommandesTab() {
                   </p>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <p style={{ fontSize: 20, fontWeight: 800, color: '#5A7038' }}>{Number(cmd.montant_total).toFixed(2)} €</p>
+                  <p style={{ fontSize: 20, fontWeight: 800, color: '#5A7038' }}>{Number(cmd.montant_total).toFixed(2)} $</p>
                 </div>
               </div>
 
@@ -142,7 +142,7 @@ function CommandesTab() {
               <div style={{ marginBottom: 12, paddingLeft: 8, borderLeft: '2px solid rgba(139,195,74,0.2)' }}>
                 {(cmd.commande_items || []).map((item, i) => (
                   <p key={i} style={{ fontSize: 13, color: 'rgba(61,82,38,0.8)', padding: '2px 0' }}>
-                    × {item.quantite} {item.nom_produit} — {Number(item.prix_unit).toFixed(2)} €
+                    × {item.quantite} {item.nom_produit} — {Number(item.prix_unit).toFixed(2)} $
                   </p>
                 ))}
               </div>
@@ -295,7 +295,7 @@ function ProduitsTab() {
           <form onSubmit={submit}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
               <div><label className="label">Nom *</label><input className="input" value={form.nom} onChange={e => sf('nom', e.target.value)} required /></div>
-              <div><label className="label">Prix (€) *</label><input className="input" type="number" step="0.01" value={form.prix} onChange={e => sf('prix', e.target.value)} required /></div>
+              <div><label className="label">Prix ($) *</label><input className="input" type="number" step="0.01" value={form.prix} onChange={e => sf('prix', e.target.value)} required /></div>
               <div>
                 <label className="label">Catégorie</label>
                 <select className="input" value={form.categorie_id} onChange={e => sf('categorie_id', e.target.value)}>
@@ -359,7 +359,7 @@ function ProduitsTab() {
               <p style={{ fontWeight: 700, fontSize: 14, color: '#3D5226' }}>{p.nom}</p>
               <p style={{ fontSize: 12, color: 'rgba(61,82,38,0.5)' }}>{p.categories?.nom || '—'}</p>
             </div>
-            <p style={{ color: '#5A7038', fontWeight: 700, fontSize: 15 }}>{Number(p.prix).toFixed(2)} €</p>
+            <p style={{ color: '#5A7038', fontWeight: 700, fontSize: 15 }}>{Number(p.prix).toFixed(2)} $</p>
             <span style={{ fontSize: 11, color: p.disponible ? '#66BB6A' : '#ff7675' }}>{p.disponible ? '✅' : '❌'}</span>
             <div style={{ display: 'flex', gap: 8 }}>
               <button className="btn btn-dark btn-sm" onClick={() => openEdit(p)}>✏️</button>

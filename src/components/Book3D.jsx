@@ -34,7 +34,7 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
         <span style={{
           fontSize: isMobile ? 15 : 13.5, fontWeight: 800, color: '#1A1A1A',
           whiteSpace: 'nowrap',
-        }}>{Number(produit.prix).toFixed(2)}€</span>
+        }}>{Number(produit.prix).toFixed(2)} $</span>
       </div>
 
       {produit.description && (

@@ -100,7 +100,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontSize: isMobile ? 14 : 15, fontWeight: 600, color: '#1A1A1A', marginBottom: 2,
                       whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.nom}</p>
-                    <p style={{ fontSize: 13, color: '#999' }}>{Number(item.prix_unit).toFixed(2)} €</p>
+                    <p style={{ fontSize: 13, color: '#999' }}>{Number(item.prix_unit).toFixed(2)} $</p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <button onClick={() => onUpdateQty(idx, -1)} style={{
@@ -122,7 +122,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
                     }}>🗑️</button>
                   </div>
                   <p style={{ fontSize: 14, fontWeight: 700, color: '#1A1A1A', minWidth: 56, textAlign: 'right' }}>
-                    {(item.prix_unit * item.quantite).toFixed(2)} €
+                    {(item.prix_unit * item.quantite).toFixed(2)} $
                   </p>
                 </div>
               ))}
@@ -135,7 +135,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
               borderTop: '2px solid #B8342A',
             }}>
               <span style={{ fontSize: 16, fontWeight: 600, color: '#1A1A1A' }}>{L.total}</span>
-              <span style={{ fontSize: 20, fontWeight: 800, color: '#1A1A1A' }}>{total.toFixed(2)} €</span>
+              <span style={{ fontSize: 20, fontWeight: 800, color: '#1A1A1A' }}>{total.toFixed(2)} $</span>
             </div>
 
             {/* Form */}
