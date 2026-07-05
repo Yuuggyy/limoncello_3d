@@ -132,7 +132,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
             <div style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               padding: '12px 0', marginBottom: 20,
-              borderTop: '2px solid #1A1A1A',
+              borderTop: '2px solid #B8342A',
             }}>
               <span style={{ fontSize: 16, fontWeight: 600, color: '#1A1A1A' }}>{L.total}</span>
               <span style={{ fontSize: 20, fontWeight: 800, color: '#1A1A1A' }}>{total.toFixed(2)} €</span>
@@ -158,7 +158,7 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
                 style={{
                   width: '100%', padding: isMobile ? 16 : 14,
                   fontSize: isMobile ? 16 : 15, fontWeight: 700,
-                  background: '#1A1A1A', color: '#FFFFFF',
+                  background: '#B8342A', color: '#FFFFFF',
                   border: 'none', borderRadius: 10, cursor: loading ? 'default' : 'pointer',
                   touchAction: 'manipulation',
                 }}>

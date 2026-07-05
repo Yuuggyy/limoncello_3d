@@ -187,7 +187,7 @@ export default function MenuPage() {
           }}>{isMobile ? '🔔' : L.appelServeurFull}</button>
 
           <button onClick={() => setShowPanier(true)} style={{
-            background: totalItems > 0 ? '#1A1A1A' : 'transparent',
+            background: totalItems > 0 ? '#B8342A' : 'transparent',
             border: totalItems > 0 ? 'none' : '1px solid #E0E0E0',
             color: totalItems > 0 ? '#FFFFFF' : '#666',
             borderRadius: 8,
