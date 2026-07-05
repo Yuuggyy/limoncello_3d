@@ -133,33 +133,34 @@ export default function MenuPage() {
 
   return (
     <div style={{
-      minHeight: '100dvh',
+      height: '100dvh',
       background: '#FFFFFF',
       display: 'flex', flexDirection: 'column',
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      overflow: 'hidden',
     }}>
 
       {/* ══ HEADER ══ */}
       <header style={{
-        padding: isMobile ? '14px 20px' : '20px 32px',
+        padding: isMobile ? '12px 16px' : '20px 32px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         borderBottom: '1px solid #F0F0F0',
         background: '#FFFFFF',
-        position: 'sticky', top: 0, zIndex: 100,
-        gap: 12,
+        flexShrink: 0,
+        gap: 10,
+        zIndex: 100,
       }}>
-        {/* Nom du restaurant */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
           {parametres?.logo_url && (
             <img src={parametres.logo_url} alt="Logo"
               style={{
-                width: isMobile ? 34 : 42, height: isMobile ? 34 : 42,
+                width: isMobile ? 32 : 42, height: isMobile ? 32 : 42,
                 borderRadius: '50%', objectFit: 'cover', flexShrink: 0,
               }} />
           )}
           <h1 style={{
             fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: isMobile ? 22 : 28,
+            fontSize: isMobile ? 20 : 28,
             fontWeight: 700,
             color: '#1A1A1A',
             letterSpacing: '-0.5px',
@@ -168,8 +169,7 @@ export default function MenuPage() {
           }}>{parametres?.nom_restaurant || L.titre}</h1>
         </div>
 
-        {/* Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 12, flexShrink: 0 }}>
           <button onClick={() => setLang(l => l === 'fr' ? 'en' : 'fr')} style={{
             background: 'transparent', border: '1px solid #E0E0E0',
             color: '#666', borderRadius: 8,
@@ -191,9 +191,9 @@ export default function MenuPage() {
             border: totalItems > 0 ? 'none' : '1px solid #E0E0E0',
             color: totalItems > 0 ? '#FFFFFF' : '#666',
             borderRadius: 8,
-            padding: isMobile ? '6px 14px' : '8px 18px',
+            padding: isMobile ? '6px 12px' : '8px 18px',
             fontSize: isMobile ? 12 : 13, fontWeight: 700, cursor: 'pointer',
-            display: 'flex', alignItems: 'center', gap: 6,
+            display: 'flex', alignItems: 'center', gap: 5,
             whiteSpace: 'nowrap',
           }}>
             🛒 {!isMobile && L.panier}
@@ -215,9 +215,11 @@ export default function MenuPage() {
       {/* ══ CONTENU ══ */}
       <main style={{
         flex: 1,
-        padding: isMobile ? '20px 16px 80px' : '32px 24px 60px',
-        maxWidth: 960, width: '100%', margin: '0 auto',
+        overflow: isMobile ? 'hidden' : 'auto',
+        maxWidth: isMobile ? '100%' : 960,
+        width: '100%', margin: '0 auto',
         boxSizing: 'border-box',
+        padding: isMobile ? 0 : '32px 24px 60px',
       }}>
         {loading ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '80px 0' }}>
@@ -229,15 +231,16 @@ export default function MenuPage() {
         )}
       </main>
 
-      {/* ══ FOOTER ══ */}
-      {!loading && parametres && (parametres.adresse || parametres.telephone) && (
+      {/* ══ FOOTER — desktop only (mobile footer is in scroll area) ══ */}
+      {!isMobile && !loading && parametres && (parametres.adresse || parametres.telephone) && (
         <footer style={{
           borderTop: '1px solid #F0F0F0',
-          padding: isMobile ? '20px 16px 90px' : '28px 24px 40px',
+          padding: '28px 24px 40px',
           textAlign: 'center',
           color: '#999',
-          fontSize: isMobile ? 12 : 13,
+          fontSize: 13,
           maxWidth: 960, width: '100%', margin: '0 auto',
+          flexShrink: 0,
         }}>
           {parametres.adresse && <p style={{ marginBottom: 6, color: '#666' }}>{parametres.adresse}</p>}
           {parametres.horaires && <p style={{ marginBottom: 6 }}>{parametres.horaires}</p>}
@@ -254,6 +257,9 @@ export default function MenuPage() {
           )}
         </footer>
       )}
+
+      {/* ══ Mobile footer inside scroll ══ */}
+      {isMobile && !loading && parametres && (parametres.adresse || parametres.telephone) && null}
 
       {/* ══ PANIER ══ */}
       {showPanier && (

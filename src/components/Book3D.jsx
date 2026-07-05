@@ -1,10 +1,9 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
-const ACCENT = '#B8342A'; /* rouge carte classique */
+const ACCENT = '#B8342A';
 
 /* ─────────────────────────────────────────
-   Ligne produit — style menu imprimé
-   Nom ..................... Prix
+   Ligne produit — style menu imprimé + image
 ───────────────────────────────────────── */
 function ProduitCard({ produit, onAdd, lang, isMobile }) {
   const [qty, setQty] = useState(0);
@@ -16,94 +15,143 @@ function ProduitCard({ produit, onAdd, lang, isMobile }) {
     setQty(0);
   };
 
+  const hasImage = produit.image_url && produit.image_url.trim() !== '';
+
+  if (isMobile) {
+    return (
+      <div style={{
+        padding: '12px 0',
+        borderBottom: '1px solid #F5F5F5',
+        display: 'flex',
+        gap: hasImage ? 12 : 0,
+      }}>
+        {/* Image du plat */}
+        {hasImage && (
+          <div style={{
+            width: 56, height: 56, borderRadius: 8, overflow: 'hidden', flexShrink: 0,
+            background: '#FAFAFA', border: '1px solid #F0F0F0',
+          }}>
+            <img src={produit.image_url} alt={produit.nom}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              loading="lazy" />
+          </div>
+        )}
+
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {/* Nom + pointillés + prix */}
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+            <span style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontSize: 15, fontWeight: 700, color: '#1A1A1A',
+              whiteSpace: 'nowrap',
+            }}>{produit.nom}</span>
+
+            <span style={{
+              flex: 1, borderBottom: '1.5px dotted #CCC',
+              position: 'relative', top: -3, minWidth: 8,
+            }} />
+
+            <span style={{
+              fontSize: 15, fontWeight: 800, color: '#1A1A1A',
+              whiteSpace: 'nowrap',
+            }}>{Number(produit.prix).toFixed(2)} $</span>
+          </div>
+
+          {produit.description && (
+            <p style={{
+              fontSize: 12, color: '#999', fontStyle: 'italic',
+              marginTop: 2, lineHeight: 1.3,
+            }}>{produit.description}</p>
+          )}
+
+          {/* Contrôles quantité */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 6 }}>
+            <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
+              width: 28, height: 28, borderRadius: 6,
+              border: '1px solid #E0E0E0', background: '#FFFFFF', color: '#1A1A1A',
+              fontSize: 16, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              touchAction: 'manipulation',
+            }}>−</button>
+            <span style={{
+              fontSize: 13, fontWeight: 700, color: '#1A1A1A',
+              minWidth: 14, textAlign: 'center',
+            }}>{qty}</span>
+            <button onClick={() => setQty(q => q + 1)} style={{
+              width: 28, height: 28, borderRadius: 6,
+              border: 'none', background: ACCENT, color: '#FFFFFF',
+              fontSize: 16, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              touchAction: 'manipulation',
+            }}>+</button>
+            {qty > 0 && (
+              <button onClick={handleAdd} style={{
+                background: ACCENT, color: '#FFFFFF',
+                border: 'none', borderRadius: 6,
+                padding: '5px 12px', fontSize: 11, fontWeight: 700,
+                cursor: 'pointer', touchAction: 'manipulation',
+                marginLeft: 2,
+              }}>✓ {L.add}</button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop card (in book)
   return (
-    <div style={{ padding: isMobile ? '10px 0' : '8px 0' }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+    <div style={{ padding: '8px 0', borderBottom: '1px solid #F5F5F5' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
         <span style={{
           fontFamily: "'Playfair Display', Georgia, serif",
-          fontSize: isMobile ? 15 : 13.5, fontWeight: 700, color: '#1A1A1A',
+          fontSize: 13.5, fontWeight: 700, color: '#1A1A1A',
           whiteSpace: 'nowrap',
         }}>{produit.nom}</span>
 
         <span style={{
           flex: 1, borderBottom: '1.5px dotted #CCC',
-          position: 'relative', top: -3,
-          minWidth: 12,
+          position: 'relative', top: -3, minWidth: 8,
         }} />
 
         <span style={{
-          fontSize: isMobile ? 15 : 13.5, fontWeight: 800, color: '#1A1A1A',
+          fontSize: 13.5, fontWeight: 800, color: '#1A1A1A',
           whiteSpace: 'nowrap',
         }}>{Number(produit.prix).toFixed(2)} $</span>
       </div>
 
       {produit.description && (
         <p style={{
-          fontSize: isMobile ? 12 : 10.5, color: '#999', fontStyle: 'italic',
+          fontSize: 10.5, color: '#999', fontStyle: 'italic',
           marginTop: 2, lineHeight: 1.3,
-        }}>{produit.description}</p>
+        }}>{produit.description.length > 55 ? produit.description.slice(0, 55) + '…' : produit.description}</p>
       )}
 
-      {/* Contrôles quantité */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 4 }}>
         <button onClick={() => setQty(q => Math.max(0, q - 1))} style={{
-          width: isMobile ? 26 : 20, height: isMobile ? 26 : 20, borderRadius: 6,
+          width: 22, height: 22, borderRadius: 5,
           border: '1px solid #E0E0E0', background: '#FFFFFF', color: '#1A1A1A',
-          fontSize: isMobile ? 14 : 11, cursor: 'pointer',
+          fontSize: 13, cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           touchAction: 'manipulation',
         }}>−</button>
-        <span style={{
-          fontSize: isMobile ? 13 : 11, fontWeight: 700, color: '#1A1A1A',
-          minWidth: 14, textAlign: 'center',
-        }}>{qty}</span>
+        <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1A1A', minWidth: 12, textAlign: 'center' }}>{qty}</span>
         <button onClick={() => setQty(q => q + 1)} style={{
-          width: isMobile ? 26 : 20, height: isMobile ? 26 : 20, borderRadius: 6,
+          width: 22, height: 22, borderRadius: 5,
           border: 'none', background: ACCENT, color: '#FFFFFF',
-          fontSize: isMobile ? 14 : 11, cursor: 'pointer',
+          fontSize: 13, cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           touchAction: 'manipulation',
         }}>+</button>
         {qty > 0 && (
           <button onClick={handleAdd} style={{
             background: ACCENT, color: '#FFFFFF',
-            border: 'none', borderRadius: 6,
-            padding: isMobile ? '5px 12px' : '3px 9px',
-            fontSize: isMobile ? 11 : 9.5, fontWeight: 700,
+            border: 'none', borderRadius: 5,
+            padding: '3px 8px', fontSize: 9, fontWeight: 700,
             cursor: 'pointer', touchAction: 'manipulation',
-            marginLeft: 2,
           }}>✓ {L.add}</button>
         )}
       </div>
-    </div>
-  );
-}
-
-/* ─── Category header — style menu imprimé ─── */
-function CategorieHeader({ categorie, count, isMobile }) {
-  return (
-    <div style={{
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      marginBottom: isMobile ? 10 : 6, marginTop: isMobile ? 4 : 2,
-    }}>
-      <h3 style={{
-        fontFamily: "'Playfair Display', Georgia, serif",
-        fontSize: isMobile ? 19 : 15, fontWeight: 800, color: ACCENT,
-        margin: 0,
-      }}>
-        {categorie?.nom}
-        <span style={{ fontSize: isMobile ? 12 : 10, fontWeight: 500, color: '#999', marginLeft: 6 }}>
-          ({count})
-        </span>
-      </h3>
-      {categorie?.emoji && (
-        <span style={{
-          width: isMobile ? 34 : 26, height: isMobile ? 34 : 26, borderRadius: '50%',
-          background: '#FAFAFA', border: '1px solid #F0F0F0',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: isMobile ? 16 : 13,
-        }}>{categorie.emoji}</span>
-      )}
     </div>
   );
 }
@@ -120,7 +168,15 @@ function PageContent({ produits, categorie, pageNum, totalPages, onAdd, lang, si
     }}>
       {categorie && (
         <div style={{ borderBottom: `2px solid ${ACCENT}`, marginBottom: 10, paddingBottom: 8 }}>
-          <CategorieHeader categorie={categorie} count={produits.length} isMobile={false} />
+          <h3 style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: 15, fontWeight: 800, color: ACCENT, margin: 0,
+          }}>
+            {categorie?.nom}
+            <span style={{ fontSize: 10, fontWeight: 500, color: '#999', marginLeft: 6 }}>
+              ({produits.length})
+            </span>
+          </h3>
         </div>
       )}
 
@@ -193,6 +249,9 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
   const totalSpreads = Math.ceil(pages.length / 2);
 
   const touchStart = useRef(null);
+  const scrollContainerRef = useRef(null);
+  const sectionRefs = useRef([]);
+  const isScrollingToRef = useRef(false);
 
   const flip = useCallback((dir) => {
     if (flipping) return;
@@ -203,6 +262,48 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
     setTimeout(() => { setSpread(next); setFlipping(false); setFlipDir(null); }, 600);
   }, [flipping, spread, totalSpreads]);
 
+  // ═══════════════════════════════════════════
+  //  SCROLL SPY — auto-detect active category
+  // ═══════════════════════════════════════════
+  useEffect(() => {
+    if (!isMobile || !scrollContainerRef.current) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (isScrollingToRef.current) return;
+
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+          const idx = parseInt(entry.target.dataset.catIndex);
+          if (!isNaN(idx) && idx !== activeCat) {
+            setActiveCat(idx);
+          }
+        }
+      });
+    }, {
+      root: scrollContainerRef.current,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: [0, 0.3, 0.5, 1],
+    });
+
+    sectionRefs.current.forEach(el => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [isMobile, pages, activeCat]);
+
+  const scrollToCategory = (idx) => {
+    const el = sectionRefs.current[idx];
+    const container = scrollContainerRef.current;
+    if (!el || !container) return;
+
+    isScrollingToRef.current = true;
+    setActiveCat(idx);
+
+    const offset = 8;
+    const targetTop = el.offsetTop - offset;
+    container.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+    setTimeout(() => { isScrollingToRef.current = false; }, 600);
+  };
+
   if (!pages || pages.length === 0) return (
     <div style={{ textAlign: 'center', padding: '60px 20px', color: '#999' }}>
       <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
@@ -211,83 +312,129 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
   );
 
   // ═══════════════════════════════════════════
-  //  MOBILE — Category tabs + dotted-leader list
+  //  MOBILE — Scrollable menu with sticky header
   // ═══════════════════════════════════════════
   if (isMobile) {
+    // Build categories with their products
     const categories = [];
     pages.forEach(p => {
       if (!categories.find(c => c.nom === p.categorie?.nom)) {
-        categories.push(p.categorie);
+        categories.push({ ...p.categorie, _products: [] });
       }
+      const cat = categories.find(c => c.nom === p.categorie?.nom);
+      cat._products.push(...p.produits);
     });
 
     const currentCat = categories[activeCat];
-    const currentPages = pages.filter(p => p.categorie?.nom === currentCat?.nom);
-    const allProducts = currentPages.flatMap(p => p.produits);
-
-    const onCatTouchStart = (e) => { touchStart.current = e.touches[0].clientX; };
-    const onCatTouchEnd = (e) => {
-      if (touchStart.current === null) return;
-      const diff = touchStart.current - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 60) {
-        if (diff > 0 && activeCat < categories.length - 1) setActiveCat(activeCat + 1);
-        else if (diff < 0 && activeCat > 0) setActiveCat(activeCat - 1);
-      }
-      touchStart.current = null;
-    };
 
     return (
-      <div
-        onTouchStart={onCatTouchStart}
-        onTouchEnd={onCatTouchEnd}
-        style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
-      >
-        {/* Category tabs */}
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+
+        {/* ══ Sticky category tabs ══ */}
         <div style={{
-          display: 'flex', gap: 8, overflowX: 'auto', padding: '0 4px 14px',
-          scrollbarWidth: 'none',
-          WebkitOverflowScrolling: 'touch',
+          position: 'sticky', top: 0, zIndex: 50,
+          background: '#FFFFFF',
+          borderBottom: '1px solid #F0F0F0',
+          paddingTop: 8, paddingBottom: 8,
         }}>
-          <style>{`div::-webkit-scrollbar { display: none; }`}</style>
-          {categories.map((cat, i) => (
-            <button key={i} onClick={() => setActiveCat(i)} style={{
-              flexShrink: 0,
-              padding: '8px 18px', borderRadius: 24,
-              background: i === activeCat ? ACCENT : '#FFFFFF',
-              color: i === activeCat ? '#FFFFFF' : '#666',
-              border: i === activeCat ? 'none' : '1px solid #E0E0E0',
-              fontSize: 13, fontWeight: 600, cursor: 'pointer',
-              display: 'flex', alignItems: 'center', gap: 6,
-              whiteSpace: 'nowrap', touchAction: 'manipulation',
-              transition: 'all 0.2s',
-            }}>
-              <span style={{ fontSize: 15 }}>{cat?.emoji || '🍽️'}</span>
-              {cat?.nom}
-            </button>
-          ))}
+          <div  style={{
+            display: 'flex', gap: 6, overflowX: 'auto', padding: '0 12px',
+            scrollbarWidth: 'none',
+            WebkitOverflowScrolling: 'touch',
+          }}>
+            <style>{`div::-webkit-scrollbar { display: none; }`}</style>
+            {categories.map((cat, i) => (
+              <button key={i}
+                onClick={() => scrollToCategory(i)}
+                style={{
+                  flexShrink: 0,
+                  padding: '7px 16px', borderRadius: 24,
+                  background: i === activeCat ? ACCENT : '#FFFFFF',
+                  color: i === activeCat ? '#FFFFFF' : '#666',
+                  border: i === activeCat ? 'none' : '1px solid #E0E0E0',
+                  fontSize: 12.5, fontWeight: 600, cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', gap: 5,
+                  whiteSpace: 'nowrap', touchAction: 'manipulation',
+                  transition: 'all 0.25s',
+                }}>
+                <span style={{ fontSize: 14 }}>{cat?.emoji || '🍽️'}</span>
+                {cat?.nom}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Category indicator dots */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 10 }}>
-          {categories.map((_, i) => (
-            <div key={i} style={{
-              width: i === activeCat ? 24 : 6, height: 6, borderRadius: 3,
-              background: i === activeCat ? ACCENT : '#E0E0E0',
-              transition: 'all 0.3s',
-            }} />
-          ))}
+        {/* ══ Sticky current category header ══ */}
+        <div style={{
+          position: 'sticky', top: 47, zIndex: 49,
+          background: '#FFFFFF',
+          borderBottom: `2px solid ${ACCENT}`,
+          padding: '10px 16px 8px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }}>
+          <h3 style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: 18, fontWeight: 800, color: ACCENT, margin: 0,
+          }}>
+            {currentCat?.nom}
+            <span style={{ fontSize: 11, fontWeight: 500, color: '#999', marginLeft: 6 }}>
+              ({currentCat?._products.length})
+            </span>
+          </h3>
+          {currentCat?.emoji && (
+            <span style={{
+              width: 30, height: 30, borderRadius: '50%',
+              background: '#FAFAFA', border: '1px solid #F0F0F0',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 15,
+            }}>{currentCat.emoji}</span>
+          )}
         </div>
 
-        {/* Category header */}
-        <div style={{ borderBottom: `2px solid ${ACCENT}`, paddingBottom: 8, marginBottom: 4 }}>
-          <CategorieHeader categorie={currentCat} count={allProducts.length} isMobile={true} />
-        </div>
+        {/* ══ Scrollable content ══ */}
+        <div
+          ref={scrollContainerRef}
+          style={{
+            flex: 1, overflowY: 'auto',
+            padding: '0 16px 80px',
+            WebkitOverflowScrolling: 'touch',
+          }}
+        >
+          {categories.map((cat, idx) => (
+            <div
+              key={idx}
+              data-cat-index={idx}
+              ref={el => sectionRefs.current[idx] = el}
+              style={{ paddingTop: 4 }}
+            >
+              {/* Mini category separator (visible when scrolling into new section) */}
+              <div style={{
+                padding: '14px 0 6px',
+                display: idx > 0 ? 'block' : 'none',
+              }}>
+                <div style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontSize: 13, fontWeight: 600, color: '#CCC',
+                  textTransform: 'uppercase', letterSpacing: '1px',
+                }}>{cat?.emoji} {cat?.nom}</div>
+              </div>
 
-        {/* Products — dotted-leader list */}
-        <div style={{ paddingBottom: 20 }}>
-          {allProducts.map(p => (
-            <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
+              {/* Products */}
+              {cat._products.map(p => (
+                <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
+              ))}
+            </div>
           ))}
+
+          {/* Footer contact dans le scroll */}
+          <div style={{
+            textAlign: 'center', padding: '24px 0 80px',
+            color: '#999', fontSize: 12,
+            borderTop: '1px solid #F0F0F0', marginTop: 16,
+          }}>
+            <p style={{ marginBottom: 6, color: '#666' }}>20 Avenue Tombalbaye, Gombe, Kinshasa</p>
+            <p style={{ color: '#666' }}>+243 815 141 111</p>
+          </div>
         </div>
       </div>
     );
@@ -322,7 +469,6 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
           borderRadius: '6px 12px 12px 6px',
           transformStyle: 'preserve-3d',
         }}>
-          {/* Spine */}
           <div style={{
             position: 'absolute', left: '50%', top: 0, bottom: 0, width: 4,
             transform: 'translateX(-50%)',
@@ -330,7 +476,6 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
             zIndex: 15,
           }} />
 
-          {/* Left page */}
           <div style={{
             flex: 1, overflow: 'hidden', borderRadius: '6px 0 0 6px',
             opacity: flipping && flipDir === 'prev' ? 0 : 1,
@@ -343,7 +488,6 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
             }
           </div>
 
-          {/* Right page */}
           <div style={{
             flex: 1, overflow: 'hidden', borderRadius: '0 6px 6px 0',
             opacity: flipping && flipDir === 'next' ? 0 : 1,
@@ -356,7 +500,6 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
             }
           </div>
 
-          {/* Background pages during flip */}
           {flipping && (
             <>
               {flipDir === 'next' && nextLeftPage && (
@@ -383,7 +526,6 @@ export default function Book3D({ pages, onAdd, lang, isMobile }) {
         </div>
       </div>
 
-      {/* Navigation */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
         <button onClick={() => flip('prev')} disabled={spread === 0 || flipping} style={{
           width: 44, height: 44, borderRadius: '50%',
