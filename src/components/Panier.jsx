@@ -36,7 +36,11 @@ export default function Panier({ items, onUpdateQty, onRemove, onClose, onConfir
     setLoading(true); setError('');
     const { error: err } = await createCommande(table.trim(), items, demandes.trim());
     setLoading(false);
-    if (err) { setError(L.errCommande); return; }
+    if (err) {
+      console.error('Erreur commande:', err);
+      setError(err.message || L.errCommande);
+      return;
+    }
     onConfirm(L.confirmation);
   };
 

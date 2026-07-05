@@ -134,7 +134,7 @@ export default function MenuPage() {
   return (
     <div style={{
       height: '100dvh',
-      background: '#FFFFFF',
+      background: '#FFFBF5',
       display: 'flex', flexDirection: 'column',
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
       overflow: 'hidden',
@@ -220,6 +220,7 @@ export default function MenuPage() {
         width: '100%', margin: '0 auto',
         boxSizing: 'border-box',
         padding: isMobile ? 0 : '32px 24px 60px',
+        background: isMobile ? '#FFFBF5' : 'transparent',
       }}>
         {loading ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, padding: '80px 0' }}>

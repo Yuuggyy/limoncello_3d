@@ -1,4 +1,4 @@
-/* === Limoncello 3D — Design épuré === */
+/* === Limoncello 3D — Menu papier élégant === */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap');
 
@@ -6,22 +6,23 @@
 
 html, body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #FFFFFF;
-  color: #1A1A1A;
+  background: #FFFBF5;
+  color: #2C1810;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #E0E0E0; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #E0D8C8; border-radius: 3px; }
 
 /* Spinner */
 .spinner {
   width: 32px; height: 32px;
-  border: 3px solid #F0F0F0;
-  border-top-color: #1A1A1A;
+  border: 3px solid #F0EBE3;
+  border-top-color: #B8342A;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -30,7 +31,7 @@ html, body {
 /* Modal overlay */
 .modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(44,24,16,0.5);
   backdrop-filter: blur(4px);
   display: flex; align-items: center; justify-content: center;
   z-index: 1000;
@@ -55,16 +56,16 @@ html, body {
 .input {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #E0D8C8;
   border-radius: 10px;
   background: #FFFFFF;
-  color: #1A1A1A;
+  color: #2C1810;
   font-family: inherit;
   outline: none;
   transition: border-color 0.2s;
 }
-.input:focus { border-color: #1A1A1A; }
-.input::placeholder { color: #CCC; }
+.input:focus { border-color: #B8342A; }
+.input::placeholder { color: #C5BBA8; }
 
 /* Buttons */
 .btn {
@@ -73,21 +74,18 @@ html, body {
   cursor: pointer; transition: all 0.2s;
   touch-action: manipulation;
 }
-.btn-dark { background: #1A1A1A; color: #FFFFFF; }
-.btn-dark:hover { background: #333; }
-.btn-dark:disabled { background: #CCC; cursor: default; }
+.btn-dark { background: #2C1810; color: #FFFFFF; }
+.btn-dark:hover { background: #4A3020; }
+.btn-dark:disabled { background: #C5BBA8; cursor: default; }
 
 .btn-outline {
-  background: transparent; color: #1A1A1A;
-  border: 1px solid #E0E0E0;
+  background: transparent; color: #2C1810;
+  border: 1px solid #E0D8C8;
 }
-.btn-outline:hover { background: #F5F5F5; }
-
-.btn-gold { background: #FDD835; color: #1A1A1A; }
-.btn-gold:hover { background: #FDD835; opacity: 0.9; }
+.btn-outline:hover { background: #F5F0E8; }
 
 /* Label */
 .label {
   font-size: 13px; font-weight: 600;
-  color: #666; display: block; margin-bottom: 6px;
+  color: #8A7F70; display: block; margin-bottom: 6px;
 }
