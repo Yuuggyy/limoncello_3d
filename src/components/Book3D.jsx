@@ -145,10 +145,10 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
   const [nextSpread, setNextSpread] = useState(0);
   const totalSpreads = Math.ceil(pages.length / 2);
 
-  // Mobile swipe state
+  // Mobile swipe state — vraie page qui se tourne, suit le doigt en temps reel
   const [activeCat, setActiveCat] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
-  const [rotateDeg, setRotateDeg] = useState(0);
+  const [dragDir, setDragDir] = useState(null);      // 'next' | 'prev' | null
+  const [dragProgress, setDragProgress] = useState(0); // 0 -> 1
   const [isSwiping, setIsSwiping] = useState(false);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -156,6 +156,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
   const touchDeltaY = useRef(0);
   const isHorizontalSwipe = useRef(null);
   const containerWidth = useRef(0);
+  const dragDirRef = useRef(null);
 
   const flip = useCallback((dir) => {
     if (flipping) return;
@@ -192,8 +193,10 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
 
     const goToCat = (idx) => {
       if (idx < 0 || idx >= catCount) return;
+      setDragDir(null);
+      dragDirRef.current = null;
+      setDragProgress(0);
       setActiveCat(idx);
-      setTranslateX(0);
     };
 
     const handleTouchStart = (e) => {
@@ -218,39 +221,63 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
 
       if (isHorizontalSwipe.current === true) {
         touchDeltaX.current = dx;
-        // Prevent vertical scroll when swiping horizontally
-        e.preventDefault?.();
-        // Feedback visuel : suit le doigt normalement, avec un effet elastique
-        // (resistance) quand on est deja a la premiere/derniere categorie
-        const atStart = activeCat === 0 && dx > 0;
-        const atEnd = activeCat === catCount - 1 && dx < 0;
-        const appliedDx = (atStart || atEnd) ? dx * 0.35 : dx;
-        setTranslateX(appliedDx);
-        // Effet "page de livre qui se tourne" en 3D pendant le glissement
-        const maxDeg = 10;
-        const deg = Math.max(-maxDeg, Math.min(maxDeg, -(appliedDx / panelWidth) * 45));
-        setRotateDeg(deg);
+        e.preventDefault?.(); // Empeche le scroll vertical pendant le tourne-page
+
+        // Determine la direction de la page qu'on tourne au premier mouvement significatif
+        if (dragDirRef.current === null && Math.abs(dx) > 4) {
+          const dir = dx < 0 ? 'next' : 'prev';
+          if ((dir === 'next' && activeCat < catCount - 1) || (dir === 'prev' && activeCat > 0)) {
+            dragDirRef.current = dir;
+            setDragDir(dir);
+          } else {
+            dragDirRef.current = 'blocked';
+          }
+        }
+
+        if (dragDirRef.current === 'next' || dragDirRef.current === 'prev') {
+          // Suit le doigt en temps reel : 0 -> 1 sur toute la largeur de l'ecran
+          const progress = Math.min(1, Math.abs(dx) / panelWidth);
+          setDragProgress(progress);
+        } else if (dragDirRef.current === 'blocked') {
+          // Deja a la premiere/derniere categorie : petite resistance elastique
+          const elastic = Math.min(0.15, Math.abs(dx) / panelWidth * 0.3);
+          setDragProgress(elastic);
+        }
       }
     };
 
     const handleTouchEnd = () => {
       setIsSwiping(false);
-      setRotateDeg(0);
-      const threshold = panelWidth * 0.2; // 20% of screen width
+      const threshold = 0.3; // 30% de la largeur pour valider la page tournee
 
-      if (isHorizontalSwipe.current === true) {
-        if (touchDeltaX.current < -threshold && activeCat < catCount - 1) {
-          goToCat(activeCat + 1);
-        } else if (touchDeltaX.current > threshold && activeCat > 0) {
-          goToCat(activeCat - 1);
-        } else {
-          setTranslateX(0); // snap back
-        }
+      if (dragProgress > threshold && (dragDirRef.current === 'next' || dragDirRef.current === 'prev')) {
+        const dir = dragDirRef.current;
+        // Termine la rotation a 100%, puis bascule la categorie active une fois l'anim finie
+        setDragProgress(1);
+        setTimeout(() => {
+          setActiveCat(c => dir === 'next' ? c + 1 : c - 1);
+          setDragDir(null);
+          dragDirRef.current = null;
+          setDragProgress(0);
+        }, 280);
+      } else {
+        // Retour elastique a la position de depart
+        setDragProgress(0);
+        setTimeout(() => {
+          setDragDir(null);
+          dragDirRef.current = null;
+        }, 280);
       }
       isHorizontalSwipe.current = null;
     };
 
     const currentCat = categories[activeCat];
+    // Page visible EN DESSOUS pendant le tourne-page (celle qui se revele) :
+    // - en tournant vers 'next' -> c'est la categorie suivante qui apparait
+    // - en tournant vers 'prev' -> c'est la categorie actuelle qui reste visible en dessous
+    const underneathCat = dragDir === 'next' ? categories[activeCat + 1] : dragDir === 'prev' ? currentCat : null;
+    // Angle de la page qui tourne : 0 (a plat, face visible) -> -90deg (tranche, disparait)
+    const turnAngle = -dragProgress * 90;
 
     return (
       <div
@@ -319,40 +346,48 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
           )}
         </div>
 
-        {/* ══ Swipeable panels ══ */}
+        {/* ══ Page qui se tourne — vrai effet livre, suit le doigt en temps reel ══ */}
         <div
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           style={{
             flex: 1, overflow: 'hidden', position: 'relative',
-            touchAction: 'pan-y', // Allow vertical scroll within panels
-            perspective: 1200,
+            touchAction: 'pan-y', // Autorise le scroll vertical dans chaque page
+            perspective: 1400,
           }}
         >
+          {/* Page revelee en dessous pendant le tourne-page */}
+          {underneathCat && (
+            <div style={{
+              position: 'absolute', inset: 0,
+              overflowY: 'auto', WebkitOverflowScrolling: 'touch',
+              padding: '4px 20px 100px',
+              background: CREAM, zIndex: 1,
+            }}>
+              {underneathCat._products.map(p => (
+                <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
+              ))}
+            </div>
+          )}
+
+          {/* Page active — celle qui tourne physiquement (hinge droite si 'next', gauche si 'prev') */}
           <div style={{
-            display: 'flex',
-            width: `${catCount * 100}%`,
-            height: '100%',
-            transform: `translateX(calc(${-activeCat * (100 / catCount)}% + ${translateX}px)) rotateY(${rotateDeg}deg)`,
-            transformOrigin: rotateDeg > 0 ? 'left center' : 'right center',
-            transition: isSwiping ? 'none' : 'transform 0.35s cubic-bezier(0.4,0,0.2,1)',
+            position: 'absolute', inset: 0,
+            overflowY: dragDir ? 'hidden' : 'auto', WebkitOverflowScrolling: 'touch',
+            padding: '4px 20px 100px',
+            background: CREAM, zIndex: 2,
+            transform: dragDir === 'prev'
+              ? `rotateY(${-90 + dragProgress * 90}deg)`   // arrive de la tranche gauche (-90) vers a plat (0)
+              : `rotateY(${turnAngle}deg)`,                 // part a plat (0) vers la tranche droite (-90)
+            transformOrigin: dragDir === 'prev' ? 'left center' : 'right center',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            boxShadow: dragDir ? '0 0 24px rgba(0,0,0,0.15)' : 'none',
+            transition: isSwiping ? 'none' : 'transform 0.28s cubic-bezier(0.25,0.1,0.25,1), box-shadow 0.28s',
           }}>
-            {categories.map((cat, idx) => (
-              <div key={idx} style={{
-                width: `${100 / catCount}%`,
-                height: '100%',
-                overflowY: 'auto',
-                padding: '4px 20px 100px',
-                WebkitOverflowScrolling: 'touch',
-                flexShrink: 0,
-              }}>
-                {cat._products.map(p => (
-                  <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
-                ))}
-
-
-              </div>
+            {(dragDir === 'prev' ? categories[activeCat - 1] : currentCat)?._products.map(p => (
+              <ProduitCard key={p.id} produit={p} onAdd={onAdd} lang={lang} isMobile={true} />
             ))}
           </div>
         </div>
