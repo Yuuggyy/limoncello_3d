@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getCategories, getProduits, appelServeur, getParametres } from '../lib/supabase';
-import Book3D from '../components/Book3D';
+import Book3D, { ProduitCard } from '../components/Book3D';
 import Panier from '../components/Panier';
 
 function useIsMobile() {
@@ -53,6 +53,7 @@ export default function MenuPage() {
   const [toast, setToast]           = useState('');
   const [appelLoading, setAppelLoading] = useState(false);
   const [parametres, setParametres] = useState(null);
+  const [search, setSearch]         = useState('');
 
   const isMobile = useIsMobile();
   const L = T[lang];
@@ -149,6 +150,19 @@ export default function MenuPage() {
   const pages = buildPages();
   const totalItems = panier.reduce((s, i) => s + i.quantite, 0);
 
+  // Recherche — insensible aux accents/majuscules, sur nom produit, description et categorie
+  const normalize = (s) => (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const searchActive = search.trim().length > 0;
+  const getCatName = (catId) => categories.find(c => c.id === catId)?.nom || '';
+  const filteredProduits = searchActive
+    ? produits.filter(p => {
+        const q = normalize(search);
+        return normalize(p.nom).includes(q)
+          || normalize(p.description).includes(q)
+          || normalize(getCatName(p.categorie_id)).includes(q);
+      })
+    : [];
+
   return (
     <div style={{
       height: '100dvh',
@@ -222,14 +236,49 @@ export default function MenuPage() {
         </div>
       </header>
 
+      {/* ══ BARRE DE RECHERCHE ══ */}
+      <div style={{
+        flexShrink: 0,
+        padding: isMobile ? '10px 16px' : '14px 32px',
+        background: '#FFFFFF',
+        borderBottom: '1px solid #F0F0F0',
+      }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          background: '#F7F5EF', borderRadius: 10,
+          padding: isMobile ? '8px 12px' : '9px 14px',
+          maxWidth: isMobile ? '100%' : 480,
+          margin: isMobile ? 0 : '0 auto',
+          border: '1px solid #EDE7DA',
+        }}>
+          <span style={{ fontSize: 14, color: '#999' }}>🔎</span>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={lang === 'en' ? 'Search a dish, a category…' : 'Rechercher un plat, une catégorie…'}
+            style={{
+              flex: 1, border: 'none', background: 'transparent', outline: 'none',
+              fontSize: isMobile ? 13.5 : 14, color: '#1A1A1A',
+              fontFamily: "'Inter', sans-serif",
+            }}
+          />
+          {search && (
+            <button onClick={() => setSearch('')} style={{
+              border: 'none', background: 'transparent', color: '#999',
+              fontSize: 15, cursor: 'pointer', padding: 2, lineHeight: 1,
+            }}>✕</button>
+          )}
+        </div>
+      </div>
+
       {/* ══ CONTENU ══ */}
       <main style={{
         flex: 1,
-        overflow: isMobile ? 'hidden' : 'auto',
+        overflow: (isMobile && !searchActive) ? 'hidden' : 'auto',
         maxWidth: isMobile ? '100%' : 960,
         width: '100%', margin: '0 auto',
         boxSizing: 'border-box',
-        padding: isMobile ? 0 : '32px 24px 60px',
+        padding: isMobile ? (searchActive ? '4px 16px 40px' : 0) : '32px 24px 60px',
         background: isMobile ? '#FFFBF5' : 'transparent',
       }}>
         {loading ? (
@@ -237,6 +286,35 @@ export default function MenuPage() {
             <div className="spinner" />
             <p style={{ color: '#999', fontSize: 14 }}>{L.chargement}</p>
           </div>
+        ) : searchActive ? (
+          filteredProduits.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '60px 20px', color: '#B5A98F' }}>
+              <div style={{ fontSize: 36, marginBottom: 10 }}>🔍</div>
+              <p style={{ fontSize: 14 }}>{lang === 'en' ? 'No results found.' : 'Aucun résultat trouvé.'}</p>
+            </div>
+          ) : (
+            <div>
+              {Object.entries(
+                filteredProduits.reduce((acc, p) => {
+                  const key = getCatName(p.categorie_id) || (lang === 'en' ? 'Others' : 'Autres');
+                  if (!acc[key]) acc[key] = [];
+                  acc[key].push(p);
+                  return acc;
+                }, {})
+              ).map(([catName, prods]) => (
+                <div key={catName} style={{ marginBottom: 18 }}>
+                  <h3 style={{
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                    fontSize: 15, fontWeight: 800, color: '#B8342A',
+                    margin: '0 0 6px', borderBottom: '2px solid #B8342A', paddingBottom: 6,
+                  }}>{catName} <span style={{ fontSize: 11, fontWeight: 500, color: '#B5A98F' }}>({prods.length})</span></h3>
+                  {prods.map(p => (
+                    <ProduitCard key={p.id} produit={p} onAdd={handleAdd} lang={lang} isMobile={isMobile} />
+                  ))}
+                </div>
+              ))}
+            </div>
+          )
         ) : (
           <Book3D pages={pages} onAdd={handleAdd} lang={lang} isMobile={isMobile} parametres={parametres} />
         )}

@@ -6,7 +6,7 @@ const CREAM = '#FFFBF5';
 /* ─────────────────────────────────────────
    Ligne produit — style menu imprimé + image
 ───────────────────────────────────────── */
-function ProduitCard({ produit, onAdd, lang, isMobile }) {
+export function ProduitCard({ produit, onAdd, lang, isMobile }) {
   const L = lang === 'en' ? { add: 'Add' } : { add: 'Ajouter' };
 
   const hasImage = produit.image_url && produit.image_url.trim() !== '';
@@ -219,10 +219,11 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
         touchDeltaX.current = dx;
         // Prevent vertical scroll when swiping horizontally
         e.preventDefault?.();
-        // Only apply visual feedback if swiping in a valid direction
-        if ((activeCat > 0 && dx > 0) || (activeCat < catCount - 1 && dx < 0)) {
-          setTranslateX(dx);
-        }
+        // Feedback visuel : suit le doigt normalement, avec un effet elastique
+        // (resistance) quand on est deja a la premiere/derniere categorie
+        const atStart = activeCat === 0 && dx > 0;
+        const atEnd = activeCat === catCount - 1 && dx < 0;
+        setTranslateX((atStart || atEnd) ? dx * 0.35 : dx);
       }
     };
 
