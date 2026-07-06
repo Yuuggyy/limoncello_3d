@@ -378,9 +378,9 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
             padding: '4px 20px 100px',
             background: CREAM, zIndex: 2,
             transform: dragDir === 'prev'
-              ? `rotateY(${-90 + dragProgress * 90}deg)`   // arrive de la tranche gauche (-90) vers a plat (0)
-              : `rotateY(${turnAngle}deg)`,                 // part a plat (0) vers la tranche droite (-90)
-            transformOrigin: dragDir === 'prev' ? 'left center' : 'right center',
+              ? `rotateY(${90 - dragProgress * 90}deg)`    // arrive de la tranche (90, invisible) vers a plat (0), charniere a droite
+              : `rotateY(${turnAngle}deg)`,                 // part a plat (0) vers la tranche (-90, invisible), charniere a gauche
+            transformOrigin: dragDir === 'prev' ? 'right center' : 'left center',
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
             boxShadow: dragDir ? '0 0 24px rgba(0,0,0,0.15)' : 'none',
