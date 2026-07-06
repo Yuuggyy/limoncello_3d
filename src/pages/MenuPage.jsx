@@ -44,7 +44,7 @@ export default function MenuPage() {
   const [categories, setCategories] = useState([]);
   const [produits, setProduits]     = useState([]);
   const [loading, setLoading]       = useState(true);
-  const [lang, setLang]             = useState('fr');
+  const [lang]                      = useState('fr');
   const [panier, setPanier]         = useState([]);
   const [showPanier, setShowPanier] = useState(false);
   const [showAppel, setShowAppel]   = useState(false);
@@ -188,14 +188,6 @@ export default function MenuPage() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 12, flexShrink: 0 }}>
-          <button onClick={() => setLang(l => l === 'fr' ? 'en' : 'fr')} style={{
-            background: 'transparent', border: '1px solid #E0E0E0',
-            color: '#666', borderRadius: 8,
-            padding: isMobile ? '6px 10px' : '8px 14px',
-            fontSize: isMobile ? 12 : 13, fontWeight: 600, cursor: 'pointer',
-            whiteSpace: 'nowrap',
-          }}>{lang === 'fr' ? '🇬🇧' : '🇫🇷'}</button>
-
           <button onClick={() => setShowAppel(true)} style={{
             background: 'transparent', border: '1px solid #E0E0E0',
             color: '#666', borderRadius: 8,
