@@ -66,6 +66,24 @@ export default function MenuPage() {
     });
   }, []);
 
+  // Met à jour l'onglet du navigateur (titre + favicon) dès que les paramètres
+  // du restaurant sont chargés, sans attendre un nouveau déploiement.
+  useEffect(() => {
+    if (!parametres) return;
+    if (parametres.nom_restaurant) {
+      document.title = `${parametres.nom_restaurant} - Menu`;
+    }
+    if (parametres.logo_url) {
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+      link.href = parametres.logo_url;
+    }
+  }, [parametres]);
+
   const buildPages = () => {
     const pages = [];
     categories.forEach(cat => {
