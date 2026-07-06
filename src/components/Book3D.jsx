@@ -148,6 +148,7 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
   // Mobile swipe state
   const [activeCat, setActiveCat] = useState(0);
   const [translateX, setTranslateX] = useState(0);
+  const [rotateDeg, setRotateDeg] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -223,12 +224,18 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
         // (resistance) quand on est deja a la premiere/derniere categorie
         const atStart = activeCat === 0 && dx > 0;
         const atEnd = activeCat === catCount - 1 && dx < 0;
-        setTranslateX((atStart || atEnd) ? dx * 0.35 : dx);
+        const appliedDx = (atStart || atEnd) ? dx * 0.35 : dx;
+        setTranslateX(appliedDx);
+        // Effet "page de livre qui se tourne" en 3D pendant le glissement
+        const maxDeg = 10;
+        const deg = Math.max(-maxDeg, Math.min(maxDeg, -(appliedDx / panelWidth) * 45));
+        setRotateDeg(deg);
       }
     };
 
     const handleTouchEnd = () => {
       setIsSwiping(false);
+      setRotateDeg(0);
       const threshold = panelWidth * 0.2; // 20% of screen width
 
       if (isHorizontalSwipe.current === true) {
@@ -320,14 +327,16 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
           style={{
             flex: 1, overflow: 'hidden', position: 'relative',
             touchAction: 'pan-y', // Allow vertical scroll within panels
+            perspective: 1200,
           }}
         >
           <div style={{
             display: 'flex',
             width: `${catCount * 100}%`,
-            transform: `translateX(calc(${-activeCat * (100 / catCount)}% + ${translateX}px))`,
-            transition: isSwiping ? 'none' : 'transform 0.3s cubic-bezier(0.4,0,0.2,1)',
             height: '100%',
+            transform: `translateX(calc(${-activeCat * (100 / catCount)}% + ${translateX}px)) rotateY(${rotateDeg}deg)`,
+            transformOrigin: rotateDeg > 0 ? 'left center' : 'right center',
+            transition: isSwiping ? 'none' : 'transform 0.35s cubic-bezier(0.4,0,0.2,1)',
           }}>
             {categories.map((cat, idx) => (
               <div key={idx} style={{
