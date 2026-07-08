@@ -444,6 +444,15 @@ export default function Book3D({ pages, onAdd, lang, isMobile, parametres }) {
             </a>
           )}
         </div>
+
+        {/* ══ Signature — développé par Inspire by YuuStore ══ */}
+        <a href="https://wa.me/243977555768" target="_blank" rel="noopener noreferrer" style={{
+          flexShrink: 0, display: 'block', textAlign: 'center',
+          background: '#20130C', color: '#8A7A68',
+          padding: '5px 8px', fontSize: 10, textDecoration: 'none',
+        }}>
+          Développé par Inspire by YuuStore
+        </a>
       </div>
     );
   }

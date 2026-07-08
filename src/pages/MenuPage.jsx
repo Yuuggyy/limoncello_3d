@@ -344,6 +344,10 @@ export default function MenuPage() {
               )}
             </p>
           )}
+          <a href="https://wa.me/243977555768" target="_blank" rel="noopener noreferrer"
+            style={{ display: 'block', marginTop: 16, color: '#BBB', fontSize: 11, textDecoration: 'none' }}>
+            Développé par Inspire by YuuStore
+          </a>
         </footer>
       )}
 
