@@ -25,7 +25,7 @@ const C = {
   cream:       '#FFFEF5',
   dark:        '#1A1A00',
   darkSoft:    'rgba(26,26,0,0.55)',
-  border:      'rgba(184,148,63,0.25)',
+  border:      'rgba(200,184,0,0.25)',
   success:     '#1E8449',
   danger:      '#C0392B',
   warning:     '#D4891A',
@@ -49,7 +49,7 @@ function LoginForm({ onLogin }) {
   return (
     <div style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: `linear-gradient(160deg, ${C.primary} 0%, #0D2019 50%, #1A1A14 100%)`,
+      background: `linear-gradient(160deg, ${C.primary} 0%, #1A1C00 50%, #0A0A00 100%)`,
       padding: 20,
     }}>
       <div style={{ width: '100%', maxWidth: 420 }}>
@@ -59,7 +59,7 @@ function LoginForm({ onLogin }) {
             width: 80, height: 80, borderRadius: '50%', margin: '0 auto 20px',
             background: `linear-gradient(135deg, ${C.gold}, ${C.goldLight})`,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: `0 8px 32px rgba(184,148,63,0.35)`,
+            boxShadow: `0 8px 32px rgba(200,184,0,0.35)`,
           }}>
             <span style={{ fontSize: 36 }}>🍋</span>
           </div>
@@ -76,7 +76,7 @@ function LoginForm({ onLogin }) {
         <div style={{
           background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)',
           borderRadius: 20, padding: 36,
-          border: `1px solid rgba(184,148,63,0.20)`,
+          border: `1px solid rgba(200,184,0,0.20)`,
           boxShadow: '0 20px 60px rgba(0,0,0,0.35)',
         }}>
           <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
@@ -87,12 +87,12 @@ function LoginForm({ onLogin }) {
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} required autoFocus
                 style={{
                   width: '100%', padding: '13px 16px',
-                  background: 'rgba(255,255,255,0.07)', border: `1.5px solid rgba(184,148,63,0.25)`,
+                  background: 'rgba(255,255,255,0.07)', border: `1.5px solid rgba(200,184,0,0.25)`,
                   borderRadius: 12, color: C.beige, fontSize: 15, fontFamily: 'inherit',
                   outline: 'none', transition: 'border-color 0.2s',
                 }}
                 onFocus={e => e.target.style.borderColor = C.gold}
-                onBlur={e => e.target.style.borderColor = 'rgba(184,148,63,0.25)'}
+                onBlur={e => e.target.style.borderColor = 'rgba(200,184,0,0.25)'}
               />
             </div>
             <div>
@@ -102,12 +102,12 @@ function LoginForm({ onLogin }) {
               <input type="password" value={pwd} onChange={e => setPwd(e.target.value)} required
                 style={{
                   width: '100%', padding: '13px 16px',
-                  background: 'rgba(255,255,255,0.07)', border: `1.5px solid rgba(184,148,63,0.25)`,
+                  background: 'rgba(255,255,255,0.07)', border: `1.5px solid rgba(200,184,0,0.25)`,
                   borderRadius: 12, color: C.beige, fontSize: 15, fontFamily: 'inherit',
                   outline: 'none', transition: 'border-color 0.2s',
                 }}
                 onFocus={e => e.target.style.borderColor = C.gold}
-                onBlur={e => e.target.style.borderColor = 'rgba(184,148,63,0.25)'}
+                onBlur={e => e.target.style.borderColor = 'rgba(200,184,0,0.25)'}
               />
             </div>
             {error && (
@@ -119,7 +119,7 @@ function LoginForm({ onLogin }) {
               marginTop: 8, padding: '14px', borderRadius: 12, border: 'none', cursor: loading ? 'wait' : 'pointer',
               background: `linear-gradient(135deg, ${C.gold}, ${C.goldLight})`,
               color: '#fff', fontSize: 15, fontWeight: 700, letterSpacing: '0.04em',
-              boxShadow: `0 4px 20px rgba(184,148,63,0.4)`,
+              boxShadow: `0 4px 20px rgba(200,184,0,0.4)`,
               transition: 'opacity 0.2s, transform 0.2s',
             }}>
               {loading ? '⏳ Connexion…' : '🔐 Se connecter'}
@@ -166,7 +166,7 @@ function CommandesTab() {
   const filtered = filtre === 'all' ? commandes : commandes.filter(c => c.statut === filtre);
 
   const badgeStyle = (statut) => ({
-    recue:     { bg: `rgba(184,148,63,0.15)`, color: C.gold },
+    recue:     { bg: `rgba(200,184,0,0.15)`, color: C.gold },
     en_cours:  { bg: `rgba(45,94,66,0.20)`, color: C.primaryMid },
     terminee:  { bg: 'rgba(30,132,73,0.12)', color: C.success },
     annulee:   { bg: 'rgba(192,57,43,0.12)', color: C.danger },
@@ -705,7 +705,7 @@ export default function AdminPage() {
         boxShadow: '4px 0 24px rgba(45,48,0,0.18)',
       }}>
         {/* Header sidebar */}
-        <div style={{ padding: '0 24px 24px', borderBottom: `1px solid rgba(184,148,63,0.18)`, marginBottom: 12 }}>
+        <div style={{ padding: '0 24px 24px', borderBottom: `1px solid rgba(200,184,0,0.18)`, marginBottom: 12 }}>
           <div style={{ width: 44, height: 44, borderRadius: '50%', background: `linear-gradient(135deg, ${C.gold}, ${C.goldLight})`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
             <span style={{ fontSize: 20 }}>🍋</span>
           </div>
@@ -720,7 +720,7 @@ export default function AdminPage() {
             <button key={t.id} onClick={() => setTab(t.id)} style={{
               width: '100%', textAlign: 'left', padding: '11px 14px',
               borderRadius: 10, border: 'none', cursor: 'pointer',
-              background: tab === t.id ? `rgba(184,148,63,0.18)` : 'transparent',
+              background: tab === t.id ? `rgba(200,184,0,0.18)` : 'transparent',
               color: tab === t.id ? C.gold : 'rgba(245,237,216,0.55)',
               fontSize: 14, fontWeight: tab === t.id ? 700 : 400,
               borderLeft: tab === t.id ? `3px solid ${C.gold}` : '3px solid transparent',
@@ -732,9 +732,9 @@ export default function AdminPage() {
         </nav>
 
         {/* Footer sidebar */}
-        <div style={{ padding: '12px 16px', borderTop: `1px solid rgba(184,148,63,0.12)`, display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ padding: '12px 16px', borderTop: `1px solid rgba(200,184,0,0.12)`, display: 'flex', flexDirection: 'column', gap: 8 }}>
           <button onClick={() => window.open('/', '_blank')} style={{
-            width: '100%', padding: '9px 14px', borderRadius: 10, border: `1px solid rgba(184,148,63,0.25)`,
+            width: '100%', padding: '9px 14px', borderRadius: 10, border: `1px solid rgba(200,184,0,0.25)`,
             background: 'transparent', color: 'rgba(245,237,216,0.6)', cursor: 'pointer', fontSize: 13,
           }}>👁️ Voir le menu</button>
           <button onClick={async () => { await signOutAdmin(); setUser(null); }} style={{
