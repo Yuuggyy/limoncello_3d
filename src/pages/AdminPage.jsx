@@ -128,7 +128,7 @@ function LoginForm({ onLogin }) {
         </div>
 
         <p style={{ textAlign: 'center', color: 'rgba(245,237,216,0.25)', fontSize: 12, marginTop: 28 }}>
-          L'art du citron · Kinshasa ·  Kinshasa
+          Limoncello · Fraîcheur italienne · Kinshasa
         </p>
       </div>
     </div>
