@@ -7,6 +7,7 @@ const C = {
   primary:    '#2D3000',
   primaryMid: '#4A5000',
   gold:       '#C8B800',
+  goldDeep:   '#6B5A00', // higher-contrast gold for text on cream/white backgrounds
   goldLight:  '#E0CF30',
   beige:      '#FEFBE8',
   cream:      '#FFFEF5',
@@ -201,7 +202,7 @@ export default function MenuPage() {
         <footer style={{ borderTop: `1px solid ${C.border}`, padding: '16px 24px 24px', textAlign: 'center', color: C.darkSoft, fontSize: 13 }}>
           {parametres.adresse && <p style={{ marginBottom: 4, color: C.dark }}>{parametres.adresse}</p>}
           {parametres.horaires && <p style={{ marginBottom: 4 }}>{parametres.horaires}</p>}
-          {parametres.telephone && <p>{parametres.telephone}{parametres.whatsapp && <a href={`https://wa.me/${parametres.whatsapp}`} target="_blank" rel="noopener noreferrer" style={{ color: C.gold, marginLeft: 10, textDecoration: 'none', fontWeight: 600 }}>WhatsApp</a>}</p>}
+          {parametres.telephone && <p>{parametres.telephone}{parametres.whatsapp && <a href={`https://wa.me/${parametres.whatsapp}`} target="_blank" rel="noopener noreferrer" style={{ color: C.goldDeep, marginLeft: 10, textDecoration: 'none', fontWeight: 600 }}>WhatsApp</a>}</p>}
           <a href="https://wa.me/243977555768" target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginTop: 10, color: 'rgba(26,26,20,0.20)', fontSize: 11, textDecoration: 'none' }}>Développé par Inspire by YuuStore</a>
         </footer>
       )}

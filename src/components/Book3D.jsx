@@ -4,6 +4,7 @@ const C = {
   primary:    '#2D3000',
   primaryMid: '#4A5000',
   gold:       '#C8B800',
+  goldDeep:   '#6B5A00', // higher-contrast gold for text on white/cream backgrounds
   goldLight:  '#E0CF30',
   beige:      '#FEFBE8',
   cream:      '#FFFEF5',
@@ -37,7 +38,7 @@ export function ProduitCard({ produit, onAdd, isMobile }) {
             maxWidth: isMobile ? '55vw' : 380,
           }}>{produit.nom}</span>
           <span style={{ flex: 1, borderBottom: `1.5px dotted rgba(200,184,0,0.30)`, position: 'relative', top: -3, minWidth: 8 }} />
-          <span style={{ fontSize: 15, fontWeight: 800, color: C.gold, whiteSpace: 'nowrap', flexShrink: 0 }}>
+          <span style={{ fontSize: 15, fontWeight: 800, color: C.goldDeep, whiteSpace: 'nowrap', flexShrink: 0 }}>
             {Number(produit.prix).toFixed(2)} $
           </span>
         </div>
@@ -72,74 +73,13 @@ export function ProduitCard({ produit, onAdd, isMobile }) {
   );
 }
 
-/* ─── PageContent — le contenu d'une "page" du livre (catégorie) ─── */
-function PageContent({ page, current, total, isMobile, onAdd }) {
-  return (
-    <div style={{
-      background: '#fff',
-      borderRadius: 16,
-      border: `1px solid ${C.border}`,
-      boxShadow: `0 4px 20px rgba(45,48,0,0.08)`,
-      overflow: 'hidden',
-      height: '100%',
-    }}>
-      {/* Header catégorie */}
-      <div style={{
-        padding: isMobile ? '16px 16px 12px' : '18px 24px 14px',
-        background: `linear-gradient(135deg, ${C.primary} 0%, ${C.primaryMid} 100%)`,
-        borderBottom: `2px solid ${C.gold}`,
-      }}>
-        <h2 style={{
-          fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: isMobile ? 22 : 26, fontWeight: 700,
-          color: C.beige, margin: 0, letterSpacing: '0.02em',
-        }}>
-          {page.categorie.emoji && <span style={{ marginRight: 8 }}>{page.categorie.emoji}</span>}
-          {page.categorie.nom}
-        </h2>
-        {page.categorie.description && (
-          <p style={{ color: C.gold, fontSize: 12.5, marginTop: 4, fontStyle: 'italic' }}>
-            {page.categorie.description}
-          </p>
-        )}
-        {/* Sous-titre navigation */}
-        <p style={{ color: 'rgba(245,237,216,0.55)', fontSize: 11, marginTop: 6 }}>
-          {current + 1} / {total} — glissez ← → pour tourner la page
-        </p>
-      </div>
-
-      {/* Liste produits — scroll natif */}
-      <div style={{ padding: isMobile ? '0 16px' : '0 24px' }}>
-        {page.produits.map(p => (
-          <ProduitCard key={p.id} produit={p} onAdd={onAdd} isMobile={isMobile} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ─── Carrousel catégories — swipe G/D avec effet 3D "tourner une page" ─── */
+/* ─── Carrousel catégories — swipe G/D + scroll vertical ─── */
 export default function Book3D({ pages, onAdd, isMobile }) {
   const [current, setCurrent] = useState(0);
-  const [outgoing, setOutgoing] = useState(null); // { page, dir } — la page qui se replie
-  const flipTimer = useRef(null);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
 
   const total = pages?.length || 0;
-
-  // Change de catégorie en déclenchant l'animation de retournement de page
-  const goToPage = (index) => {
-    if (!pages || index === current || index < 0 || index >= total) return;
-    if (outgoing) return; // laisse l'animation en cours se terminer
-    const dir = index > current ? 'next' : 'prev';
-    setOutgoing({ page: pages[current], dir });
-    setCurrent(index);
-    clearTimeout(flipTimer.current);
-    flipTimer.current = setTimeout(() => setOutgoing(null), 650);
-  };
-
-  useEffect(() => () => clearTimeout(flipTimer.current), []);
 
   const onTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -164,8 +104,8 @@ export default function Book3D({ pages, onAdd, isMobile }) {
     const dy = Math.abs(e.changedTouches[0].clientY - (touchStartY.current || 0));
     // Changer catégorie seulement si mouvement clairement horizontal
     if (Math.abs(dx) > 60 && dy < 40) {
-      if (dx < 0 && current < total - 1) goToPage(current + 1);
-      if (dx > 0 && current > 0) goToPage(current - 1);
+      if (dx < 0 && current < total - 1) setCurrent(c => c + 1);
+      if (dx > 0 && current > 0) setCurrent(c => c - 1);
     }
     touchStartX.current = null;
     touchStartY.current = null;
@@ -200,7 +140,7 @@ export default function Book3D({ pages, onAdd, isMobile }) {
         WebkitOverflowScrolling: 'touch',
       }}>
         {pages.map((p, i) => (
-          <button key={i} onClick={() => goToPage(i)} style={{
+          <button key={i} onClick={() => setCurrent(i)} style={{
             padding: '6px 16px', borderRadius: 24, border: 'none',
             cursor: 'pointer', flexShrink: 0, whiteSpace: 'nowrap',
             background: i === current
@@ -219,7 +159,7 @@ export default function Book3D({ pages, onAdd, isMobile }) {
       {/* ── Indicateur de position ── */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 14 }}>
         {pages.map((_, i) => (
-          <div key={i} onClick={() => goToPage(i)} style={{
+          <div key={i} onClick={() => setCurrent(i)} style={{
             width: i === current ? 20 : 6, height: 6, borderRadius: 3,
             background: i === current ? C.gold : `rgba(200,184,0,0.25)`,
             transition: 'all 0.25s', cursor: 'pointer',
@@ -227,19 +167,45 @@ export default function Book3D({ pages, onAdd, isMobile }) {
         ))}
       </div>
 
-      {/* ── Livre 3D — la page courante + la page qui se retourne par-dessus ── */}
-      <div className="book3d-stage">
-        <PageContent page={page} current={current} total={total} isMobile={isMobile} onAdd={onAdd} />
+      {/* ── Contenu de la catégorie — scroll vertical natif ── */}
+      <div style={{
+        background: '#fff',
+        borderRadius: 16,
+        border: `1px solid ${C.border}`,
+        boxShadow: `0 4px 20px rgba(45,48,0,0.08)`,
+        overflow: 'hidden',
+      }}>
+        {/* Header catégorie */}
+        <div style={{
+          padding: isMobile ? '16px 16px 12px' : '18px 24px 14px',
+          background: `linear-gradient(135deg, ${C.primary} 0%, ${C.primaryMid} 100%)`,
+          borderBottom: `2px solid ${C.gold}`,
+        }}>
+          <h2 style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: isMobile ? 22 : 26, fontWeight: 700,
+            color: C.beige, margin: 0, letterSpacing: '0.02em',
+          }}>
+            {page.categorie.emoji && <span style={{ marginRight: 8 }}>{page.categorie.emoji}</span>}
+            {page.categorie.nom}
+          </h2>
+          {page.categorie.description && (
+            <p style={{ color: C.gold, fontSize: 12.5, marginTop: 4, fontStyle: 'italic' }}>
+              {page.categorie.description}
+            </p>
+          )}
+          {/* Sous-titre navigation */}
+          <p style={{ color: 'rgba(245,237,216,0.55)', fontSize: 11, marginTop: 6 }}>
+            {current + 1} / {total} — glissez ← → pour changer de catégorie
+          </p>
+        </div>
 
-        {outgoing && (
-          <div
-            key={`${outgoing.dir}-${current}`}
-            className={`book3d-flip ${outgoing.dir === 'next' ? 'book3d-flip-next' : 'book3d-flip-prev'}`}
-            aria-hidden="true"
-          >
-            <PageContent page={outgoing.page} current={current} total={total} isMobile={isMobile} onAdd={() => {}} />
-          </div>
-        )}
+        {/* Liste produits — scroll natif */}
+        <div style={{ padding: isMobile ? '0 16px' : '0 24px' }}>
+          {page.produits.map(p => (
+            <ProduitCard key={p.id} produit={p} onAdd={onAdd} isMobile={isMobile} />
+          ))}
+        </div>
       </div>
 
     </div>
