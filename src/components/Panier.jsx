@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createCommande } from '../lib/supabase';
+import { createCommande } from '../lib/api';
 
 // ─── Couleurs Le Centre ───────────────────────────────────────
 const C = {

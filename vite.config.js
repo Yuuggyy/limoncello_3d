@@ -13,31 +13,16 @@ const FALLBACK_FAVICON = '/favicon.svg';
 function metaInjectionPlugin() {
   return {
     name: 'inject-restaurant-meta',
-    async transformIndexHtml(html) {
-      const supabaseUrl = process.env.VITE_SUPABASE_URL;
-      const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
-
+    transformIndexHtml(html) {
+      // Paramètres lus depuis le snapshot exporté par le backend Django
       let nom = FALLBACK_TITLE;
       let logo = FALLBACK_FAVICON;
-
-      if (supabaseUrl && supabaseKey) {
-        try {
-          const res = await fetch(`${supabaseUrl}/rest/v1/parametres?id=eq.1&select=nom_restaurant,logo_url`, {
-            headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
-          });
-          if (res.ok) {
-            const data = await res.json();
-            const row = data?.[0];
-            if (row?.nom_restaurant) nom = row.nom_restaurant;
-            if (row?.logo_url) logo = row.logo_url;
-          }
-        } catch (err) {
-          console.warn('[inject-restaurant-meta] Impossible de récupérer les paramètres:', err.message);
-        }
-      }
-
+      try {
+        const snap = require('./src/lib/menu_snapshot.json');
+        if (snap?.parametres?.nom_restaurant) nom = snap.parametres.nom_restaurant;
+        if (snap?.parametres?.logo_url) logo = snap.parametres.logo_url;
+      } catch (e) { /* fallback */ }
       const title = `${nom} - Menu`;
-
       return html
         .replaceAll('__TITLE__', title)
         .replaceAll('__OG_TITLE__', title)

@@ -1,0 +1,1863 @@
+{
+  "generated_at": "2026-10-22T12:22:29.135748+00:00",
+  "parametres": {
+    "id": 1,
+    "nom_restaurant": "Limoncello",
+    "logo_url": null,
+    "adresse": "Avenue Tombalbaye 20, Gombe, Kinshasa",
+    "telephone": "+243 820 625 268",
+    "devise": "$"
+  },
+  "categories": [
+    {
+      "id": 12,
+      "nom": "Pizza au Feu de Bois",
+      "description": "Pizzas cuites au feu de bois",
+      "emoji": "🍕",
+      "ordre": 7,
+      "actif": true,
+      "created_at": "2026-10-22T12:21:55.742624+00:00"
+    },
+    {
+      "id": 10,
+      "nom": "Entrées - Antipasti",
+      "description": "Entrées et antipasti italiens",
+      "emoji": "🥗",
+      "ordre": 8,
+      "actif": true,
+      "created_at": "2026-10-22T12:21:55.708348+00:00"
+    },
+    {
+      "id": 11,
+      "nom": "Salades",
+      "description": "Salades composées",
+      "emoji": "🥬",
+      "ordre": 9,
+      "actif": true,
+      "created_at": "2026-10-22T12:21:55.709151+00:00"
+    },
+    {
+      "id": 5,
+      "nom": "Viandes et Volailles",
+      "description": "Viandes grillées et volailles",
+      "emoji": "🥩",
+      "ordre": 10,
+      "actif": true,
+      "created_at": "2026-10-22T12:21:55.627633+00:00"
+    },
+    {
+      "id": 6,
+      "nom": "Sauces et Accompagnements",
+      "description": "Sauces et garnitures",
+      "emoji": "🍟",
+      "ordre": 11,
+      "actif": true,
+      "created_at": "2026-10-22T12:21:55.628575+00:00"
+    },
+    {
+      "id": 7,
+      "nom": "Poissons et Crustacés",
+      "description": "Poissons et fruits de mer",
+      "emoji": "🐟",
+      "ordre": 12,
+      "actif": true,
+      "created_at": "2026-10-22T12:21:55.629439+00:00"
+    },
+    {
+      "id": 8,
+      "nom": "Pâtes",
+      "description": "Pâtes simples",
+      "emoji": "🍝",
+      "ordre": 13,
+      "actif": true,
+      "created_at": "2026-10-22T12:21:55.678565+00:00"
+    },
+    {
+      "id": 9,
+      "nom": "Pâtes, Gnocchi et Risotto",
+      "description": "Pâtes fraîches, gnocchi et risottos",
+      "emoji": "🍚",
+      "ordre": 14,
+      "actif": true,
+      "created_at": "2026-10-22T12:21:55.679369+00:00"
+    }
+  ],
+  "produits": [
+    {
+      "id": 165,
+      "categorie_id": 10,
+      "nom": "Assiettes de Spécialités Italiennes",
+      "description": "Légumes grillés, charcuterie",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 1,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.710458+00:00",
+      "updated_at": "2026-10-22T12:21:55.710466+00:00"
+    },
+    {
+      "id": 124,
+      "categorie_id": 6,
+      "nom": "Béarnaise · Poivre Vert · Roquefort",
+      "description": "Champignons, poivre concassé",
+      "prix": 8.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 1,
+      "categories": {
+        "nom": "Sauces et Accompagnements",
+        "emoji": "🍟"
+      },
+      "created_at": "2026-10-22T12:21:55.656092+00:00",
+      "updated_at": "2026-10-22T12:21:55.656100+00:00"
+    },
+    {
+      "id": 129,
+      "categorie_id": 7,
+      "nom": "Capitaine à l'Huile d'Olive",
+      "description": null,
+      "prix": 30.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 1,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.662921+00:00",
+      "updated_at": "2026-10-22T12:21:55.662929+00:00"
+    },
+    {
+      "id": 104,
+      "categorie_id": 5,
+      "nom": "Côte à l'os",
+      "description": "400gr",
+      "prix": 32.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 1,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.631369+00:00",
+      "updated_at": "2026-10-22T12:21:55.631381+00:00"
+    },
+    {
+      "id": 192,
+      "categorie_id": 12,
+      "nom": "Focaccia",
+      "description": "Sel, épices",
+      "prix": 12.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 1,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.744032+00:00",
+      "updated_at": "2026-10-22T12:21:55.744041+00:00"
+    },
+    {
+      "id": 142,
+      "categorie_id": 8,
+      "nom": "Nature",
+      "description": null,
+      "prix": 13.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 1,
+      "categories": {
+        "nom": "Pâtes",
+        "emoji": "🍝"
+      },
+      "created_at": "2026-10-22T12:21:55.680590+00:00",
+      "updated_at": "2026-10-22T12:21:55.680598+00:00"
+    },
+    {
+      "id": 182,
+      "categorie_id": 11,
+      "nom": "Salade Roquette et Parmesan",
+      "description": null,
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 1,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.730940+00:00",
+      "updated_at": "2026-10-22T12:21:55.730948+00:00"
+    },
+    {
+      "id": 150,
+      "categorie_id": 9,
+      "nom": "Spaghetti Crudaiola",
+      "description": "Tomate fraîche froide, mozzarella, roquette, pesto",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 1,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.690256+00:00",
+      "updated_at": "2026-10-22T12:21:55.690264+00:00"
+    },
+    {
+      "id": 183,
+      "categorie_id": 11,
+      "nom": "Burrata alla Caprese",
+      "description": "Tomates, pignons, basilic",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 2,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.732146+00:00",
+      "updated_at": "2026-10-22T12:21:55.732154+00:00"
+    },
+    {
+      "id": 166,
+      "categorie_id": 10,
+      "nom": "Carpaccio de Bœuf roquette et Parmesan",
+      "description": null,
+      "prix": 24.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 2,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.711664+00:00",
+      "updated_at": "2026-10-22T12:21:55.711672+00:00"
+    },
+    {
+      "id": 105,
+      "categorie_id": 5,
+      "nom": "Côtes d'Agneau",
+      "description": null,
+      "prix": 38.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 2,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.632715+00:00",
+      "updated_at": "2026-10-22T12:21:55.632725+00:00"
+    },
+    {
+      "id": 130,
+      "categorie_id": 7,
+      "nom": "Dos de Capitaine Siciliana",
+      "description": "Sur un lit de purée, tomate fraîche, câpres, oignon grillé",
+      "prix": 32.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 2,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.664140+00:00",
+      "updated_at": "2026-10-22T12:21:55.664148+00:00"
+    },
+    {
+      "id": 125,
+      "categorie_id": 6,
+      "nom": "Frites de pomme de terre · Frites de patate douce",
+      "description": "Pomme de terre nature ou sautées",
+      "prix": 8.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 2,
+      "categories": {
+        "nom": "Sauces et Accompagnements",
+        "emoji": "🍟"
+      },
+      "created_at": "2026-10-22T12:21:55.657300+00:00",
+      "updated_at": "2026-10-22T12:21:55.657309+00:00"
+    },
+    {
+      "id": 193,
+      "categorie_id": 12,
+      "nom": "Margherita",
+      "description": "Tomate, mozzarella, origan",
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 2,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.745218+00:00",
+      "updated_at": "2026-10-22T12:21:55.745226+00:00"
+    },
+    {
+      "id": 143,
+      "categorie_id": 8,
+      "nom": "Pesto",
+      "description": "Pignons, basilic",
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 2,
+      "categories": {
+        "nom": "Pâtes",
+        "emoji": "🍝"
+      },
+      "created_at": "2026-10-22T12:21:55.681785+00:00",
+      "updated_at": "2026-10-22T12:21:55.681793+00:00"
+    },
+    {
+      "id": 151,
+      "categorie_id": 9,
+      "nom": "Spaghetti al Pollo",
+      "description": "Poulet, champignons, crème fraîche",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 2,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.691446+00:00",
+      "updated_at": "2026-10-22T12:21:55.691454+00:00"
+    },
+    {
+      "id": 167,
+      "categorie_id": 10,
+      "nom": "Avocat vinaigrette",
+      "description": null,
+      "prix": 13.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 3,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.712839+00:00",
+      "updated_at": "2026-10-22T12:21:55.712847+00:00"
+    },
+    {
+      "id": 131,
+      "categorie_id": 7,
+      "nom": "Capitaine à la Congolaise",
+      "description": "Sauce tomate, poivron",
+      "prix": 32.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 3,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.665332+00:00",
+      "updated_at": "2026-10-22T12:21:55.665340+00:00"
+    },
+    {
+      "id": 144,
+      "categorie_id": 8,
+      "nom": "Carbonara",
+      "description": "Lardons, œuf, crème fraîche",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 3,
+      "categories": {
+        "nom": "Pâtes",
+        "emoji": "🍝"
+      },
+      "created_at": "2026-10-22T12:21:55.682962+00:00",
+      "updated_at": "2026-10-22T12:21:55.682970+00:00"
+    },
+    {
+      "id": 126,
+      "categorie_id": 6,
+      "nom": "Croquettes de pomme de terre · Purée · Polenta",
+      "description": "Pâtes · Riz · Banane plantain",
+      "prix": 8.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 3,
+      "categories": {
+        "nom": "Sauces et Accompagnements",
+        "emoji": "🍟"
+      },
+      "created_at": "2026-10-22T12:21:55.659182+00:00",
+      "updated_at": "2026-10-22T12:21:55.659190+00:00"
+    },
+    {
+      "id": 106,
+      "categorie_id": 5,
+      "nom": "Filet Pur, Sauce au Choix",
+      "description": "250gr, accompagnement",
+      "prix": 38.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 3,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.633971+00:00",
+      "updated_at": "2026-10-22T12:21:55.633983+00:00"
+    },
+    {
+      "id": 152,
+      "categorie_id": 9,
+      "nom": "Penne Saumon Fumé, Crème",
+      "description": null,
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 3,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.692716+00:00",
+      "updated_at": "2026-10-22T12:21:55.692724+00:00"
+    },
+    {
+      "id": 194,
+      "categorie_id": 12,
+      "nom": "Prosciutto",
+      "description": "Tomate, mozzarella, jambon, champignons, olives vertes",
+      "prix": 23.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 3,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.746398+00:00",
+      "updated_at": "2026-10-22T12:21:55.746406+00:00"
+    },
+    {
+      "id": 184,
+      "categorie_id": 11,
+      "nom": "Salade Niçoise",
+      "description": "Thon, œufs, olives, tomates, anchois",
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 3,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.733339+00:00",
+      "updated_at": "2026-10-22T12:21:55.733347+00:00"
+    },
+    {
+      "id": 168,
+      "categorie_id": 10,
+      "nom": "Avocat crevettes grises",
+      "description": null,
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 4,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.714049+00:00",
+      "updated_at": "2026-10-22T12:21:55.714057+00:00"
+    },
+    {
+      "id": 195,
+      "categorie_id": 12,
+      "nom": "Calzone",
+      "description": "Tomate, mozzarella, jambon, parmesan + un ingrédient au choix",
+      "prix": 23.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 4,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.747575+00:00",
+      "updated_at": "2026-10-22T12:21:55.747583+00:00"
+    },
+    {
+      "id": 107,
+      "categorie_id": 5,
+      "nom": "Entrecôte irlandaise, Sauce au Choix",
+      "description": "350gr",
+      "prix": 38.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 4,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.635245+00:00",
+      "updated_at": "2026-10-22T12:21:55.635254+00:00"
+    },
+    {
+      "id": 127,
+      "categorie_id": 6,
+      "nom": "Légumes sautés · Légumes vapeur",
+      "description": null,
+      "prix": 8.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 4,
+      "categories": {
+        "nom": "Sauces et Accompagnements",
+        "emoji": "🍟"
+      },
+      "created_at": "2026-10-22T12:21:55.660391+00:00",
+      "updated_at": "2026-10-22T12:21:55.660399+00:00"
+    },
+    {
+      "id": 145,
+      "categorie_id": 8,
+      "nom": "Pomodoro",
+      "description": "Tomate",
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 4,
+      "categories": {
+        "nom": "Pâtes",
+        "emoji": "🍝"
+      },
+      "created_at": "2026-10-22T12:21:55.684171+00:00",
+      "updated_at": "2026-10-22T12:21:55.684180+00:00"
+    },
+    {
+      "id": 185,
+      "categorie_id": 11,
+      "nom": "Salade Chèvre",
+      "description": "Chèvre, pommes, raisins secs, granola",
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 4,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.734520+00:00",
+      "updated_at": "2026-10-22T12:21:55.734528+00:00"
+    },
+    {
+      "id": 132,
+      "categorie_id": 7,
+      "nom": "Sole entière Meunière",
+      "description": null,
+      "prix": 30.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 4,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.666538+00:00",
+      "updated_at": "2026-10-22T12:21:55.666547+00:00"
+    },
+    {
+      "id": 153,
+      "categorie_id": 9,
+      "nom": "Spaghetti ai Frutti di Mare",
+      "description": "Fruits de mer",
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 4,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.693915+00:00",
+      "updated_at": "2026-10-22T12:21:55.693923+00:00"
+    },
+    {
+      "id": 146,
+      "categorie_id": 8,
+      "nom": "Bolognese",
+      "description": "Ragoût de bœuf",
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 5,
+      "categories": {
+        "nom": "Pâtes",
+        "emoji": "🍝"
+      },
+      "created_at": "2026-10-22T12:21:55.685353+00:00",
+      "updated_at": "2026-10-22T12:21:55.685361+00:00"
+    },
+    {
+      "id": 108,
+      "categorie_id": 5,
+      "nom": "Bœuf Strogonoff",
+      "description": null,
+      "prix": 28.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 5,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.636572+00:00",
+      "updated_at": "2026-10-22T12:21:55.636581+00:00"
+    },
+    {
+      "id": 128,
+      "categorie_id": 6,
+      "nom": "Chicon Braisé · Épinards en branche · Salade",
+      "description": null,
+      "prix": 10.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 5,
+      "categories": {
+        "nom": "Sauces et Accompagnements",
+        "emoji": "🍟"
+      },
+      "created_at": "2026-10-22T12:21:55.661576+00:00",
+      "updated_at": "2026-10-22T12:21:55.661584+00:00"
+    },
+    {
+      "id": 133,
+      "categorie_id": 7,
+      "nom": "Deux solettes d'Ostende grillées",
+      "description": null,
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 5,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.667778+00:00",
+      "updated_at": "2026-10-22T12:21:55.667787+00:00"
+    },
+    {
+      "id": 196,
+      "categorie_id": 12,
+      "nom": "Diavola",
+      "description": "Tomate, poivrons, mozzarella, salami piquant, olives",
+      "prix": 23.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 5,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.748751+00:00",
+      "updated_at": "2026-10-22T12:21:55.748759+00:00"
+    },
+    {
+      "id": 169,
+      "categorie_id": 10,
+      "nom": "Jambon de Parme et melon",
+      "description": null,
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 5,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.715251+00:00",
+      "updated_at": "2026-10-22T12:21:55.715259+00:00"
+    },
+    {
+      "id": 186,
+      "categorie_id": 11,
+      "nom": "Salade Avé Cesare",
+      "description": "Poulet, avocat, parmesan",
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 5,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.735718+00:00",
+      "updated_at": "2026-10-22T12:21:55.735726+00:00"
+    },
+    {
+      "id": 154,
+      "categorie_id": 9,
+      "nom": "Spaghetti alle Vongole",
+      "description": "Coquillages",
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 5,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.695132+00:00",
+      "updated_at": "2026-10-22T12:21:55.695140+00:00"
+    },
+    {
+      "id": 147,
+      "categorie_id": 8,
+      "nom": "Arrabbiata",
+      "description": "Tomate, pili",
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 6,
+      "categories": {
+        "nom": "Pâtes",
+        "emoji": "🍝"
+      },
+      "created_at": "2026-10-22T12:21:55.686528+00:00",
+      "updated_at": "2026-10-22T12:21:55.686536+00:00"
+    },
+    {
+      "id": 170,
+      "categorie_id": 10,
+      "nom": "Cocktail de Crevettes",
+      "description": null,
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 6,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.716448+00:00",
+      "updated_at": "2026-10-22T12:21:55.716456+00:00"
+    },
+    {
+      "id": 187,
+      "categorie_id": 11,
+      "nom": "Salade Mixte",
+      "description": "Tomates, concombres, oignons",
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 6,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.736919+00:00",
+      "updated_at": "2026-10-22T12:21:55.736927+00:00"
+    },
+    {
+      "id": 134,
+      "categorie_id": 7,
+      "nom": "Saumon à l'unilatérale sauce Mousseline",
+      "description": null,
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 6,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.669025+00:00",
+      "updated_at": "2026-10-22T12:21:55.669034+00:00"
+    },
+    {
+      "id": 155,
+      "categorie_id": 9,
+      "nom": "Spaghetti ai Cartoccio",
+      "description": "Fruits de mer, sauce tomate",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 6,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.696339+00:00",
+      "updated_at": "2026-10-22T12:21:55.696347+00:00"
+    },
+    {
+      "id": 109,
+      "categorie_id": 5,
+      "nom": "Straccetti Rucola e Parmigiano",
+      "description": "Émincé de filet pur, roquette, copeaux parmesan",
+      "prix": 28.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 6,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.637804+00:00",
+      "updated_at": "2026-10-22T12:21:55.637813+00:00"
+    },
+    {
+      "id": 197,
+      "categorie_id": 12,
+      "nom": "Tonino",
+      "description": "Tomate, mozzarella, thon, oignons, olives",
+      "prix": 23.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 6,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.749925+00:00",
+      "updated_at": "2026-10-22T12:21:55.749934+00:00"
+    },
+    {
+      "id": 171,
+      "categorie_id": 10,
+      "nom": "Carpaccio de Capitaine",
+      "description": null,
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 7,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.717632+00:00",
+      "updated_at": "2026-10-22T12:21:55.717640+00:00"
+    },
+    {
+      "id": 198,
+      "categorie_id": 12,
+      "nom": "Hawaïenne",
+      "description": "Tomate, mozzarella, jambon, ananas",
+      "prix": 23.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 7,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.751120+00:00",
+      "updated_at": "2026-10-22T12:21:55.751128+00:00"
+    },
+    {
+      "id": 110,
+      "categorie_id": 5,
+      "nom": "Mix Grill",
+      "description": "Bœuf, côtes d'agneaux, volaille, merguez, pdt en chemise",
+      "prix": 30.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 7,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.639029+00:00",
+      "updated_at": "2026-10-22T12:21:55.639038+00:00"
+    },
+    {
+      "id": 156,
+      "categorie_id": 9,
+      "nom": "Penne Foie Gras",
+      "description": null,
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 7,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.697762+00:00",
+      "updated_at": "2026-10-22T12:21:55.697770+00:00"
+    },
+    {
+      "id": 148,
+      "categorie_id": 8,
+      "nom": "Puttanesca",
+      "description": "Anchois, thon, câpres, tomates, olive noire",
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 7,
+      "categories": {
+        "nom": "Pâtes",
+        "emoji": "🍝"
+      },
+      "created_at": "2026-10-22T12:21:55.687720+00:00",
+      "updated_at": "2026-10-22T12:21:55.687728+00:00"
+    },
+    {
+      "id": 188,
+      "categorie_id": 11,
+      "nom": "Salade Italienne",
+      "description": "Tomates, olives, roquette, jambon de Parme",
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 7,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.738109+00:00",
+      "updated_at": "2026-10-22T12:21:55.738117+00:00"
+    },
+    {
+      "id": 135,
+      "categorie_id": 7,
+      "nom": "Tilapia Meunière",
+      "description": null,
+      "prix": 30.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 7,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.670242+00:00",
+      "updated_at": "2026-10-22T12:21:55.670250+00:00"
+    },
+    {
+      "id": 111,
+      "categorie_id": 5,
+      "nom": "Burger Beef Mafia",
+      "description": "Revisité à l'italienne",
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 8,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.640247+00:00",
+      "updated_at": "2026-10-22T12:21:55.640256+00:00"
+    },
+    {
+      "id": 136,
+      "categorie_id": 7,
+      "nom": "Dorade entière",
+      "description": "Légumes vapeur, pommes de terre nouvelle",
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 8,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.671453+00:00",
+      "updated_at": "2026-10-22T12:21:55.671461+00:00"
+    },
+    {
+      "id": 149,
+      "categorie_id": 8,
+      "nom": "Quattro Formaggi",
+      "description": null,
+      "prix": 20.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 8,
+      "categories": {
+        "nom": "Pâtes",
+        "emoji": "🍝"
+      },
+      "created_at": "2026-10-22T12:21:55.688895+00:00",
+      "updated_at": "2026-10-22T12:21:55.688903+00:00"
+    },
+    {
+      "id": 189,
+      "categorie_id": 11,
+      "nom": "Salade au Foie Gras",
+      "description": "Foie gras, figues, poires, pain d'épices",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 8,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.739281+00:00",
+      "updated_at": "2026-10-22T12:21:55.739289+00:00"
+    },
+    {
+      "id": 157,
+      "categorie_id": 9,
+      "nom": "Tagliatelle Primavera",
+      "description": "Tomate fraîche, champignons, courgettes",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 8,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.698972+00:00",
+      "updated_at": "2026-10-22T12:21:55.698980+00:00"
+    },
+    {
+      "id": 172,
+      "categorie_id": 10,
+      "nom": "Tartare de saumon al fresco",
+      "description": null,
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 8,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.718802+00:00",
+      "updated_at": "2026-10-22T12:21:55.718810+00:00"
+    },
+    {
+      "id": 199,
+      "categorie_id": 12,
+      "nom": "Vegetariana",
+      "description": "Tomates fraîches, mozzarella, champignons, oignons, olives, légumes grillés",
+      "prix": 23.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 8,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.752300+00:00",
+      "updated_at": "2026-10-22T12:21:55.752308+00:00"
+    },
+    {
+      "id": 137,
+      "categorie_id": 7,
+      "nom": "Fritto Misto",
+      "description": "Scampi, calamare, cossa, poisson, sauce tartare",
+      "prix": 32.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 9,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.672661+00:00",
+      "updated_at": "2026-10-22T12:21:55.672669+00:00"
+    },
+    {
+      "id": 200,
+      "categorie_id": 12,
+      "nom": "Polo",
+      "description": "Tomate, mozzarella, poulet",
+      "prix": 23.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 9,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.753491+00:00",
+      "updated_at": "2026-10-22T12:21:55.753499+00:00"
+    },
+    {
+      "id": 190,
+      "categorie_id": 11,
+      "nom": "Salade Océane",
+      "description": "Saumon fumé, crevettes, tomates, chicon, cœur de palmier",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 9,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.740467+00:00",
+      "updated_at": "2026-10-22T12:21:55.740475+00:00"
+    },
+    {
+      "id": 173,
+      "categorie_id": 10,
+      "nom": "Saumon fumé et ses accompagnements",
+      "description": null,
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 9,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.720006+00:00",
+      "updated_at": "2026-10-22T12:21:55.720014+00:00"
+    },
+    {
+      "id": 112,
+      "categorie_id": 5,
+      "nom": "Scaloppine al Limone",
+      "description": "Escalope de veau importée, citron",
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 9,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.641444+00:00",
+      "updated_at": "2026-10-22T12:21:55.641453+00:00"
+    },
+    {
+      "id": 158,
+      "categorie_id": 9,
+      "nom": "Tagliatelle ai Funghi",
+      "description": "Cèpes, crème fraîche",
+      "prix": 28.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 9,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.700169+00:00",
+      "updated_at": "2026-10-22T12:21:55.700176+00:00"
+    },
+    {
+      "id": 138,
+      "categorie_id": 7,
+      "nom": "Cossa ail et piment",
+      "description": null,
+      "prix": 32.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 10,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.673959+00:00",
+      "updated_at": "2026-10-22T12:21:55.673967+00:00"
+    },
+    {
+      "id": 174,
+      "categorie_id": 10,
+      "nom": "Cossas ail et piment",
+      "description": null,
+      "prix": 18.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 10,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.721180+00:00",
+      "updated_at": "2026-10-22T12:21:55.721188+00:00"
+    },
+    {
+      "id": 201,
+      "categorie_id": 12,
+      "nom": "Pizza Funghi",
+      "description": "Tomate, mozzarella, champignons, origan",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 10,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.754668+00:00",
+      "updated_at": "2026-10-22T12:21:55.754677+00:00"
+    },
+    {
+      "id": 191,
+      "categorie_id": 11,
+      "nom": "Salade Halloumi",
+      "description": "Tomates, menthe, oignons, courgettes grillées, halloumi",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 10,
+      "categories": {
+        "nom": "Salades",
+        "emoji": "🥬"
+      },
+      "created_at": "2026-10-22T12:21:55.741674+00:00",
+      "updated_at": "2026-10-22T12:21:55.741682+00:00"
+    },
+    {
+      "id": 113,
+      "categorie_id": 5,
+      "nom": "Scaloppine Pizzaiola",
+      "description": "Escalope de veau importée, câpre, tomate",
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 10,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.642647+00:00",
+      "updated_at": "2026-10-22T12:21:55.642655+00:00"
+    },
+    {
+      "id": 159,
+      "categorie_id": 9,
+      "nom": "Tagliatelle Mare e Monti",
+      "description": "Champignons, petit pois, courgettes, cossa, tomates",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 10,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.701351+00:00",
+      "updated_at": "2026-10-22T12:21:55.701359+00:00"
+    },
+    {
+      "id": 175,
+      "categorie_id": 10,
+      "nom": "Cuisses de Grenouille à l'ail",
+      "description": null,
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 11,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.722355+00:00",
+      "updated_at": "2026-10-22T12:21:55.722364+00:00"
+    },
+    {
+      "id": 139,
+      "categorie_id": 7,
+      "nom": "Cuisses de grenouille à l'ail",
+      "description": null,
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 11,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.675180+00:00",
+      "updated_at": "2026-10-22T12:21:55.675188+00:00"
+    },
+    {
+      "id": 160,
+      "categorie_id": 9,
+      "nom": "Lasagna Maison",
+      "description": "Bœuf",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 11,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.702553+00:00",
+      "updated_at": "2026-10-22T12:21:55.702562+00:00"
+    },
+    {
+      "id": 202,
+      "categorie_id": 12,
+      "nom": "Napoli",
+      "description": "Tomate, mozzarella, anchois, câpres, origan",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 11,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.755847+00:00",
+      "updated_at": "2026-10-22T12:21:55.755855+00:00"
+    },
+    {
+      "id": 114,
+      "categorie_id": 5,
+      "nom": "Scaloppine Milanese",
+      "description": "Escalope de veau importée panée",
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 11,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.643931+00:00",
+      "updated_at": "2026-10-22T12:21:55.643940+00:00"
+    },
+    {
+      "id": 140,
+      "categorie_id": 7,
+      "nom": "Calamar fritti",
+      "description": null,
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 12,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.676405+00:00",
+      "updated_at": "2026-10-22T12:21:55.676413+00:00"
+    },
+    {
+      "id": 176,
+      "categorie_id": 10,
+      "nom": "Calamare Fritti",
+      "description": null,
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 12,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.723645+00:00",
+      "updated_at": "2026-10-22T12:21:55.723654+00:00"
+    },
+    {
+      "id": 203,
+      "categorie_id": 12,
+      "nom": "Capricciosa",
+      "description": "Tomate, mozzarella, jambon, artichauts, olives vertes, oignons",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 12,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.757033+00:00",
+      "updated_at": "2026-10-22T12:21:55.757042+00:00"
+    },
+    {
+      "id": 161,
+      "categorie_id": 9,
+      "nom": "Ravioli Maison Carne",
+      "description": "Bœuf, ou Spinaci e Ricotta, ou Cèpes (Solo, Duo ou Trio)",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 12,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.703744+00:00",
+      "updated_at": "2026-10-22T12:21:55.703752+00:00"
+    },
+    {
+      "id": 115,
+      "categorie_id": 5,
+      "nom": "Scaloppine ai Funghi",
+      "description": "Escalope de veau importée, champignons, crème fraîche",
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 12,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.645137+00:00",
+      "updated_at": "2026-10-22T12:21:55.645145+00:00"
+    },
+    {
+      "id": 162,
+      "categorie_id": 9,
+      "nom": "Gnocchi",
+      "description": "Sauce au choix",
+      "prix": 28.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 13,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.704933+00:00",
+      "updated_at": "2026-10-22T12:21:55.704941+00:00"
+    },
+    {
+      "id": 116,
+      "categorie_id": 5,
+      "nom": "Paillarde de veau au Ferri",
+      "description": null,
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 13,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.646355+00:00",
+      "updated_at": "2026-10-22T12:21:55.646363+00:00"
+    },
+    {
+      "id": 204,
+      "categorie_id": 12,
+      "nom": "Pizza Limoncello",
+      "description": "Tomate, mozzarella, champignons, cèpes, tomates cerise, basilic frais",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 13,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.758219+00:00",
+      "updated_at": "2026-10-22T12:21:55.758227+00:00"
+    },
+    {
+      "id": 177,
+      "categorie_id": 10,
+      "nom": "Scampi Fritti",
+      "description": null,
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 13,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.724832+00:00",
+      "updated_at": "2026-10-22T12:21:55.724840+00:00"
+    },
+    {
+      "id": 141,
+      "categorie_id": 7,
+      "nom": "Scampi fritti",
+      "description": null,
+      "prix": 38.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 13,
+      "categories": {
+        "nom": "Poissons et Crustacés",
+        "emoji": "🐟"
+      },
+      "created_at": "2026-10-22T12:21:55.677583+00:00",
+      "updated_at": "2026-10-22T12:21:55.677591+00:00"
+    },
+    {
+      "id": 178,
+      "categorie_id": 10,
+      "nom": "Eperlan fritti (ndakala)",
+      "description": "100gr",
+      "prix": 14.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 14,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.726012+00:00",
+      "updated_at": "2026-10-22T12:21:55.726020+00:00"
+    },
+    {
+      "id": 163,
+      "categorie_id": 9,
+      "nom": "Risotto ai Funghi ou al San Daniele",
+      "description": "Cèpes, ou jambon San Daniele",
+      "prix": 28.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 14,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.706143+00:00",
+      "updated_at": "2026-10-22T12:21:55.706151+00:00"
+    },
+    {
+      "id": 205,
+      "categorie_id": 12,
+      "nom": "Rocca",
+      "description": "Tomate, mozzarella, tomates cerise, roquette",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 14,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.759405+00:00",
+      "updated_at": "2026-10-22T12:21:55.759413+00:00"
+    },
+    {
+      "id": 117,
+      "categorie_id": 5,
+      "nom": "Saltimbocca à la Romana",
+      "description": "Escalope de veau importée, mozzarella, jambon, sauce blanche",
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 14,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.647566+00:00",
+      "updated_at": "2026-10-22T12:21:55.647574+00:00"
+    },
+    {
+      "id": 118,
+      "categorie_id": 5,
+      "nom": "Cordon Bleu",
+      "description": "Escalope de veau importée panée, fourrée mozzarella, jambon",
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 15,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.648769+00:00",
+      "updated_at": "2026-10-22T12:21:55.648777+00:00"
+    },
+    {
+      "id": 179,
+      "categorie_id": 10,
+      "nom": "Parmigiana",
+      "description": "Aubergines gratinées",
+      "prix": 22.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 15,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.727260+00:00",
+      "updated_at": "2026-10-22T12:21:55.727269+00:00"
+    },
+    {
+      "id": 206,
+      "categorie_id": 12,
+      "nom": "Quattro Stagioni",
+      "description": "Tomate, mozzarella, jambon de Parme, artichauts, champignons, olives noires",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 15,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.760596+00:00",
+      "updated_at": "2026-10-22T12:21:55.760604+00:00"
+    },
+    {
+      "id": 164,
+      "categorie_id": 9,
+      "nom": "Risotto façon Paella",
+      "description": "Riz safran, fruits de mer, saucisse de bœuf",
+      "prix": 28.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 15,
+      "categories": {
+        "nom": "Pâtes, Gnocchi et Risotto",
+        "emoji": "🍚"
+      },
+      "created_at": "2026-10-22T12:21:55.707379+00:00",
+      "updated_at": "2026-10-22T12:21:55.707387+00:00"
+    },
+    {
+      "id": 207,
+      "categorie_id": 12,
+      "nom": "Brezaola",
+      "description": "Tomate, mozzarella, brezaola, roquette, basilic",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 16,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.761846+00:00",
+      "updated_at": "2026-10-22T12:21:55.761855+00:00"
+    },
+    {
+      "id": 180,
+      "categorie_id": 10,
+      "nom": "Mêlée de Champignons et Cossas au Basilic",
+      "description": null,
+      "prix": 23.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 16,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.728472+00:00",
+      "updated_at": "2026-10-22T12:21:55.728481+00:00"
+    },
+    {
+      "id": 119,
+      "categorie_id": 5,
+      "nom": "Souris d'agneau aux saveurs orientales",
+      "description": "Accompagnement couscous et légumes",
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 16,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.649978+00:00",
+      "updated_at": "2026-10-22T12:21:55.649986+00:00"
+    },
+    {
+      "id": 208,
+      "categorie_id": 12,
+      "nom": "Cossa",
+      "description": "Tomate, mozzarella, cossas, ail",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 17,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.763046+00:00",
+      "updated_at": "2026-10-22T12:21:55.763054+00:00"
+    },
+    {
+      "id": 181,
+      "categorie_id": 10,
+      "nom": "Minestrone",
+      "description": null,
+      "prix": 13.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 17,
+      "categories": {
+        "nom": "Entrées - Antipasti",
+        "emoji": "🥗"
+      },
+      "created_at": "2026-10-22T12:21:55.729651+00:00",
+      "updated_at": "2026-10-22T12:21:55.729659+00:00"
+    },
+    {
+      "id": 120,
+      "categorie_id": 5,
+      "nom": "Osso Bucco",
+      "description": "Jarret de bœuf, sauce tomate",
+      "prix": 34.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 17,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.651190+00:00",
+      "updated_at": "2026-10-22T12:21:55.651199+00:00"
+    },
+    {
+      "id": 209,
+      "categorie_id": 12,
+      "nom": "Focaccia Garnie",
+      "description": "Mozzarella, roquette, jambon de Parme",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 18,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.764216+00:00",
+      "updated_at": "2026-10-22T12:21:55.764224+00:00"
+    },
+    {
+      "id": 121,
+      "categorie_id": 5,
+      "nom": "Piccata di Pollo al Limone ou sauce Marsala",
+      "description": null,
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 18,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.652388+00:00",
+      "updated_at": "2026-10-22T12:21:55.652396+00:00"
+    },
+    {
+      "id": 122,
+      "categorie_id": 5,
+      "nom": "Poussin de Ferme grillé au Pili ou Estragon",
+      "description": "Poussin entier rôti",
+      "prix": 36.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 19,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.653594+00:00",
+      "updated_at": "2026-10-22T12:21:55.653603+00:00"
+    },
+    {
+      "id": 210,
+      "categorie_id": 12,
+      "nom": "Quattro Formaggi",
+      "description": "Tomate, quatre fromages différents, olives vertes",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 19,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.765458+00:00",
+      "updated_at": "2026-10-22T12:21:55.765466+00:00"
+    },
+    {
+      "id": 211,
+      "categorie_id": 12,
+      "nom": "Frutti di Mare",
+      "description": "Tomate, mozzarella, fruits de mer",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 20,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.766628+00:00",
+      "updated_at": "2026-10-22T12:21:55.766636+00:00"
+    },
+    {
+      "id": 123,
+      "categorie_id": 5,
+      "nom": "Poulet DG",
+      "description": "Banane plantain, curry, carotte, haricot vert, poivre",
+      "prix": 25.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 20,
+      "categories": {
+        "nom": "Viandes et Volailles",
+        "emoji": "🥩"
+      },
+      "created_at": "2026-10-22T12:21:55.654799+00:00",
+      "updated_at": "2026-10-22T12:21:55.654807+00:00"
+    },
+    {
+      "id": 212,
+      "categorie_id": 12,
+      "nom": "Salmone",
+      "description": "Tomate, mozzarella, crème fraîche, saumon fumé",
+      "prix": 26.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 21,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.767796+00:00",
+      "updated_at": "2026-10-22T12:21:55.767804+00:00"
+    },
+    {
+      "id": 213,
+      "categorie_id": 12,
+      "nom": "Supplément Ingrédient - Petit",
+      "description": "Ingrédient supplémentaire au choix",
+      "prix": 2.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 22,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.768969+00:00",
+      "updated_at": "2026-10-22T12:21:55.768977+00:00"
+    },
+    {
+      "id": 214,
+      "categorie_id": 12,
+      "nom": "Supplément Ingrédient - Grand",
+      "description": "Ingrédient supplémentaire au choix",
+      "prix": 5.0,
+      "image_url": null,
+      "disponible": true,
+      "ordre": 23,
+      "categories": {
+        "nom": "Pizza au Feu de Bois",
+        "emoji": "🍕"
+      },
+      "created_at": "2026-10-22T12:21:55.770178+00:00",
+      "updated_at": "2026-10-22T12:21:55.770186+00:00"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCategories, getProduits, appelServeur, getParametres } from '../lib/supabase';
+import { getCategories, getProduits, appelServeur, getParametres } from '../lib/api';
 import Book3D, { ProduitCard } from '../components/Book3D';
 import Panier from '../components/Panier';
 
